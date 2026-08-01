@@ -1,152 +1,154 @@
-# 财务数据获取与交叉验证规范
+# Financial Data Retrieval and Cross-Validation Standard
 
-本规范适用于所有涉及企业财务数据的研究。**每个关键数据必须来自两个独立来源，误差>1%须标记。**
+This standard applies to every research workflow involving company financial data. **Each material figure must come from two independent sources, and discrepancies greater than 1% must be flagged.**
 
 ---
 
-## 数据源优先级
+## Source Priority
 
-### 美股（PDD、腾讯ADR、网易ADR等）
+### U.S. Stocks
 
-| 优先级 | 来源 | URL | 获取方式 |
-|--------|------|-----|---------|
-| 1（主） | **macrotrends** | macrotrends.net/stocks/charts/{ticker} | 直接访问，无需注册 |
-| 2（副） | **stockanalysis** | stockanalysis.com/stocks/{ticker}/financials | 直接访问，无需注册 |
-| 原始一手 | SEC EDGAR | sec.gov/cgi-bin/browse-edgar | 10-K / 10-Q 原文 |
+| Priority | Source | URL pattern | Access method |
+|---|---|---|---|
+| 1 — Primary | **Macrotrends** | `macrotrends.net/stocks/charts/{ticker}` | Direct access |
+| 2 — Secondary | **StockAnalysis** | `stockanalysis.com/stocks/{ticker}/financials` | Direct access |
+| Primary filing | SEC EDGAR | `sec.gov/cgi-bin/browse-edgar` | Original 10-K / 10-Q filings |
 
-### 港股（腾讯0700、网易9999、美团3690等）
+### Hong Kong Stocks
 
-| 优先级 | 来源 | URL | 获取方式 |
-|--------|------|-----|---------|
-| 1（主） | **aastocks** | aastocks.com/tc/stocks/analysis/company-fundamental | 直接访问 |
-| 2（副） | **macrotrends**（ADR代码） | 腾讯用TCEHY，网易用NTES | 直接访问 |
-| 原始一手 | HKEX披露易 | hkexnews.hk | 年报PDF |
+| Priority | Source | URL / identifier | Access method |
+|---|---|---|---|
+| 1 — Primary | **AAStocks** | Company fundamentals section | Direct access |
+| 2 — Secondary | **Macrotrends ADR** | Example: TCEHY for Tencent, NTES for NetEase | Direct access |
+| Primary filing | HKEXnews | `hkexnews.hk` | Original annual-report PDF |
 
-### A股（三七互娱、吉比特等）
+### Mainland China A-Shares
 
-| 优先级 | 来源 | URL | 获取方式 |
-|--------|------|-----|---------|
-| 1（主） | **东方财富** | eastmoney.com → 搜股票代码 → 财务报表 | 直接访问 |
-| 2（副） | **巨潮资讯** | cninfo.com.cn | 原始年报/季报PDF |
+| Priority | Source | URL / identifier | Access method |
+|---|---|---|---|
+| 1 — Primary | **Eastmoney** | Search by stock code and open financial statements | Direct access |
+| 2 — Secondary | **CNInfo** | `cninfo.com.cn` | Original annual and quarterly reports |
 
-### 台股（台积电2330、联发科2454、大立光3008等）
+### Taiwan Stocks
 
-| 优先级 | 来源 | URL | 获取方式 |
-|--------|------|-----|---------|
-| 1（主） | **FinMind API** | api.finmindtrade.com | `tools/twstock_data.py`（零依赖脚本，见下） |
-| 2（副） | **Goodinfo台湾股市资讯网** | goodinfo.tw/tw/StockDetail.asp?STOCK_ID={代码} | 直接访问 |
-| 原始一手 | 公开资讯观测站（MOPS） | mops.twse.com.tw | 财报原文/月营收公告 |
+| Priority | Source | URL / identifier | Access method |
+|---|---|---|---|
+| 1 — Primary | **FinMind API** | `api.finmindtrade.com` | `tools/twstock_data.py` |
+| 2 — Secondary | **Goodinfo** | `goodinfo.tw/tw/StockDetail.asp?STOCK_ID={code}` | Direct access |
+| Primary filing | MOPS | `mops.twse.com.tw` | Original filings and monthly revenue disclosures |
 
-**FinMind 取数工具**（分析台股时优先调用，输出自带市值验算）：
+**FinMind retrieval commands**:
 
 ```bash
-python3 tools/twstock_data.py quote 2330        # 最新行情 + PER/PBR/殖利率 + 市值验算
-python3 tools/twstock_data.py valuation 2330    # 估值指标 + PER一年区间 + 52周高低
-python3 tools/twstock_data.py financials 2330   # 近5年年度核心财务（营收/毛利率/归母净利/EPS/ROE）
-python3 tools/twstock_data.py revenue 2330      # 近13个月月营收及同比
-python3 tools/twstock_data.py dividend 2330     # 近年股利政策（现金/股票股利、除息日）
-python3 tools/twstock_data.py search 台積        # 搜索股票代码（注意台股名称为繁体）
+python3 tools/twstock_data.py quote 2330
+python3 tools/twstock_data.py valuation 2330
+python3 tools/twstock_data.py financials 2330
+python3 tools/twstock_data.py revenue 2330
+python3 tools/twstock_data.py dividend 2330
+python3 tools/twstock_data.py search 台積
 ```
 
-台股特别注意：
+Special rules for Taiwan stocks:
 
-1. **货币单位是新台币（TWD）**，与港币/人民币/美元混排时必须显式标注，跨市场对比先统一换算
-2. **月营收是台股独有优势**：上市柜公司每月10日前强制披露上月营收，是跟踪基本面拐点最快的公开信号，earnings-review/thesis-tracker 类分析应优先利用（`revenue` 子命令）
-3. FinMind 损益表为**单季值**，工具已自动加总为年度值；不足4季的年份会标注"仅前N季累计"
-4. FinMind 未注册可直接用（有小时级限额）。注册后的 API token **只存本机、严禁提交到 git**，工具按优先级自动读取：①环境变量 `FINMIND_TOKEN`；②本地文件 `local/finmind_token.txt`（`local/` 已被 `.gitignore` 永久排除，把 token 单独一行写入该文件即可）。token 不得出现在报告、skill、commit 中
-5. 交叉验证：FinMind 数值与 Goodinfo（或 macrotrends 上的 ADR，如 TSM）对照，误差规则同下；台积电等有 ADR 的公司注意 ADR 与台股原股的汇率/存托比率差异（1 TSM ADR = 5 股 2330）
+1. Currency is TWD. Explicitly label currency and convert consistently before cross-market comparisons.
+2. Monthly revenue is a valuable early signal because listed companies disclose it every month. Use the `revenue` command in earnings and thesis-monitoring workflows.
+3. FinMind income-statement values are quarterly. The tool aggregates them into annual values and labels incomplete years.
+4. API tokens must remain local. Read them from `FINMIND_TOKEN` or `local/finmind_token.txt`. Never place tokens in reports, skills, or commits.
+5. Cross-check FinMind against Goodinfo or an ADR source. For TSMC, remember that one TSM ADR represents five shares of 2330.
 
 ---
 
-## 执行规范
+## Execution Standard
 
-### 第一步：获取数据
+### Step 1: Retrieve Each Figure Twice
 
-对每个财务指标（收入、净利润、毛利率、经营现金流、资产负债率等），分别从**来源1**和**来源2**取数。
+For every financial metric — revenue, net income, gross margin, operating cash flow, leverage, and similar figures — retrieve values independently from **source 1** and **source 2**.
 
-### 第二步：误差计算与标记
+### Step 2: Calculate and Classify the Difference
 
-```
-误差率 = |来源1数值 - 来源2数值| / 来源1数值 × 100%
-```
-
-| 误差 | 处理方式 |
-|------|---------|
-| ≤ 1% | ✅ 一致，取来源1数值，标注两个来源 |
-| 1% ~ 5% | ⚠️ 标记"数据存在差异"，注明两个数值，说明可能原因（汇率/会计口径） |
-| > 5% | ❌ 标记"数据存在重大差异"，必须查原始财报核实，不得直接使用 |
-
-### 第三步：数据呈现格式
-
-每个关键数据必须按以下格式标注：
-
-```
-收入：1,239亿元 ✅
-  - macrotrends: 1,241亿元
-  - stockanalysis: 1,237亿元
-  - 误差: 0.3%
+```text
+Difference rate = |source 1 value - source 2 value| / |source 1 value| × 100%
 ```
 
-差异示例：
+| Difference | Required treatment |
+|---|---|
+| ≤ 1% | ✅ Consistent. Use the primary-source value and cite both sources. |
+| >1% to 5% | ⚠️ Flag a discrepancy. Show both values and explain likely causes such as FX or accounting scope. |
+| >5% | ❌ Material discrepancy. Check the original filing before using the number. |
+
+### Step 3: Present the Evidence
+
+Use this format for every material figure:
+
+```text
+Revenue: CNY 123.9 billion ✅
+  - Macrotrends: CNY 124.1 billion
+  - StockAnalysis: CNY 123.7 billion
+  - Difference: 0.3%
 ```
-净利润：245亿元 ⚠️ 数据存在差异
-  - macrotrends: 245亿元（GAAP）
-  - stockanalysis: 278亿元（Non-GAAP）
-  - 误差: 13.5% — 原因：会计口径不同（GAAP vs Non-GAAP）
+
+Discrepancy example:
+
+```text
+Net income: CNY 24.5 billion ⚠️ Data discrepancy
+  - Macrotrends: CNY 24.5 billion (GAAP)
+  - StockAnalysis: CNY 27.8 billion (non-GAAP)
+  - Difference: 13.5%
+  - Explanation: different accounting definitions
 ```
 
 ---
 
-## 常见差异原因（不一定是数据错误）
+## Common Causes of Differences
 
-| 原因 | 说明 |
-|------|------|
-| GAAP vs Non-GAAP | 最常见，尤其是利润类数据 |
-| 汇率换算 | 港币/人民币/美元换算时间点不同 |
-| 财年定义 | 自然年 vs 财年（如苹果财年10月结束） |
-| 合并口径 | 是否含少数股东权益 |
-| 数据更新滞后 | 某平台尚未更新最新一期财报 |
-
----
-
-## 特别规则
-
-1. **未上市公司**（米哈游、莉莉丝等）：只有一手数据来源时，数据前标记 `[估计]`，不执行交叉验证
-2. **季度数据 vs 年度数据**：优先使用年度数据做交叉验证，季度数据部分来源可能有滞后
-3. **原始财报优先**：若两个来源均与原始财报（10-K/年报PDF）不符，以原始财报为准，标记来源错误
+| Cause | Explanation |
+|---|---|
+| GAAP vs non-GAAP | Common for earnings and adjusted-profit figures |
+| Currency conversion | Different exchange rates or conversion dates |
+| Fiscal-year definition | Calendar year vs company fiscal year |
+| Consolidation scope | Treatment of minority interests or unconsolidated entities |
+| Update lag | One platform has not processed the latest filing |
 
 ---
 
-## 股价与复权（历史序列必读）
+## Special Rules
 
-价格有三种口径，混用会让历史股价位置、长期涨幅、历史估值分位全部失真：
-
-| 口径 | 含义 | 用途 |
-|------|------|------|
-| 不复权 | 实际成交价，除权除息日跳空 | 仅用于"当前时点"快照 |
-| 前复权 | 以最新价为基准回调历史价 | 历史股价对比、N年涨幅、历史PE band 一律用它 |
-| 后复权 | 以上市首日为基准前推 | 计算历史总回报/年化收益 |
-
-规则：
-
-1. 涉及历史价格的分析统一用**前复权**，且同一分析内**不得混用**复权与不复权来源。
-2. 当前市值/当前PE 用**当前实际股价 × 当前总股本**即可，与复权无关——复权只影响历史序列。
-3. 跨越拆股/大比例送转的每股指标（历史EPS、历史股价），必须复权还原后再同比。
-4. 总回报/年化收益需计入分红（后复权已含），只看价格涨幅会低估。
-5. 增发/回购后市值验算以最新总股本为准（`financial_rigor.py verify-market-cap` 偏差>5% 会提示核对）。
+1. **Private companies**: when only one credible source exists, prefix the figure with `[estimate]` and do not claim successful cross-validation.
+2. **Quarterly vs annual figures**: prefer annual figures for validation because quarterly datasets may update at different speeds.
+3. **Original filings take priority**: when both aggregators disagree with the filing, use the filing and document the source error.
 
 ---
 
-## 快速索引
+## Share Prices and Corporate-Action Adjustments
 
-| 场景 | 主要来源 | 备用来源 |
-|------|---------|---------|
-| PDD / 拼多多 | macrotrends.net/stocks/charts/PDD | stockanalysis.com/stocks/pdd |
-| 腾讯 | macrotrends.net/stocks/charts/TCEHY | aastocks（0700.HK） |
-| 网易 | macrotrends.net/stocks/charts/NTES | aastocks（9999.HK） |
-| 三七互娱 | eastmoney.com（002555） | cninfo.com.cn |
-| 吉比特 | eastmoney.com（603444） | cninfo.com.cn |
-| Nintendo | macrotrends.net/stocks/charts/NTDOY | stockanalysis.com/stocks/ntdoy |
-| Capcom | macrotrends（CCOEY） | stockanalysis（CCOEY） |
-| 台积电 | tools/twstock_data.py（2330） | goodinfo.tw / macrotrends（TSM，注意1 ADR=5股） |
-| 联发科 | tools/twstock_data.py（2454） | goodinfo.tw |
+Historical price series can be presented on three bases. Mixing them can invalidate long-term return, historical price, and valuation-band analysis.
+
+| Basis | Meaning | Appropriate use |
+|---|---|---|
+| Unadjusted | Actual traded price with gaps on ex-dividend or split dates | Current snapshot only |
+| Forward-adjusted | Historical prices restated relative to the latest price | Historical price comparison, multi-year price change, and historical P/E bands |
+| Back-adjusted / total-return basis | Series restated from listing and incorporating distributions | Historical total return and annualized return |
+
+Rules:
+
+1. Use **forward-adjusted prices** for historical price analysis, and never mix adjusted and unadjusted series in one comparison.
+2. Current market capitalization and current P/E use the current actual price and current shares outstanding; adjustment is irrelevant to the current snapshot.
+3. Restate historical per-share metrics across stock splits or large bonus issues before comparison.
+4. Total-return calculations must include dividends.
+5. After issuance or buybacks, verify market capitalization using the latest shares outstanding.
+
+---
+
+## Quick Reference
+
+| Company / market | Primary source | Secondary source |
+|---|---|---|
+| PDD | Macrotrends PDD | StockAnalysis PDD |
+| Tencent | AAStocks 0700.HK | Macrotrends TCEHY |
+| NetEase | AAStocks 9999.HK | Macrotrends NTES |
+| Sanqi Interactive Entertainment | Eastmoney 002555 | CNInfo |
+| G-Bits | Eastmoney 603444 | CNInfo |
+| Nintendo | Macrotrends NTDOY | StockAnalysis NTDOY |
+| Capcom | Macrotrends CCOEY | StockAnalysis CCOEY |
+| TSMC | `tools/twstock_data.py 2330` | Goodinfo / Macrotrends TSM |
+| MediaTek | `tools/twstock_data.py 2454` | Goodinfo |

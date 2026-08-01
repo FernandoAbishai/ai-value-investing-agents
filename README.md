@@ -29,11 +29,12 @@ The repository now uses English as its default entry point. Translation of the o
 | Main README | English |
 | Installation instructions | English and updated for this fork |
 | Community and maintenance documentation | English-first |
-| Canonical `skills/*.md` workflows | Translation in progress |
-| Generated Codex skills and prompts | Regenerated after canonical translations |
+| Core canonical workflows | `investment-research`, `investment-team`, `investment-checklist`, `financial-data`, and `news-pulse` translated |
+| Remaining canonical `skills/*.md` workflows | Translation in progress |
+| Generated Codex skills and prompts | Pending regeneration from translated canonical sources |
 | Historical research reports | Preserved primarily in their original language |
 
-Until a skill is marked as translated, review its source before relying on it for English-only execution.
+Translated canonical workflows are ready for Claude Code review. Until their generated Codex packages are regenerated, Codex users should verify whether the installed package still contains legacy-language content.
 
 ## Skills
 
