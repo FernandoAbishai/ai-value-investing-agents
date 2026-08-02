@@ -44,11 +44,13 @@ jobs:
           canonical = {path.stem for path in Path('skills').glob('*.md')}
           codex_skills = {path.parent.name for path in Path('codex-skills').glob('*/SKILL.md')}
           prompts = {path.stem for path in Path('codex-prompts').glob('*.md')}
+          codex_only = codex_skills - canonical
 
           assert len(canonical) == 20, f'Expected 20 canonical workflows, found {len(canonical)}'
-          assert canonical == codex_skills, f'Codex skill mismatch: {canonical ^ codex_skills}'
+          assert canonical <= codex_skills, f'Missing Codex packages: {canonical - codex_skills}'
+          assert codex_only == {'investment-memo-craft'}, f'Unexpected Codex-only skills: {codex_only}'
           assert canonical == prompts, f'Codex prompt mismatch: {canonical ^ prompts}'
-          print('Verified 20 synchronized workflows.')
+          print('Verified 20 shared workflows and 1 declared Codex-only skill.')
           PY
 
       - name: Test clean installation
@@ -69,8 +71,9 @@ jobs:
           prompts = list((codex_home / 'prompts').glob('*.md'))
 
           assert len(claude) == 20, f'Claude install count: {len(claude)}'
-          assert len(skills) == 20, f'Codex skill install count: {len(skills)}'
+          assert len(skills) == 21, f'Codex skill install count: {len(skills)}'
           assert len(prompts) == 20, f'Codex prompt install count: {len(prompts)}'
+          assert (codex_home / 'skills' / 'investment-memo-craft' / 'SKILL.md').is_file()
           print('Clean installation verified.')
           PY
 
@@ -112,7 +115,10 @@ jobs:
           $prompts = (Get-ChildItem "$env:CODEX_HOME\prompts" -Filter *.md).Count
 
           if ($claude -ne 20) { throw "Claude install count: $claude" }
-          if ($skills -ne 20) { throw "Codex skill install count: $skills" }
+          if ($skills -ne 21) { throw "Codex skill install count: $skills" }
           if ($prompts -ne 20) { throw "Codex prompt install count: $prompts" }
+          if (-not (Test-Path "$env:CODEX_HOME\skills\investment-memo-craft\SKILL.md")) {
+            throw 'Missing Codex-only investment-memo-craft skill'
+          }
 
           Write-Host 'Clean Windows installation verified.'
