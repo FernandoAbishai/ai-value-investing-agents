@@ -2,15 +2,18 @@
 
 [English](README.md) · [中文](README_ZH.md) · [日本語](README_JA.md)
 
+[![Validate](https://github.com/FernandoAbishai/ai-value-investing-agents/actions/workflows/validate.yml/badge.svg)](https://github.com/FernandoAbishai/ai-value-investing-agents/actions/workflows/validate.yml)
+[![GitHub release](https://img.shields.io/github/v/release/FernandoAbishai/ai-value-investing-agents?display_name=tag)](https://github.com/FernandoAbishai/ai-value-investing-agents/releases)
+
 **An English-first, multi-agent value-investing research framework for Claude Code and OpenAI Codex.**
 
-AI Value Investing Agents turns the principles associated with Warren Buffett, Charlie Munger, Li Lu, and Duan Yongping into reusable AI research workflows for company analysis, earnings reviews, industry screening, portfolio management, and investment-thesis monitoring.
+AI Value Investing Agents turns principles associated with Warren Buffett, Charlie Munger, Li Lu, and Duan Yongping into reusable AI research workflows for company analysis, earnings reviews, industry screening, portfolio management, thesis monitoring, and long-form publishing.
 
-> This repository is an independently maintained English-first fork of [xbtlin/ai-berkshire](https://github.com/xbtlin/ai-berkshire). The original methodology, Chinese source material, historical reports, and performance records were created or published by the original maintainer. Fernando Abishai maintains this edition and its English adaptation.
+> This repository is an independently maintained English-first edition derived from [xbtlin/ai-berkshire](https://github.com/xbtlin/ai-berkshire). The original methodology, Chinese source material, historical reports, and performance records were created or published by the original maintainer. Fernando Abishai maintains this edition and its English adaptation.
 
 ## Why this repository exists
 
-Generic AI investment prompts often produce inconsistent, noncommittal answers. This framework provides structured workflows with explicit decision gates, source validation, valuation checks, risk analysis, and reproducible output formats.
+Generic AI investment prompts often produce inconsistent, noncommittal answers. This framework provides structured workflows with explicit decision gates, source validation, valuation checks, risk analysis, uncertainty labels, and reproducible output formats.
 
 It is designed to help users:
 
@@ -19,21 +22,22 @@ It is designed to help users:
 - Cross-check financial data and calculations.
 - Screen industries and compare companies consistently.
 - Track whether an investment thesis is strengthening, weakening, or being falsified.
+- Produce long-form research with source, privacy, attribution, and revision controls.
 
-## Current translation status
+## Release status
 
-The repository uses English as its default entry point. Translation of the canonical operational workflows is complete.
+The canonical operational translation is complete.
 
 | Area | Status |
 |---|---|
-| Main README | English |
-| Installation instructions | English and updated for this fork |
-| Community and maintenance documentation | English-first |
-| Canonical `skills/*.md` workflows | All 20 workflows available in English |
-| Generated Codex skills and prompts | Synchronized from the current canonical workflow sources |
+| Stable English-edition release | `v1.0.0` |
+| Canonical `skills/*.md` workflows | All 20 available in English |
+| Generated Codex skills and prompts | Synchronized from canonical sources |
+| Installation validation | Ubuntu, macOS, and Windows |
+| End-to-end demonstration | [`docs/QUICKSTART_DEMO.md`](docs/QUICKSTART_DEMO.md) |
 | Historical research reports | Preserved primarily in their original language |
 
-Claude Code and Codex now use the same English canonical workflows. Historical reports and localized documentation remain available as source material and language-specific entry points.
+Claude Code and Codex use the same English canonical workflows. Generated-file checks prevent the two environments from silently drifting apart.
 
 ## Skills
 
@@ -69,7 +73,7 @@ Claude Code and Codex now use the same English canonical workflows. Historical r
 
 ### Thinking and publishing
 
-- [`dyp-ask`](skills/dyp-ask.md): Duan Yongping-inspired reasoning workflow with explicit attribution boundaries.
+- [`dyp-ask`](skills/dyp-ask.md): Duan Yongping-inspired reasoning with explicit attribution boundaries.
 - [`wechat-article`](skills/wechat-article.md): Author–Editor–Reader workflow for publication-ready long-form articles.
 
 ## Installation
@@ -117,6 +121,18 @@ cd ai-value-investing-agents
 .\scripts\install-codex-prompts.bat
 ```
 
+Restart Claude Code or Codex after installation.
+
+## End-to-end demonstration
+
+Follow [`docs/QUICKSTART_DEMO.md`](docs/QUICKSTART_DEMO.md) to:
+
+1. install the workflows in either environment;
+2. run the same multi-company checklist request;
+3. verify the current-date and sourcing behavior;
+4. audit a generated report;
+5. confirm Claude Code and Codex use synchronized decision structures.
+
 ## Usage examples
 
 Claude Code commands:
@@ -145,14 +161,31 @@ Use thesis-drift to compare two investment thesis reports.
 ```text
 skills/*.md                 Canonical workflow sources
 codex-skills/*/SKILL.md     Generated Codex skill packages
-codex-prompts/*.md          Optional Codex slash prompts
+codex-prompts/*.md          Optional generated Codex prompts
 scripts/                    Installation and synchronization scripts
 tools/                      Financial validation utilities
 reports/                    Historical and community research output
-docs/                       Maintainer and edition documentation
+docs/                       Maintainer, release, and usage documentation
 ```
 
-Canonical workflows should be edited in `skills/*.md` first. Generated Codex files should then be synchronized using the repository scripts rather than edited independently.
+Canonical workflows should be edited in `skills/*.md` first. Generated Codex files must then be synchronized using the repository scripts rather than edited independently.
+
+## Validation
+
+Before submitting a workflow or tooling change, run:
+
+```bash
+python3 scripts/sync-codex-skills.py --check
+python3 scripts/sync-codex-prompts.py --check
+python3 -m compileall -q scripts tools
+```
+
+The permanent GitHub Actions workflow additionally checks:
+
+- one-to-one consistency among 20 canonical workflows, 20 Codex skills, and 20 prompts;
+- clean Claude Code and Codex installation;
+- Unix-like installation on Ubuntu and macOS;
+- Windows `.bat` installation.
 
 ## Financial rigor
 
@@ -164,7 +197,7 @@ The repository includes `tools/financial_rigor.py` for exact-decimal calculation
 - Bull, base, and bear scenario calculations.
 - Benford's Law checks.
 
-AI output can contain factual, mathematical, or sourcing errors. Always verify primary documents, currencies, share counts, units, dates, and calculations before making a financial decision.
+AI output can contain factual, mathematical, sourcing, or interpretation errors. Always verify primary documents, currencies, share counts, units, dates, and calculations before making a financial decision.
 
 ## Historical reports and performance material
 
@@ -174,9 +207,9 @@ Past performance does not guarantee future results. Nothing in this repository c
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request. Contributions should preserve command names, file paths, variables, output contracts, financial terminology, and source/generated consistency.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request. Contributions should preserve command names, paths, variables, output contracts, financial terminology, and source/generated consistency.
 
-The English-edition status and discovery roadmap are documented in [docs/ENGLISH_EDITION.md](docs/ENGLISH_EDITION.md).
+See [`CHANGELOG.md`](CHANGELOG.md), [`docs/ENGLISH_EDITION.md`](docs/ENGLISH_EDITION.md), and the [v1.0.0 release notes](docs/releases/v1.0.0.md) for edition history and release details.
 
 ## License
 
