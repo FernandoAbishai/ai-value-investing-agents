@@ -2,17 +2,12 @@
 setlocal
 
 for %%I in ("%~dp0..") do set "ROOT=%%~fI"
-
-if defined CLAUDE_COMMANDS_DIR (
-  set "DEST=%CLAUDE_COMMANDS_DIR%"
+where py >nul 2>nul
+if %ERRORLEVEL%==0 (
+  set "PY=py -3"
 ) else (
-  set "DEST=%USERPROFILE%\.claude\commands"
+  set "PY=python"
 )
 
-if not exist "%DEST%" mkdir "%DEST%"
-if errorlevel 1 exit /b %ERRORLEVEL%
-
-copy /Y "%ROOT%\skills\*.md" "%DEST%\" >nul
-if errorlevel 1 exit /b %ERRORLEVEL%
-
-echo Installed Claude Code commands to %DEST%
+%PY% "%ROOT%\scripts\manage.py" install --claude %*
+exit /b %ERRORLEVEL%
