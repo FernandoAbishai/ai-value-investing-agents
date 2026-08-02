@@ -34,10 +34,13 @@ jobs:
           python3 scripts/sync-codex-prompts.py --check
 
       - name: Compile Python files
-        run: python3 -m compileall -q scripts tools
+        run: python3 -m compileall -q scripts tools tests
 
       - name: Run repository quality gates
         run: python3 scripts/repository_quality.py
+
+      - name: Run deterministic unit tests
+        run: python3 -m unittest discover -s tests -v
 
       - name: Verify workflow inventory
         run: |
@@ -96,8 +99,12 @@ jobs:
         run: |
           python scripts/sync-codex-skills.py --check
           python scripts/sync-codex-prompts.py --check
-          python -m compileall -q scripts tools
+          python -m compileall -q scripts tools tests
           python scripts/repository_quality.py
+
+      - name: Run deterministic unit tests
+        shell: pwsh
+        run: python -m unittest discover -s tests -v
 
       - name: Test clean installation
         shell: pwsh
