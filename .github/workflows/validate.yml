@@ -36,6 +36,9 @@ jobs:
       - name: Compile Python files
         run: python3 -m compileall -q scripts tools
 
+      - name: Run repository quality gates
+        run: python3 scripts/repository_quality.py
+
       - name: Verify workflow inventory
         run: |
           python3 - <<'PY'
@@ -88,12 +91,13 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Verify generated artifacts
+      - name: Verify generated artifacts and repository quality
         shell: pwsh
         run: |
           python scripts/sync-codex-skills.py --check
           python scripts/sync-codex-prompts.py --check
           python -m compileall -q scripts tools
+          python scripts/repository_quality.py
 
       - name: Test clean installation
         shell: pwsh

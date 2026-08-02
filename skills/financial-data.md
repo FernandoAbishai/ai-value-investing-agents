@@ -45,7 +45,7 @@ python3 tools/twstock_data.py valuation 2330
 python3 tools/twstock_data.py financials 2330
 python3 tools/twstock_data.py revenue 2330
 python3 tools/twstock_data.py dividend 2330
-python3 tools/twstock_data.py search 台積
+python3 tools/twstock_data.py search TSMC
 ```
 
 Special rules for Taiwan stocks:
