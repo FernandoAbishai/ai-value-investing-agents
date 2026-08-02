@@ -1,6 +1,6 @@
 ---
 name: earnings-review
-description: "AI Berkshire skill: 财报精读：一手资料深度解读. Source: skills/earnings-review.md."
+description: "AI Value Investing Agents skill: 财报精读：一手资料深度解读. Source: skills/earnings-review.md."
 ---
 
 ## Codex adapter note

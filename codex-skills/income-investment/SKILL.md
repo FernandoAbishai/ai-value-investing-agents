@@ -1,6 +1,6 @@
 ---
 name: income-investment
-description: "AI Berkshire skill: Income Investment: Durable and Opportunistic Distribution Analysis. Source: skills/income-investment.md."
+description: "AI Value Investing Agents skill: Income Investment: Durable and Opportunistic Distribution Analysis. Source: skills/income-investment.md."
 ---
 
 ## Codex adapter note

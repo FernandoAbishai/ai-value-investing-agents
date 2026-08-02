@@ -1,6 +1,6 @@
 ---
 name: portfolio-review
-description: "AI Berkshire skill: 组合管理：从\"研究公司\"到\"管理组合\". Source: skills/portfolio-review.md."
+description: "AI Value Investing Agents skill: 组合管理：从\"研究公司\"到\"管理组合\". Source: skills/portfolio-review.md."
 ---
 
 ## Codex adapter note

@@ -1,6 +1,6 @@
 ---
 name: dyp-ask
-description: "AI Berkshire skill: 段永平问答：以他的方式思考. Source: skills/dyp-ask.md."
+description: "AI Value Investing Agents skill: 段永平问答：以他的方式思考. Source: skills/dyp-ask.md."
 ---
 
 ## Codex adapter note

@@ -1,6 +1,6 @@
 ---
 name: quality-screen
-description: "AI Berkshire skill: 去劣筛选：7条指标快速排除非一流公司. Source: skills/quality-screen.md."
+description: "AI Value Investing Agents skill: 去劣筛选：7条指标快速排除非一流公司. Source: skills/quality-screen.md."
 ---
 
 ## Codex adapter note

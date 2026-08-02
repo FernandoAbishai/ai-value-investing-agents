@@ -1,11 +1,11 @@
 ---
-description: "AI Berkshire slash entry for 公司新闻脉搏：股价异动快速归因团队."
+description: "AI Value Investing Agents slash entry for Company News Pulse: Rapid Price-Move Attribution Team."
 argument-hint: $ARGUMENTS
 ---
 
-Use the installed AI Berkshire Codex skill `news-pulse` for this request.
+Use the installed AI Value Investing Agents Codex skill `news-pulse` for this request.
 
-If the skill is not already loaded, read and follow `~/ai-berkshire/codex-skills/news-pulse/SKILL.md`.
+If the skill is not already loaded, read and follow `~/ai-value-investing-agents/codex-skills/news-pulse/SKILL.md`.
 
 User arguments:
 $ARGUMENTS

@@ -1,6 +1,6 @@
 ---
 name: thesis-drift
-description: "AI Berkshire skill: 投资论文漂移检测：分清事实变化与措辞变化. Source: skills/thesis-drift.md."
+description: "AI Value Investing Agents skill: 投资论文漂移检测：分清事实变化与措辞变化. Source: skills/thesis-drift.md."
 ---
 
 ## Codex adapter note
