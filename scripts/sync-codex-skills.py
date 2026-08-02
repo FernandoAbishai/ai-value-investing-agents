@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Codex skills from AI Berkshire Claude command files."""
+"""Generate Codex skills from canonical AI Value Investing Agents workflows."""
 
 from __future__ import annotations
 
@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CLAUDE_SKILLS = ROOT / "skills"
 CODEX_SKILLS = ROOT / "codex-skills"
+PROJECT_NAME = "AI Value Investing Agents"
 
 
 def split_frontmatter(text: str) -> tuple[str | None, str]:
@@ -46,13 +47,15 @@ def metadata_for(name: str, source_name: str, source_text: str) -> str:
             title = first_heading(body, name)
             lines.append(
                 "description: "
-                + yaml_quote(f"AI Berkshire skill: {title}. Source: skills/{source_name}.")
+                + yaml_quote(
+                    f"{PROJECT_NAME} skill: {title}. Source: skills/{source_name}."
+                )
             )
         lines.append(existing.rstrip())
         return "---\n" + "\n".join(lines) + "\n---\n\n"
 
     title = first_heading(source_text, name)
-    description = f"AI Berkshire skill: {title}. Source: skills/{source_name}."
+    description = f"{PROJECT_NAME} skill: {title}. Source: skills/{source_name}."
     return (
         "---\n"
         f"name: {name}\n"
