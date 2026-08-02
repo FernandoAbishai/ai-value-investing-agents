@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - regenerate-codex-artifacts
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -14,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: Check out regeneration branch
         uses: actions/checkout@v4
         with:
           ref: regenerate-codex-artifacts
