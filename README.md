@@ -22,19 +22,18 @@ It is designed to help users:
 
 ## Current translation status
 
-The repository now uses English as its default entry point. Translation of the operational files is being completed in stages.
+The repository uses English as its default entry point. Translation of the canonical operational workflows is complete.
 
 | Area | Status |
 |---|---|
 | Main README | English |
 | Installation instructions | English and updated for this fork |
 | Community and maintenance documentation | English-first |
-| Core canonical workflows | `investment-research`, `investment-team`, `investment-checklist`, `financial-data`, `news-pulse`, `earnings-review`, `earnings-team`, `management-deep-dive`, `private-company-research`, `quality-screen`, `industry-research`, `industry-funnel`, `bottleneck-hunter`, `portfolio-review`, and `thesis-tracker` translated |
-| Remaining canonical `skills/*.md` workflows | Translation in progress |
+| Canonical `skills/*.md` workflows | All 20 workflows available in English |
 | Generated Codex skills and prompts | Synchronized from the current canonical workflow sources |
 | Historical research reports | Preserved primarily in their original language |
 
-The translated core workflows are available for both Claude Code and Codex. Workflows not yet translated may still contain legacy-language content in both canonical and generated files.
+Claude Code and Codex now use the same English canonical workflows. Historical reports and localized documentation remain available as source material and language-specific entry points.
 
 ## Skills
 
@@ -70,8 +69,8 @@ The translated core workflows are available for both Claude Code and Codex. Work
 
 ### Thinking and publishing
 
-- [`dyp-ask`](skills/dyp-ask.md): Duan Yongping-inspired reasoning workflow.
-- [`wechat-article`](skills/wechat-article.md): multi-agent investment article workflow.
+- [`dyp-ask`](skills/dyp-ask.md): Duan Yongping-inspired reasoning workflow with explicit attribution boundaries.
+- [`wechat-article`](skills/wechat-article.md): Author–Editor–Reader workflow for publication-ready long-form articles.
 
 ## Installation
 
@@ -153,7 +152,7 @@ reports/                    Historical and community research output
 docs/                       Maintainer and edition documentation
 ```
 
-Canonical workflows should be edited in `skills/*.md` first. Generated Codex files should then be synchronized using the repository scripts rather than translated independently.
+Canonical workflows should be edited in `skills/*.md` first. Generated Codex files should then be synchronized using the repository scripts rather than edited independently.
 
 ## Financial rigor
 
@@ -175,9 +174,9 @@ Past performance does not guarantee future results. Nothing in this repository c
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request. Translation contributions should preserve command names, file paths, variables, output contracts, and financial terminology.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request. Contributions should preserve command names, file paths, variables, output contracts, financial terminology, and source/generated consistency.
 
-The current translation roadmap is documented in [docs/ENGLISH_EDITION.md](docs/ENGLISH_EDITION.md).
+The English-edition status and discovery roadmap are documented in [docs/ENGLISH_EDITION.md](docs/ENGLISH_EDITION.md).
 
 ## License
 

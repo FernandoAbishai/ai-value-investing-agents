@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 段永平问答：以他的方式思考."
+description: "AI Value Investing Agents slash entry for Duan Yongping–Inspired Reasoning: Business, Investing, and Personal Decisions."
 argument-hint: $ARGUMENTS
 ---
 

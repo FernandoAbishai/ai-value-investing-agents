@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 投资论文漂移检测：分清事实变化与措辞变化."
+description: "AI Value Investing Agents slash entry for Investment Thesis Drift Detection: Separate Evidence Changes from Wording Changes."
 argument-hint: $ARGUMENTS
 ---
 

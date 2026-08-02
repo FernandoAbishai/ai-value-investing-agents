@@ -1,245 +1,335 @@
-# 看懂XX公司（深度公司系列）：3-8 篇长文拆一家公司
+# Understand a Company: A 3–8 Article Deep-Research Series
 
-为 $ARGUMENTS 撰写一个《看懂XX》深度长文系列（3-8 篇，按公司复杂度定，见"篇数适配"），发布在公众号/视频号等公开渠道。**核心 IP 不是"会写"，而是"会改"——99% 的财经文章在违反本 skill 的事实核查标准**。
+Create a long-form public series about $ARGUMENTS. The series should contain three to eight standalone but connected articles, with the count determined by company complexity rather than a fixed template.
 
-参考样本：`reports/腾讯/《看懂腾讯》/`
+Reference structure: `reports/{company}/understand-{company}/`
 
----
+The defining capability of this workflow is not merely producing long prose. It is rigorous revision: reconciling figures, eliminating false precision, separating fact from scenario, checking attribution, and keeping valuation, management, and business conclusions consistent across the entire series.
 
-## 一、触发场景
+## 1. When to Use This Workflow
 
-用户希望为一家公司做"教科书级别"的深度研究，并以**系列长文**形式公开发布。区别于一篇研报：
-- 3-8 篇（复杂公司 8 篇约 12 万字，简单公司 3 篇约 3 万字），从认知重置到决策框架完整闭环
-- 每篇独立成文（适合单篇分享），但贯穿一套估值/管理层/价格判断
-- 写给"愿意花 90 分钟读懂一家公司"的读者，不是写给券商客户
+Use it when the user wants a comprehensive, publication-ready company series rather than a single research memo.
 
-**不适合用本 skill 的场景**：单篇研报、季报点评、行业研究——那些用 `/investment-research`、`/earnings-review`、`/industry-research`。
+The series should:
 
----
+- move from misconception correction to business understanding and decision framework;
+- allow each article to stand alone while sharing one consistent evidence base;
+- serve readers willing to invest substantial time in understanding a company;
+- cover both the investment case and the strongest reasons it may fail.
 
-## 二、系列篇目模板
+Do not use this workflow for:
 
-### 篇数适配公司复杂度（先定篇数，再定篇目）
+- a single company report — use `investment-research`;
+- an earnings update — use `earnings-review`;
+- an industry map — use `industry-research`;
+- a pre-purchase gate — use `investment-checklist`.
 
-**篇数不固定为 8。** 8 篇是腾讯这种"多业务 + 万亿投资组合 + 20 年管理层故事"的公司才撑得起的容量。写之前先问：这家公司有几个能用"一个尖锐问题"独立成文的主轴？有几个写几篇。
+## 2. Select the Number of Articles Before Writing
 
-| 复杂度 | 特征 | 篇数 | 例子 |
-|--------|------|------|------|
-| 高 | 多条业务线各自成生意 + 隐藏资产/投资组合 + 管理层史料丰富 | 7-8 篇 | 腾讯 |
-| 中 | 2-3 条业务线 + 一个重大时代变量 | 4-6 篇 | — |
-| 低 | 主业清晰、核心问题少而集中 | **3 篇** | 快手 |
+The series is not automatically eight articles. Count the number of company-specific questions that can independently support a substantive article.
 
-**3 篇的标准合并方式**（下面 8 主轴仍是检查清单，全部要覆盖，只是折进 3 篇）：
+| Complexity | Characteristics | Suggested count |
+|---|---|---:|
+| High | Several distinct businesses, hidden assets or investments, and a long management record | 7–8 |
+| Medium | Two or three material businesses plus one major strategic or technological variable | 4–6 |
+| Low | One clear core business and a small number of decisive questions | 3 |
 
-| # | 篇名方向 | 折入的主轴 |
-|---|---------|-----------|
-| 01 | 你以为你看懂了 X（开篇 + 生意与护城河） | 认知重置 + 护城河 + 利润引擎概览 |
-| 02 | X 的最大变量（当下叙事/隐藏资产） | 隐藏资产 + AI/时代变量 |
-| 03 | 多少钱值得买，什么信号必须卖（财务 + 决策终章） | 财务深度 + 管理层要点 + 估值决策 |
+### Standard Three-Article Compression
 
-判断信号：如果某篇写到一半发现在"凑内容"（同一事实换说法重复出现），说明篇数定多了——合并。反之，某篇超过 12,000 字还塞不下，拆开。
+Use all eight analytical axes as a checklist, but combine them when the company does not justify separate pieces.
 
-### 8 主轴全模板（复杂公司用；简单公司当检查清单折叠）
+| Article | Direction | Axes combined |
+|---|---|---|
+| 01 | What the market misunderstands about X | Misconceptions, business model, moat, profit-engine overview |
+| 02 | X’s decisive variable | Hidden assets, technology, regulation, or another company-specific variable |
+| 03 | What it is worth and what would break the thesis | Financial quality, management, valuation, red lines, decision framework |
 
-| # | 篇名模板 | 核心问题 | 字数 |
-|---|---------|---------|------|
-| 01 | 你以为你看懂了 X，其实没有 | 认知重置：破 3 个常见错觉 | 4,000-5,000 |
-| 02 | X 的护城河——`<生意本质一句话>` | 护城河深不深、未来 5/10 年还在不在 | 6,000-8,000 |
-| 03 | X 的最大利润引擎——`<最赚钱业务>` | 主业是什么、为什么能持续 | 6,000-8,000 |
-| 04 | X 藏在账上的另一家公司——`<隐藏资产>` | 投资组合 / 子公司 / 隐藏价值 | 8,000-10,000 |
-| 05 | AI（或当下叙事）时代，X 是赢家还是输家 | 时代变量：分业务拆 AI 影响 | 8,000-10,000 |
-| 06 | 用巴菲特方式拆 X 的财报 | 财务深度：毛利率/FCF/ROE/SBC | 8,000-10,000 |
-| 07 | `<管理层金句>`——X 的管理层值不值得托付 | 资本配置纪律 + 诚信检验 + 接班人 | 8,000-10,000 |
-| 08 | 多少钱值得买，什么信号必须卖（系列终章） | DCF 三情景 + 红线清单 + 仓位框架 | 10,000-12,000 |
+If an article repeats the same evidence with different wording, the series is too long and should be merged. If a draft cannot reasonably contain one decisive question without becoming unwieldy, split it.
 
-加一篇 `00-系列说明.md` 作为目录索引，不发表。
+## 3. Eight-Axis Template for Complex Companies
 
-**篇目必须适配公司**：模板是腾讯长出来的，不是套子。某篇没有独立内容（如没有投资组合的公司写不了 04），就替换成该公司特有的主轴（如快手的可灵 AI、电商），或按上面的合并方式折进更少的篇数。判断标准：这一篇能否用"一个尖锐问题"独立成文。
+| # | Article direction | Decisive question | Typical length |
+|---:|---|---|---:|
+| 01 | You may not understand X as well as you think | Which three common market assumptions are wrong or incomplete? | 4,000–5,000 words/characters as appropriate |
+| 02 | X’s moat: `<one-sentence business essence>` | How strong is the moat, and will it remain in five or ten years? | 6,000–8,000 |
+| 03 | X’s largest profit engine: `<business>` | What really generates owner earnings, and why might it persist? | 6,000–8,000 |
+| 04 | The other company hidden on X’s balance sheet | What subsidiaries, investments, or hidden assets materially affect value? | 8,000–10,000 |
+| 05 | Is X a winner or loser under the current structural change? | How does AI, regulation, energy, geopolitics, or another major variable affect each business? | 8,000–10,000 |
+| 06 | Reading X’s financials as a long-term owner | What do margins, FCF, ROE, dilution, and reinvestment reveal? | 8,000–10,000 |
+| 07 | Can shareholders trust X’s management? | What do integrity, execution, capital allocation, and succession evidence show? | 8,000–10,000 |
+| 08 | What price is attractive, and what evidence requires reassessment? | What do SOTP or scenarios imply, and which red lines matter? | 10,000–12,000 |
 
----
+Create `00-series-guide.md` as an unpublished directory and methodology page.
 
-## 二·五、篇内结构模板（从《看懂腾讯》8 篇正文提炼）
+Adapt the axes to the company. If it has no meaningful investment portfolio, replace or merge Article 04. If a company-specific issue such as a major product, regulation, or distribution system deserves an article, use it. The test is whether the article can answer one sharp question with independent evidence.
 
-每篇不是自由发挥，有固定骨架。共性结构：
+## 4. Shared Structure for Every Article
 
-- **头部引用块**：`> 《看懂X》系列 · 第 0N 篇 · <主轴>`，开篇加阅读时间
-- **第一节永远是钩子**：一组反常识数字 / 一条反常曲线 / 一个让市场担心的数字，不写背景铺垫
-- **每篇末尾**：`## 本篇要点回顾`（5-8 条，数字与正文严格一致）+ `## 下期预告`（用尖锐问题预告，不剧透结论）
-- **结尾两行斜体**：`*本文是《看懂X》系列第 0N 篇...*` + `*本系列基于公开信息和价值投资框架研究，不构成任何投资建议。*`
+Each article must include:
 
-各篇专属骨架：
+- a header block: `> Understand X · Article 0N · <axis>`;
+- an estimated reading time;
+- an opening based on a verified contradiction, curve, event, or number rather than generic background;
+- a clear statement of the question the article will resolve;
+- primary evidence, counterevidence, and uncertainty;
+- a final `Key takeaways` section with five to eight points whose figures exactly match the body;
+- a `Next article` preview framed as a question, without revealing the conclusion;
+- a closing disclosure that the series uses public information and value-investing frameworks and is not investment advice.
 
-| 篇 | 骨架 |
-|---|------|
-| 01 开篇 | 股价被市场反复"重新定性"的历史曲线 → 三个常见错觉（每个用财报数据破）→ "需要同时戴几副眼镜"阅读地图表（链接到 02-08）→ 估值钩子数字表（只留悬念不给结论） |
-| 02 护城河 | 挑战者失败名单（有名有姓有年份）→ 迁移成本的本质（用户迁不走什么）→ 生态飞轮 → 5 年/10 年后护城河还在吗 → 一个反向思维实验（"如果我有 1000 亿能不能复制它"） |
-| 03 利润引擎 | 反常识数字开场 → 核心产品为何长青（拆到定价权层面）→ 增长空间量化（份额路径 + 反面论据：故事不工作的可能）→ 组织能力（为什么能持续出产品）→ 市场为什么低估 → AI/时代变量对本业务的影响 → 5 年后图景 |
-| 04 隐藏资产 | TOP 持仓表（**只统计未并表部分**，并表的单独说明防双算）→ 会计处理差异（哪些进利润表哪些不进）→ "不会卖 vs 可能减持"分类 → 市场为何打折价（逐条）→ 几个意外发现 → 估算折扣的简单方法 |
-| 05 AI/时代变量 | 让市场担心的数字 → 分业务拆赢家/输家（严重分化，不给整体结论）→ 关键反问（"X 输了单点之争，还能赢吗"）→ 5-10 年被绕过的场景推演（逐条反驳或承认）→ 5 个情景 → 未来一年监控信号清单 |
-| 06 财务 | 一条反常曲线开场 → 利润表（毛利率变化归因）→ 口径选择（Non-IFRS vs GAAP，为什么）→ EPS 与回购 → 资产负债表（净现金）→ 现金流与 FCF Yield → 股东回报按"1 美元测试"→ ROE 变化是好是坏 → 估值横向+历史比较 → 价值投资 10 项 Checklist 逐条过 → 把财报压缩成三句话 |
-| 07 管理层 | 核心团队表 → 关键人物的长期贡献（用具体决策，不用形容词）→ 利益对齐（持股/薪酬占利润比）→ **诚信检验：挑一次真实危机看应对** → 5 年承诺兑现率（逐条核对当年原话）→ 资本配置纪律 → 接班人隐忧（不回避）→ "买人三问"（诚实/能干/热爱）→ 综合评分 |
-| 08 决策 | SOTP 分部估值（说清"你买的到底是什么"）→ 历史估值分位 + **必须警告"后视镜不是导航仪"** → 未来利润三情景表（乐观/中性/保守 + 隐含增速，标明"是预测不是事实"）→ 红线清单（触发≠必卖，但必须重审）→ 赔率思维收尾 |
+## 5. Article-Specific Structures
 
----
+### Article 01: Misconception Reset
 
-## 三、写作风格规范
+- Show how the market has repeatedly reclassified the company.
+- Identify three common misconceptions.
+- Refute or qualify each with filings and operating evidence.
+- Provide a reading map linking the remaining articles.
+- End with valuation or business questions, not a premature conclusion.
 
-### 语气
+### Article 02: Moat
 
-- **直接、犀利、不说废话**——第一句就给数字或反常识结论
-- **价值投资框架**——巴菲特/芒格/段永平/李录视角穿插（但不堆砌名言）
-- **不预设立场**——先摆数据、再推逻辑、最后得结论
-- **呈现正反两面**——每个核心判断都附"但另一方面..."的反方
-- **公众号体感**——前 18-20 字必须能独立站住（手机预览）
+- List identifiable challengers and what happened, including dates and sources.
+- Explain what users, customers, suppliers, or developers cannot easily move.
+- Map the ecosystem or reinforcing loop.
+- Test moat durability over five and ten years.
+- Run an inversion exercise: with very large capital, which parts remain difficult to replicate?
 
-### 禁用词
+### Article 03: Profit Engine
 
-| 禁用 | 原因 | 替代 |
-|------|------|------|
-| 显然 / 必然 / 一定 | 主观绝对化 | 数据显示 / 证据表明 |
-| 我认为 / 我觉得 | 主观腔调 | 删除或改为"按本框架" |
-| 教科书级别 / 神来之笔 | 流量党褒奖 | 描述具体事实 |
-| 严重不匹配 / 严重低估 | 强主观词 | 给具体折让百分比 |
-| 完美 / 无可挑剔 | 单边判断 | 加上反方观察 |
+- Open with a counterintuitive operating figure.
+- Explain the core product or service at the level of pricing power and customer value.
+- Quantify plausible growth paths and include the strongest reason they may not occur.
+- Examine the organizational capability that sustains the product.
+- Explain why the market may misprice the engine.
+- Test the effect of the major structural variable.
+- Describe a five-year operating picture as a scenario, not a fact.
 
-### 标题风格
+### Article 04: Hidden Assets
 
-- 用**反差数字**或**反共识结论**做钩子（"15 年 7 次挑战全失败"、"年薪 4292 万仅占利润的万分之 1.65"）
-- 副标题中性、概括内容（"——`<本质判断>`"）
-- **避免流量党比喻**："小巴菲特"、"中国版 X"、"YYDS" 一律避开
-- 用专业读者熟悉的术语（"伯克希尔"而不是"巴菲特"，公司名优于人名）
+- Build a table of material non-consolidated investments only.
+- Explain consolidated versus non-consolidated accounting to prevent double counting.
+- Separate strategically permanent holdings from assets that may be reduced or distributed.
+- Explain why the market applies a holding-company or uncertainty discount.
+- Identify surprising assets or accounting effects.
+- Show a simple discount-range method without false precision.
 
----
+### Article 05: Structural Variable
 
-## 四、严苛事实核查 Checklist（核心 IP）
+- Start with the number or event causing the greatest market concern.
+- Analyze each business separately; do not force one company-wide conclusion.
+- Ask whether the company can still win economically after losing one visible product or technology contest.
+- Model paths by which the company may be bypassed over five to ten years.
+- Provide several scenarios with explicit triggers.
+- End with a one-year monitoring checklist.
 
-### 写之前就要警惕的"伪精确"陷阱
+### Article 06: Financial Quality
 
-1. **概率加权期望值**：`30% × A + 50% × B + 20% × C = 期望 +X%` 这种计算几乎全是垃圾——概率分配是纯主观，给读者错误精确感。**只列情景 + 触发条件 + 方向，不算加权期望**。
-2. **第三方测算 MAU/份额**：QuestMobile/七麦/CBNData 等口径差异巨大（同一时点能差 2-3 倍）。**只用最可信的两个对比作 anchor，其他做定性描述**。
-3. **历史增速线性外推**：`2025 年 +33% × 5 年复合 → 2030 年 X` 是金融文盲式预测。**情景假设 + 高/低区间 + 不是承诺**。
-4. **未公开的持股比例**：字节、Halti 类未上市公司持股**从未公开披露**。**给区间，标"不可知"**。
-5. **强归因**：竞争对手失败 = 因为 X。多重原因都列出来，**本文不做单一归因**。
+- Open with a meaningful financial curve.
+- Explain gross-margin and operating-margin changes.
+- State why GAAP, IFRS, non-GAAP, or another measure is used and reconcile differences.
+- Analyze EPS, dilution, share-based compensation, and buybacks.
+- Review net cash, debt, and liquidity.
+- Analyze cash conversion and FCF yield.
+- Apply a capital-allocation or retained-earnings test.
+- Explain whether ROE changes are positive or mechanically distorted.
+- Compare valuation with peers and the company’s own history on a consistent basis.
+- Run the repository’s value-investing checklist.
+- Compress the financial conclusion into three evidence-based sentences.
 
-### 修订时必跑的 7 项检查
+### Article 07: Management
 
+- Provide a core-team table.
+- Attribute long-term contributions to specific decisions, not adjectives.
+- Test alignment through ownership, compensation, and capital-allocation incentives.
+- Use one real crisis as an integrity and communication test.
+- Audit five years of concrete management promises against outcomes.
+- Evaluate acquisitions, divestitures, buybacks, dividends, and reinvestment.
+- Address succession risk directly.
+- Answer three stewardship questions: integrity, competence, and long-term commitment.
+- Provide a supported score or category with limitations.
+
+### Article 08: Decision Framework
+
+- Use a sum-of-the-parts model when appropriate and explain exactly what the investor owns.
+- Show historical valuation ranges while warning that hindsight is not a forecast.
+- Build bull, base, and bear operating scenarios with explicit assumptions.
+- Label all future values as scenarios or estimates.
+- Include a red-line list: a trigger requires reassessment, not an automatic action unless explicitly justified.
+- Conclude with asymmetric payoff and opportunity cost, not certainty.
+
+## 6. Writing Style
+
+### Voice
+
+- Direct, analytical, and economical.
+- Evidence first, reasoning second, conclusion last.
+- Present the strongest opposing case for every central claim.
+- Use value-investing frameworks without stacking famous names or unverified quotations.
+- Make the opening line independently meaningful on a mobile preview.
+
+### Avoid
+
+| Avoid | Reason | Use instead |
+|---|---|---|
+| obviously, certainly, inevitably | unsupported certainty | the evidence indicates; under these assumptions |
+| I think, I feel | weakens evidence discipline | remove or write `under this framework` |
+| textbook-perfect, brilliant, flawless | promotional praise | describe the specific operating fact |
+| massively undervalued | undefined judgment | state the estimated discount range and assumptions |
+| guaranteed, cannot fail | impossible standard | define risk and invalidation conditions |
+
+### Titles
+
+- Use a verified contrast, number, or counter-consensus conclusion.
+- Keep subtitles neutral and descriptive.
+- Avoid clickbait comparisons such as “the next Berkshire” or “the Chinese version of X.”
+- Prefer company and business terminology to personality-driven framing.
+
+## 7. Fact-Checking and False-Precision Controls
+
+### Common False-Precision Traps
+
+1. **Probability-weighted expected return** — do not combine subjective probabilities into a precise expected percentage. Show scenarios, triggers, and direction instead.
+2. **Third-party user or share estimates** — methodologies may differ materially. Use the most credible comparisons as anchors, explain definitions, and avoid pretending incompatible estimates are equivalent.
+3. **Linear extrapolation** — do not extend one year’s growth mechanically for five or ten years. Use ranges and operating assumptions.
+4. **Undisclosed private-company ownership** — label unknown ownership as unknown; do not infer a precise percentage.
+5. **Single-cause attribution** — competitor failure, margin change, or market-share movement usually has several causes. Represent the alternatives.
+6. **Historical valuation as forecast** — a former multiple is context, not a target.
+7. **Management quotation drift** — verify the original wording and date before using quotation marks.
+
+### Mandatory Seven-Part Revision Check
+
+```text
+[ ] 1. Cross-article number consistency: market cap, earnings, FCF, ownership, and share count agree.
+[ ] 2. Metric definitions: GAAP/IFRS/non-GAAP/SBC/FCF treatments are explicit.
+[ ] 3. Double-counting scan: consolidated subsidiaries are not also counted as investments; SOTP parts do not overlap.
+[ ] 4. Fair peer comparison: enterprise-value and cash adjustments are applied consistently.
+[ ] 5. Subjective probability weighting removed.
+[ ] 6. Unsupported absolute language removed.
+[ ] 7. Every non-filing data point has a source and date.
 ```
-□ 1. 跨篇数字一致性：总市值、Non-IFRS 净利润、关键持股 % 全系列对齐
-□ 2. 口径标注：Non-IFRS / GAAP / Non-IFRS-SBC / FCF 各用哪个，全文清楚
-□ 3. 重复加计扫描：已并表子公司不在"投资组合"里、SOTP 不双算
-□ 4. 横向比较公平性：不能"主业 PE（剔除现金+组合）" vs "对手 PE（不剔）"
-□ 5. 概率加权全删：见上一条
-□ 6. 绝对化表述全弱化：grep "显然|必然|严重|教科书|完美"
-□ 7. 第三方数据来源标注：每条非财报数据后跟"（来源：X）"
-```
 
-### 模型偏好
+### Company-Specific Error Register
 
-写之前**先列出已知硬错误风险**：
-- 历史回报倍数：必须用累计投入口径（如 Riot 33 倍 不是 58 倍）
-- 持股比例：必须看最新富途/财报口径（如腾讯持有美团 1.5% 不是 6.4%）
-- "派息分派"会计处理：视同处置收益按 IFRIC 17 在宣派日确认（如京东在 2021，美团在 2022 但金额小）
-- 总股本会反弹：SBC 集中年初授予会让股本短期上升
+Before drafting, create an internal list of known high-risk facts requiring direct verification:
 
----
+- cumulative investment cost versus current value;
+- latest ownership percentages;
+- treatment and recognition date of in-kind distributions;
+- share-count changes caused by buybacks and stock compensation;
+- segment definitions and changes;
+- currency, units, and reporting-period mismatches.
 
-## 五、执行流程
+Do not embed old examples as permanent facts. Verify company-specific values against the latest primary material.
 
-### 阶段 1：调研（写 01-02 篇前完成）
+## 8. Execution Workflow
 
-1. 阅读公司近 5 年年报、最新季报
-2. 阅读至少 3 份独立卖方研报（找共识 + 反共识）
-3. 用 `/investment-team` 或 `/investment-research` 先生成内部研究底稿
-4. 与用户确认 8 篇的核心论点（避免写完才发现方向不对）
+### Phase 1: Research
 
-### 阶段 2：写作（按 01→末篇顺序写，不跳）
+Before writing the first two articles:
 
-- 每篇写完先存 `reports/{公司名}/《看懂{公司名}》/0X-XX.md`
-- **目录冲突规则**：若 `reports/{公司名}/《看懂{公司名}》/` 已存在（旧版系列），不覆盖、不混放——新系列写入带日期后缀的新文件夹 `reports/{公司名}/《看懂{公司名}》-{YYYYMMDD}/`，旧文件夹原样保留
-- 不立即推 GitHub——等用户审阅
-- 用户提修订意见后修改
-- 修订完才 git push
+1. Read the last five annual reports when available and the latest interim or quarterly filing.
+2. Read at least three independent high-quality analyses to identify consensus and disagreement; do not treat sell-side opinion as primary evidence.
+3. Generate an internal research base with `investment-team` or `investment-research`.
+4. Define the article count and each decisive question.
+5. Build a shared fact table with source, period, currency, unit, confidence, and article references.
 
-### 阶段 3：跨篇一致性扫描（全部篇目写完后）
+### Phase 2: Draft in Order
 
-派 Explore agent 并行扫描全系列做以下检查：
-1. 同一数字（市值、净利润、持股比例）跨篇是否一致
-2. 同一术语（FBS、SBC、Non-IFRS）首次出现是否解释
-3. 引用关系：02 篇说"详见 06 篇"是否真的对应
-4. 要点回顾 vs 正文是否数字一致
+- Write articles sequentially from 01 to the final article.
+- Save each draft under `reports/{company}/understand-{company}/0N-{slug}.md`.
+- If that directory already contains an older series, preserve it and use `reports/{company}/understand-{company}-{YYYYMMDD}/`.
+- Do not publish or push drafts before the requested review stage.
+- Apply user revisions before final publication.
 
-### 阶段 4：发布前最终核查
+### Phase 3: Cross-Article Consistency Scan
+
+After all articles are drafted, use parallel review or an Explore Agent to check:
+
+1. repeated figures and ownership percentages;
+2. first-use definitions of technical and accounting terms;
+3. cross-references between articles;
+4. key-takeaway figures versus body text;
+5. valuation inputs and output consistency;
+6. citations and dates;
+7. duplicated paragraphs or evidence.
+
+### Phase 4: Release Audit
+
+For each financially material article, run the report audit when applicable:
 
 ```bash
-# 推送前必须本地 grep 一次（按 ai-berkshire 隐私规则）
-grep -r "<本机用户名>\|/Users/\|<个人身份信息>" reports/ | head
+python3 tools/report_audit.py extract --report {article_path}
+python3 tools/report_audit.py verdict --results '<verified JSON>' --report {article_filename}
 ```
 
-确认无误后才 `git pull --rebase && git commit && git push`。
+Before committing public reports, scan for private or local information:
 
----
-
-## 六、修订意见处理流程
-
-用户给修订意见时，按以下顺序处理：
-
-### 1. 先核查事实（不要直接改）
-
-如果用户说"X 数据不对"，先用 Bash/Read 找原始数据交叉验证：
-- 看 ai-berkshire 项目里同公司的 earnings/财报报告
-- 看富途/官方披露
-- 给出"用户说的数据 vs 我查到的数据 vs 我之前用的数据"三方对比
-
-### 2. 判断修订级别
-
-| 级别 | 类型 | 处理 |
-|------|------|------|
-| 🔥 硬错误 | 数字错、归因错、口径错 | 必改，不需犹豫 |
-| ⚠️ 主观化 | 强主观词、绝对化、流量党比喻 | 弱化或删除 |
-| 🔬 颗粒度 | 来源标注、口径细化 | 优先级低，按可读性平衡 |
-| ❓ 不可靠 | 第三方测算差异大 | **删比改更稳**（用户明确指示） |
-
-### 3. 修订后联动检查
-
-修一处先想"哪些地方还会引用这个数字/概念"。例：
-- 改了总市值 → 全系列联动改 PE / 主业 PE / 折让 / FCF Yield
-- 改了持股 % → 改 TOP 10 排序 + 历史持股表 + 减持清单
-- 改了术语口径 → 改首次定义 + 后续引用 + 要点回顾
-
-### 4. 推送后立即报告
-
-```
-推送成功（commit hash）。
-[N] 处修订总结 [带表]：
-- 改了什么
-- 联动改了什么
-- 还有什么没改
-
-下一步等指示。
+```bash
+grep -r "<local-username>\|/Users/\|/home/[^/]*/\|<private-identifier>" reports/ | head
 ```
 
----
+Resolve every match before `git pull --rebase`, commit, and push.
 
-## 七、本 skill 不做什么
+## 9. Handling Revision Requests
 
-- **不替读者做投资决策**——所有篇章末尾"不构成投资建议"
-- **不预测股价**——只给"情景 + 触发条件"
-- **不算"期望年化回报"加权值**——主观概率分配会误导读者
-- **不写"X 大佬也持有"** —— 用别人的持仓为自己的判断背书是反价值投资的
-- **不强求 8 篇都写**——如果某篇没足够独立内容（如某公司管理层不够特别），合并到其他篇或减篇数
+### Step 1: Verify Before Editing
 
----
+When a user says a fact is wrong, compare:
 
-## 八、合规与隐私
+- the user-provided figure;
+- the primary-source figure;
+- the figure currently used in the series.
 
-- 所有公开报告**只用公开信息**（财报、官方披露、券商研报、知名第三方机构）
-- 不用任何**用户个人信息**（公司花名、内部 IM、未公开持仓信息）
-- 推送前必须用 grep 扫描 本机用户名 / `/Users/` / 真实姓名 等隐私字段
-- 公开署名按用户多层身份策略，不混用
+Do not automatically replace one unverified number with another.
 
----
+### Step 2: Classify the Revision
 
-## 一句话总结
+| Level | Type | Treatment |
+|---|---|---|
+| Blocking | Wrong number, attribution, accounting treatment, or company identity | Correct immediately and scan all dependent calculations |
+| Material | Unsupported certainty, misleading comparison, or omitted counterevidence | Weaken, qualify, or rewrite |
+| Detail | Source format, terminology, or explanatory granularity | Improve while preserving readability |
+| Unreliable | Conflicting third-party estimates with no defensible reconciliation | Remove or present as a range with limitations |
 
-**写《看懂 X 系列》的核心能力 ≠ 写得好，而是改得严**——
-89% 的财经长文死于伪精确数字、主观加权期望值、绝对化表述。本 skill 的存在就是为了把这些坑全部标记出来，写之前避开，写之后扫干净。
+### Step 3: Perform Dependency Checks
+
+A single correction may require series-wide changes:
+
+- market capitalization → valuation multiples, discount, FCF yield, and scenario outputs;
+- ownership percentage → holdings table, SOTP, history, and disposal analysis;
+- metric definition → first-use definition, all later references, and key takeaways;
+- share count → EPS, buyback effect, dilution, and per-share value.
+
+### Step 4: Report the Applied Revision
+
+After committing, state:
+
+```text
+Commit: {hash}
+Revisions applied: {N}
+- Direct corrections
+- Dependent corrections
+- Remaining unresolved items
+```
+
+## 10. This Workflow Does Not
+
+- make the investment decision for the reader;
+- predict short-term share prices;
+- calculate a probability-weighted expected return from subjective probabilities;
+- use famous investors’ holdings as proof;
+- force eight articles when the company supports fewer;
+- publish private user information;
+- present framework simulations as authentic quotations from real investors.
+
+## 11. Compliance and Privacy
+
+- Use public, attributable information for public reports.
+- Do not include internal company information, private messages, unpublished holdings, or user identity data.
+- Verify image and figure reuse rights and provide attribution.
+- Keep filesystem paths, usernames, access tokens, and personal identifiers out of committed reports.
+- Use one consistent public byline chosen by the user; do not mix identities across files.
+
+## Summary
+
+The standard for an `Understand X` series is not length. It is consistency and auditability: every number reconciles, every assumption is labeled, every counterargument is represented, and every conclusion can be traced to evidence.

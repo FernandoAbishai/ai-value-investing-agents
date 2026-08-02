@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 微信公众号文章：作者-编辑-读者三Agent协作."
+description: "AI Value Investing Agents slash entry for WeChat Article: Author–Editor–Reader Multi-Agent Workflow."
 argument-hint: $ARGUMENTS
 ---
 
