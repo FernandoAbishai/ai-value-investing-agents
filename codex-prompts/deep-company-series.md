@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 看懂XX公司（深度公司系列）：3-8 篇长文拆一家公司."
+description: "AI Value Investing Agents slash entry for Understand a Company: A 3–8 Article Deep-Research Series."
 argument-hint: $ARGUMENTS
 ---
 

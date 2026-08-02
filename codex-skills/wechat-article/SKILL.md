@@ -1,6 +1,6 @@
 ---
 name: wechat-article
-description: "AI Value Investing Agents skill: 微信公众号文章：作者-编辑-读者三Agent协作. Source: skills/wechat-article.md."
+description: "AI Value Investing Agents skill: WeChat Article: Author–Editor–Reader Multi-Agent Workflow. Source: skills/wechat-article.md."
 ---
 
 ## Codex adapter note
@@ -13,234 +13,312 @@ This skill is generated from `skills/wechat-article.md` so Claude Code and Codex
 - Before starting research, run the `date` command to confirm today's date; treat it as the baseline for "latest" data and state the data cutoff date in the report header. Never assume the current date from training data.
 - Preserve the research quality rules from `AGENTS.md`: cross-check financial data, use exact arithmetic tools for valuation/math, and clearly label uncertainty and source gaps.
 
-# 微信公众号文章：作者-编辑-读者三Agent协作
+# WeChat Article: Author–Editor–Reader Multi-Agent Workflow
 
-对 $ARGUMENTS 进行深度研究，产出一篇可直接发布的微信公众号文章。三个Agent各司其职：作者写深度初稿，编辑精修结构和表达，读者从目标受众视角审读。
+Research $ARGUMENTS and produce a publication-ready long-form article for WeChat Official Accounts or a comparable public channel.
 
-**支持输入格式**：主题描述，例如：`大模型OPD技术解读`、`Qwen3技术报告解读`、`为什么巴菲特不买科技股`
+Three roles collaborate:
 
----
+- **Author Agent** — researches and writes the substantive draft.
+- **Editor Agent** — improves structure, accuracy, pacing, and expression.
+- **Reader Agent** — tests whether the intended audience can understand and use the article.
 
-## 设计理念
+**Supported input**: a topic description, such as a technical-paper explanation, an AI-method overview, a company or industry question, or an investment-framework essay.
 
-一篇好的公众号文章需要同时满足三个维度：
-1. **深度**——对得起花时间读完的人（作者负责）
-2. **可读性**——结构清晰、节奏好、不劝退（编辑负责）
-3. **真的能看懂**——目标读者不会在中途放弃（读者负责）
+## Design Principle
 
-单人写作容易"自嗨"——写的人觉得清楚，读的人看不懂。三Agent协作的本质是**强制引入外部视角**。
+A strong public article must satisfy three requirements:
 
----
+1. **Depth** — it rewards the time required to read it.
+2. **Readability** — its structure and pacing do not push the audience away.
+3. **Comprehension** — the intended reader can accurately restate the central idea afterward.
 
-## 阶段一：研究与素材收集
+The purpose of the three-agent workflow is to introduce independent editorial and reader perspectives before publication.
 
-### 第一步：明确文章定位
+## Step 0: Confirm Date, Scope, and Language
 
-在开始写作之前，先确认以下信息（如用户未指定则主动询问）：
+Run `date` before researching current technology, markets, products, companies, laws, or events. Put the research cutoff date in the working notes.
 
-| 维度 | 需要确认 | 默认值 |
-|------|---------|--------|
-| **目标读者** | 技术背景程度 | 有点技术背景但非该领域专家 |
-| **文章深度** | 科普/中深度/硬核 | 中深度（有公式但要解释清楚） |
-| **文章长度** | 字数范围 | 3000-4000字 |
-| **是否需要下载原始论文/资料** | 需要PDF/配图 | 是 |
-| **写作风格** | 正式/对话式/犀利 | 对话式（像写给聪明的朋友） |
+Resolve:
 
-### 第二步：深度研究
+| Dimension | Question | Default when absent |
+|---|---|---|
+| Target reader | What knowledge can be assumed? | Intelligent general reader with some relevant background |
+| Depth | Introductory, intermediate, or technical? | Intermediate depth with technical details explained |
+| Length | Desired word range? | 3,000–4,000 Chinese characters or an equivalent requested length |
+| Language | Chinese, English, or another language? | Simplified Chinese for WeChat unless the user requests otherwise |
+| Source material | Is a paper, PDF, filing, or dataset required? | Use primary material when the topic depends on it |
+| Visuals | Are figures essential? | Include only visuals that materially improve understanding |
+| Style | Formal, conversational, analytical, or sharp? | Conversational analytical prose for an intelligent reader |
 
-使用 Agent 工具**并行**启动2-3个研究Agent，收集足够的素材：
-
-**研究Agent A：核心内容研究**
-- 如果是论文解读：下载论文PDF、提取核心贡献、关键图表、实验结果
-- 如果是技术主题：搜索最新进展、关键论文、技术细节
-- 如果是商业/投资主题：搜索最新数据、行业报告、竞争格局
-
-**研究Agent B：行业背景与应用**
-- 搜索该技术/主题的行业落地情况
-- 哪些公司在用？效果如何？
-- 最新的发展趋势和里程碑事件
-
-**研究Agent C（可选）：竞品/对比研究**
-- 同类方法/产品的对比
-- 历史发展脉络
-- 未来演进方向
-
-### 第三步：整理素材框架
-
-研究Agent全部完成后，整理出：
-1. **核心论点**（一句话概括文章要传达的核心信息）
-2. **关键数据**（3-5个最有冲击力的数据点）
-3. **配图清单**（需要哪些图，来源是什么）
-4. **文章大纲**（6-8个章节的标题和核心内容）
+Do not interrupt for minor missing preferences when the defaults are adequate. Ask only when a missing decision would materially change the article.
 
 ---
 
-## 阶段二：作者Agent写初稿
+## Phase 1: Research and Evidence Collection
 
-使用 Agent 工具启动**作者Agent**，给出详细的写作指令。
+### Step 1: Launch Parallel Research
 
-### 作者Agent的Prompt模板
+Use Agent or the closest available parallel-research capability to start two or three research tracks.
 
-```
-你是一位深度技术写作者（Author Agent），需要写一篇微信公众号文章。
+#### Research Agent A: Core Material
 
-## 目标读者
-{根据第一步确认的读者画像}
+- For a paper: obtain the paper, identify the central contribution, methods, experiments, limitations, and decisive figures.
+- For a technical subject: retrieve current primary papers, official documentation, benchmarks, and implementation details.
+- For a business or investment subject: retrieve current filings, official data, industry evidence, and competitive information.
 
-## 写作风格要求
-- 纯中文表达，避免中英文夹杂（技术术语首次出现时给英文，后续用中文）
-- 像写给聪明的朋友看的技术科普，不是学术论文翻译
-- 用类比帮助理解，但类比要贴切、不俗套
-- 关键公式/数据要有，但每个都要用大白话解释
-- 不用emoji
-- 段落不超过4行（公众号阅读环境）
+#### Research Agent B: Context and Applications
 
-## 核心内容
-{整理好的素材、数据、论点}
+- Explain why the topic matters.
+- Identify real deployments, users, products, or companies.
+- Retrieve recent milestones and evidence of practical impact.
+- Separate demonstrated results from forecasts or marketing claims.
 
-## 文章结构要求
-1. **开头（前3段）**：必须有强钩子——用数据冲击力或反直觉的结论开场，不要用温和的类比开场
-2. **背景**：为什么这件事重要？解决什么问题？
-3. **核心内容（2-3节）**：技术深度在这里体现，但每个技术点都要有"大白话翻译"
-4. **实证/案例**：用数据和案例说话，不要空谈
-5. **行业影响/展望**：这件事对行业意味着什么
-6. **结尾**：一句有传播力的判断收束，适合被截图转发
+#### Research Agent C: Alternatives and History
 
-## 配图要求
-- 论文解读类文章：必须从论文PDF中提取原图，直接用 `![描述](相对路径)` 插入文章，不要用 [图X：描述] 占位符
-- 提取方法：用 pdftoppm 将PDF页面渲染为高分辨率PNG（至少900 DPI），再用 PIL 裁切目标图表区域
-- 每张图不小于500KB，确保高清
-- 图片统一存放在 `assets/{主题简称}/` 目录下
-- 非论文类文章：如需配图，搜索并下载合适的图片，同样直接插入
+When useful:
 
-## 公式要求
-- 所有数学公式使用 LaTeX 格式：行内用 `$...$`，独立公式用 `$$...$$`
-- 禁止用纯文本写公式（如 `> D_KL(P || Q) = ...`），必须用 LaTeX 渲染格式
-- 每个公式后面仍然要配"大白话翻译"
+- compare competing methods, products, or explanations;
+- reconstruct the historical path to the current result;
+- identify trade-offs, failure modes, and likely next steps.
 
-请写出完整的文章初稿，约{目标字数}字。
-```
+### Step 2: Apply Source Discipline
 
-### 作者Agent完成后
+- Prefer primary sources: original papers, official documentation, filings, issuer releases, standards, datasets, and direct technical reports.
+- Use secondary reporting for context and clearly label it.
+- Date every time-sensitive claim.
+- Mark every material statement as verified fact, estimate, assumption, or analytical judgment when ambiguity could mislead readers.
+- Do not rely on search-result snippets when the underlying document is available.
+- Cross-check decision-critical data with at least two independent sources when available.
+- Never invent a statistic, quotation, benchmark, experiment, or company adoption claim.
 
-检查初稿文件是否生成，阅读全文确认内容完整性。
+### Step 3: Build the Material Brief
 
----
+After research completes, produce an internal brief containing:
 
-## 阶段三：编辑Agent + 读者Agent并行审阅
-
-初稿完成后，使用 Agent 工具在**同一条消息**中启动编辑Agent和读者Agent。
-
-### 编辑Agent的Prompt模板
-
-```
-你是一位资深公众号编辑（Editor Agent）。请对以下文章进行精修审阅。
-
-## 审阅标准
-1. **标题**：是否在朋友圈能吸引点击？是否会被截断（超过30字）？
-2. **开头**：前3段能否留住读者？钩子是否足够强？
-3. **结构**：逻辑链是否流畅？有无跳跃或断层？
-4. **深度与可读性平衡**：公式/技术部分是否真的通俗？有无"假装通俗但没解释清楚"的地方？
-5. **节奏**：有无太长的段落？每节长度是否合适？
-6. **配图**：图片是否已实际插入（非占位符）？位置是否在读者最需要视觉辅助时出现？
-7. **结尾**：有无传播力？读者看完会想转发吗？
-
-## 文章全文
-{完整初稿}
-
-## 输出格式
-1. 总体评价（3-5句话）
-2. 标题修改建议（给2-3个备选）
-3. 逐节修改建议（给出"原文→建议修改为"的具体对照）
-4. 最关键的3个改进点
-```
-
-### 读者Agent的Prompt模板
-
-```
-你是一位{目标读者画像}（Reader Agent）。请从读者视角审读以下文章。
-
-## 你的背景
-{具体描述目标读者的知识水平和阅读习惯}
-
-## 文章全文
-{完整初稿}
-
-## 请回答以下问题
-1. 读完前3段，你会继续读下去吗？为什么？
-2. 哪些地方"看不懂"或"需要重读才能理解"？具体是哪句话？
-3. 技术/公式部分你看懂了吗？"大白话翻译"是否帮到你了？
-4. 文章的核心类比贴切吗？有更好的类比吗？
-5. 太长还是太短？会在哪里失去耐心？
-6. 读完后你能用一句话概括文章核心观点吗？
-7. 你会转发这篇文章吗？转发时你会说什么？
-8. 有没有你想了解但文章没覆盖的问题？
-```
+1. **Central thesis** — one sentence describing what the article must establish.
+2. **Reader payoff** — what the audience will understand or decide after reading.
+3. **Key evidence** — three to five decisive data points or findings.
+4. **Counterevidence and limitations** — the strongest reasons the central thesis may be incomplete.
+5. **Visual plan** — which figures are necessary, what they show, and their source/licensing status.
+6. **Outline** — six to eight sections, each with a specific purpose.
+7. **Terminology list** — terms that require first-use definitions.
 
 ---
 
-## 阶段四：定稿
+## Phase 2: Author Agent Draft
 
-### 第一步：综合两个Agent的反馈
+Launch an Author Agent with the material brief and the following requirements.
 
-重点关注以下高频问题：
+### Author Prompt Template
 
-| 问题类型 | 编辑常见反馈 | 读者常见反馈 | 处理方式 |
-|---------|------------|------------|---------|
-| 开头太弱 | 钩子不够强 | 前3段没动力继续 | 用数据/反直觉结论重写开头 |
-| 技术段劝退 | 公式太密集 | 某段需要重读3遍 | 删公式或图片化，加更直觉的类比 |
-| 节奏拖沓 | 某节太长 | 某处失去耐心 | 合并或删减（尤其是后半段重复的技术解释） |
-| 结尾无力 | 缺传播力 | 不会转发 | 重写为一句可截图传播的判断 |
-| 概念跳跃 | 逻辑有断层 | 某处"突然看不懂了" | 补过渡句或背景解释 |
+```text
+You are the Author Agent for a publication-ready WeChat long-form article.
 
-### 第二步：执行修改
+Target reader:
+{reader profile}
 
-根据反馈重写文章。核心修改原则：
+Language:
+{requested language}
 
-1. **编辑和读者都指出的问题，必须改**
-2. **只有编辑指出的问题，大概率要改**（编辑的专业判断通常准确）
-3. **只有读者指出的问题，视情况改**（读者反馈代表真实体验，但不一定每条都需要响应）
-4. **两者矛盾时，偏向读者**（编辑追求完美，但读者体验是最终标准）
+Length:
+{target length}
 
-### 第三步：提取配图
+Core thesis and evidence:
+{material brief}
 
-论文解读类文章必须在定稿前完成配图提取：
+Writing requirements:
+- Write for an intelligent reader, not as a literal translation of a paper or report.
+- Use plain language without removing the technical substance.
+- Define technical terms on first use.
+- Use one coherent explanatory analogy only when it improves understanding.
+- Include important equations or quantitative results, but explain each in ordinary language.
+- Keep paragraphs short enough for mobile reading.
+- Do not use emojis unless explicitly requested.
+- Avoid generic AI phrasing and promotional language.
 
-1. **渲染**：`pdftoppm -png -r 900 -f {页码} -l {页码} 论文.pdf /tmp/page`（900 DPI起步，如果图片不到500KB则升到1200或1500 DPI）
-2. **定位**：先用150 DPI渲染全页，目视确认各图表的像素坐标
-3. **裁切**：用 PIL 按坐标裁切，`compress_level=1` 保存，确保每张 ≥ 500KB
-4. **存储**：保存到 `assets/{主题简称}/` 目录，命名为 `fig{序号}-{描述}.png`
-5. **插入**：文章中用 `![描述](../../assets/{主题简称}/fig{序号}-{描述}.png)` 引用
+Required structure:
+1. Opening hook: a verified number, contradiction, concrete event, or counterintuitive result.
+2. Why the problem matters.
+3. Essential background.
+4. Two or three substantive sections explaining the mechanism or argument.
+5. Evidence, experiments, or real cases.
+6. Limitations and strongest counterargument.
+7. Industry or practical implications.
+8. Conclusion: a specific, defensible final judgment.
 
-### 第四步：产出最终文件
+Write the complete first draft.
+```
 
-将定稿保存为 md 文件，文件末尾附上论文/资料原文链接：
+### Formula Requirements
+
+- Use LaTeX: `$...$` inline and `$$...$$` for display equations.
+- Do not present equations as unformatted text.
+- Explain every equation immediately afterward in ordinary language.
+- Include only equations necessary to understand the claim.
+
+### Visual Requirements
+
+For paper or document analysis:
+
+- Use figures only from material the user supplied, public-domain or permissively licensed sources, or sources whose use is reasonably permitted with attribution.
+- Preserve the original caption meaning and provide source attribution.
+- Do not remove watermarks or ownership marks.
+- Do not imply that a redrawn or cropped figure is original work.
+- If rights or reuse conditions are uncertain, link to or describe the figure instead of embedding it.
+
+When a usable PDF is available locally, render the relevant page at sufficient resolution and crop only the required figure. Store images under `assets/{topic-slug}/` with descriptive filenames and cite them in Markdown:
 
 ```markdown
-**论文原文：**
-- arXiv: {链接}
+![Descriptive caption](../../assets/{topic-slug}/fig01-description.png)
+
+Source: {paper/report title, authors or publisher, figure number, year}.
+```
+
+For non-paper articles, prefer original diagrams created for the article or properly licensed source images. Do not add decorative images that provide no explanatory value.
+
+After the Author Agent finishes, verify that the complete draft exists and that citations, formulas, figures, and section order are intact.
+
+---
+
+## Phase 3: Parallel Editor and Reader Review
+
+Launch the Editor Agent and Reader Agent in the same message or parallel execution batch.
+
+### Editor Agent Prompt
+
+```text
+You are the Editor Agent. Review the complete article below for publication.
+
+Evaluate:
+1. Accuracy: are claims supported, qualified, and correctly attributed?
+2. Title: is it specific, informative, and short enough for mobile display?
+3. Opening: do the first three paragraphs establish a reason to continue?
+4. Structure: does every section advance the central thesis?
+5. Explanation: are technical concepts genuinely understandable?
+6. Pacing: where does the article repeat, slow down, or jump too quickly?
+7. Visuals: is every image present, necessary, readable, attributed, and legally usable?
+8. Counterargument: does the article present material limitations fairly?
+9. Ending: is the final judgment specific and supported rather than promotional?
+
+Article:
+{complete draft}
+
+Output:
+- Overall assessment in three to five sentences.
+- Two or three title alternatives.
+- Section-by-section edits with exact replacement wording where necessary.
+- Any factual, sourcing, copyright, or logical blockers.
+- The three highest-priority improvements.
+```
+
+### Reader Agent Prompt
+
+```text
+You are the Reader Agent and match this target profile:
+{reader profile}
+
+Read the complete article and answer:
+1. Would you continue after the first three paragraphs? Why?
+2. Which sentence or section was difficult to understand?
+3. Can you explain the technical mechanism or main argument in your own words?
+4. Did the formulas or visuals improve understanding?
+5. Where did attention begin to decline?
+6. What is the article's central thesis in one sentence?
+7. Which claim felt insufficiently supported or too confident?
+8. What important question remains unanswered?
+9. Would you share the article, and what description would you use?
+
+Article:
+{complete draft}
 ```
 
 ---
 
-## 文件命名与存储
+## Phase 4: Revision and Finalization
 
-| 类型 | 路径 | 命名格式 |
-|------|------|---------|
-| 技术主题 | `reports/AI产业研究/` | `公众号-{主题关键词}-{YYYYMMDD}.md` |
-| 投资主题 | `reports/{公司名}/` | `{公司名}-公众号-{YYYYMMDD}.md` |
-| 通用主题 | `reports/` | `公众号-{主题关键词}-{YYYYMMDD}.md` |
+### Step 1: Merge Feedback
 
----
+Prioritize feedback as follows:
 
-## 写作红线
+1. Factual, attribution, copyright, or logical errors — mandatory correction.
+2. Problems identified by both Editor and Reader — mandatory correction.
+3. Editor-only structural or clarity problems — normally correct.
+4. Reader-only comprehension problems — correct when representative of the target audience.
+5. When Editor and Reader conflict, favor reader comprehension unless doing so would reduce factual accuracy.
 
-1. **不虚构数据**。引用的数据必须有来源，搜不到就标注"估计"
-2. **不用AI腔调**。禁止"让我们一起来看看"、"值得关注的是"、"不得不说"等套话
-3. **不过度承诺**。技术文章不说"颠覆性的"、"革命性的"，用数据说话
-4. **公式必须配大白话**。每个公式后面都要有一段"翻译成人话就是……"
-5. **公式必须用LaTeX**。`$$...$$` 格式，禁止纯文本公式
-6. **配图必须实际插入**。论文解读类从PDF提取高清原图（≥500KB），禁止用 `[图X]` 占位符
-7. **表格括号注释要精确**。描述概念时用准确的定义，不用模糊的动宾短语（如"文本来自教师"而非"学教师的文本"）
-8. **类比要一以贯之**。全文用一个主线类比，不要每节换一个新类比
-9. **结尾必须有传播力**。最后一句话要值得被单独截图转发
+### Step 2: Revise the Article
+
+During revision:
+
+- strengthen or replace a weak opening;
+- remove repeated explanations;
+- add transitions where reasoning jumps;
+- reduce formula density when prose or a diagram explains the mechanism better;
+- preserve essential nuance and counterevidence;
+- replace unsupported certainty with evidence-based language;
+- ensure the final sentence follows from the article rather than functioning as a slogan.
+
+### Step 3: Verify Figures and References
+
+For every embedded visual, confirm:
+
+- the file exists and renders;
+- the crop is legible on mobile;
+- caption and figure number are accurate;
+- source and rights status are recorded;
+- the article does not use a placeholder such as `[Figure X]`.
+
+For every source, retain title, author or publisher, date, URL or local reference, accessed date where relevant, and primary/secondary classification.
+
+### Step 4: Save the Final File
+
+Use filesystem-safe English slugs while allowing the article text to remain in the requested language.
+
+| Topic type | Path | Filename |
+|---|---|---|
+| AI or technical research | `reports/ai-industry-research/` | `wechat-{topic-slug}-{YYYYMMDD}.md` |
+| Company or investment subject | `reports/{company}/` | `{company}-wechat-{YYYYMMDD}.md` |
+| General subject | `reports/` | `wechat-{topic-slug}-{YYYYMMDD}.md` |
+
+At the end, include a concise source section. For a paper article:
+
+```markdown
+## Primary material
+
+- {Paper title}, {authors}, {year}: {URL}
+```
+
+## Publication Gates
+
+The article is not ready to publish until all gates pass:
+
+- no fabricated or untraceable data;
+- no invented or unverified quotations;
+- no unsupported superlatives such as “revolutionary” or “guaranteed”;
+- every equation is formatted and explained;
+- every embedded figure is present, attributed, and usable;
+- estimates are labeled;
+- current claims include dates;
+- the strongest counterargument is represented;
+- the title and ending are specific rather than clickbait;
+- no private user information or local filesystem identity appears in public output.
+
+For investment or financially material articles, run the repository report-audit process when applicable:
+
+```bash
+python3 tools/report_audit.py extract --report {article_path}
+python3 tools/report_audit.py verdict --results '<verified JSON>' --report {article_filename}
+```
+
+A failed audit means the article remains a draft.
+
+## Writing Red Lines
+
+- Do not open with generic phrases such as “Let us take a look,” “It is worth noting,” or “In today’s rapidly changing world.”
+- Do not disguise uncertainty as precision.
+- Do not use a famous person’s holdings or reputation as proof of the article’s conclusion.
+- Do not manufacture reader urgency.
+- Do not use multiple unrelated analogies across sections.
+- Do not sacrifice source accuracy for a cleaner narrative.
+- Do not publish private, confidential, or user-specific information.
