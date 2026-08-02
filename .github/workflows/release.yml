@@ -51,8 +51,12 @@ jobs:
           canonical = {path.stem for path in Path('skills').glob('*.md')}
           skills = {path.parent.name for path in Path('codex-skills').glob('*/SKILL.md')}
           prompts = {path.stem for path in Path('codex-prompts').glob('*.md')}
+          codex_only = skills - canonical
+
           assert len(canonical) == 20
-          assert canonical == skills == prompts
+          assert canonical <= skills
+          assert codex_only == {'investment-memo-craft'}
+          assert canonical == prompts
           PY
 
       - name: Publish GitHub release
