@@ -30,7 +30,7 @@ The canonical operational translation is complete.
 
 | Area | Status |
 |---|---|
-| Stable English-edition release | `v1.0.0` |
+| Stable English-edition release | `v1.1.0` |
 | Canonical shared workflows | 20 English `skills/*.md` sources |
 | Generated Codex shared skills | 20 synchronized packages |
 | Codex-only skills | 1 declared overlay: `investment-memo-craft` |
@@ -262,4 +262,4 @@ Past performance does not guarantee future results. Nothing in this repository c
 
 Read [SUPPORT.md](SUPPORT.md) before opening an issue and [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Contributions should preserve command names, paths, variables, output contracts, financial terminology, and source/generated consistency.
 
-See [`CHANGELOG.md`](CHANGELOG.md), [`docs/ENGLISH_EDITION.md`](docs/ENGLISH_EDITION.md), and the [v1.0.0 release notes](docs/releases/v1.0.0.md) for edition history and release details.
+See [`CHANGELOG.md`](CHANGELOG.md), [`docs/ENGLISH_EDITION.md`](docs/ENGLISH_EDITION.md), and the [v1.1.0 release notes](docs/releases/v1.1.0.md) for edition history and release details.
