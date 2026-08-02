@@ -37,6 +37,8 @@ The canonical operational translation is complete.
 | Optional Codex prompts | 20 synchronized prompts for shared workflows |
 | Installation validation | Ubuntu, macOS, and Windows |
 | End-to-end demonstration | [`docs/QUICKSTART_DEMO.md`](docs/QUICKSTART_DEMO.md) |
+| Public launch kit | [`docs/launch/`](docs/launch/) |
+| Social-preview source | [`assets/social-preview-source.svg`](assets/social-preview-source.svg) |
 | Historical research reports | Preserved primarily in their original language |
 
 Claude Code and Codex use the same English canonical workflows for the 20 shared capabilities. Codex additionally includes the hand-written `investment-memo-craft` report-structure overlay. Generated-file checks prevent the shared environments from silently drifting apart.
@@ -138,6 +140,17 @@ Follow [`docs/QUICKSTART_DEMO.md`](docs/QUICKSTART_DEMO.md) to:
 4. audit a generated report;
 5. confirm Claude Code and Codex use synchronized decision structures.
 
+## Public launch resources
+
+The repository includes a reusable launch package:
+
+- [`docs/launch/LAUNCH_ARTICLE.md`](docs/launch/LAUNCH_ARTICLE.md): long-form public announcement;
+- [`docs/launch/SOCIAL_POSTS.md`](docs/launch/SOCIAL_POSTS.md): LinkedIn, X, Reddit, Hacker News, and release copy;
+- [`docs/launch/SOCIAL_PREVIEW.md`](docs/launch/SOCIAL_PREVIEW.md): preview requirements and upload procedure;
+- [`assets/social-preview-source.svg`](assets/social-preview-source.svg): editable 1280 × 640 social-card source.
+
+The GitHub social-preview image must be uploaded through repository settings; tracking the source asset in Git does not activate the repository metadata automatically.
+
 ## Usage examples
 
 Claude Code commands:
@@ -171,7 +184,7 @@ codex-prompts/*.md          20 optional generated Codex prompts
 scripts/                    Installation and synchronization scripts
 tools/                      Financial validation utilities
 reports/                    Historical and community research output
-docs/                       Maintainer, release, and usage documentation
+docs/                       Maintainer, release, launch, and usage documentation
 ```
 
 Canonical shared workflows should be edited in `skills/*.md` first. Their generated Codex files must then be synchronized using the repository scripts rather than edited independently. A clearly marked Codex-only package may be maintained directly when no same-named canonical source exists.
@@ -218,15 +231,3 @@ Past performance does not guarantee future results. Nothing in this repository c
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request. Contributions should preserve command names, paths, variables, output contracts, financial terminology, and source/generated consistency.
 
 See [`CHANGELOG.md`](CHANGELOG.md), [`docs/ENGLISH_EDITION.md`](docs/ENGLISH_EDITION.md), and the [v1.0.0 release notes](docs/releases/v1.0.0.md) for edition history and release details.
-
-## License
-
-This project is distributed under the repository's [MIT License](LICENSE).
-
-## Disclaimer
-
-This repository is for educational and research purposes only. It does not provide investment, legal, accounting, or tax advice. Perform independent due diligence and consult qualified professionals when appropriate.
-
----
-
-Maintained by [Fernando Abishai](https://github.com/FernandoAbishai). Original project and methodology: [xbtlin/ai-berkshire](https://github.com/xbtlin/ai-berkshire).
