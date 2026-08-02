@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "label": "Q4 revenue",
+    "reported_value": 90.007,
+    "unit": "USD billions",
+    "line_number": 36,
+    "raw_text": "Revenue | $90.007B",
+    "fetched_value": 90.007,
+    "fetched_source": "Microsoft FY2026 Q4 financial statements"
+  },
+  {
+    "id": 2,
+    "label": "Q4 operating income",
+    "reported_value": 40.603,
+    "unit": "USD billions",
+    "line_number": 37,
+    "raw_text": "Operating income | $40.603B",
+    "fetched_value": 40.603,
+    "fetched_source": "Microsoft FY2026 Q4 financial statements"
+  },
+  {
+    "id": 3,
+    "label": "Q4 adjusted net income",
+    "reported_value": 35.286,
+    "unit": "USD billions",
+    "line_number": 39,
+    "raw_text": "Adjusted net income | $35.286B",
+    "fetched_value": 35.286,
+    "fetched_source": "Microsoft OpenAI-adjusted reconciliation"
+  },
+  {
+    "id": 4,
+    "label": "Q4 operating cash flow",
+    "reported_value": 55.441,
+    "unit": "USD billions",
+    "line_number": 42,
+    "raw_text": "Operating cash flow | $55.441B",
+    "fetched_value": 55.441,
+    "fetched_source": "Microsoft FY2026 Q4 cash flow statement"
+  },
+  {
+    "id": 5,
+    "label": "Q4 property additions",
+    "reported_value": 35.802,
+    "unit": "USD billions",
+    "line_number": 43,
+    "raw_text": "Property and equipment additions | $35.802B",
+    "fetched_value": 35.802,
+    "fetched_source": "Microsoft FY2026 Q4 cash flow statement"
+  },
+  {
+    "id": 6,
+    "label": "Q4 simple free cash flow",
+    "reported_value": 19.639,
+    "unit": "USD billions",
+    "line_number": 44,
+    "raw_text": "$55.441B - $35.802B = $19.639B",
+    "fetched_value": 19.639,
+    "fetched_source": "Exact recomputation"
+  },
+  {
+    "id": 7,
+    "label": "Q4 Intelligent Cloud revenue",
+    "reported_value": 39.306,
+    "unit": "USD billions",
+    "line_number": 68,
+    "raw_text": "Intelligent Cloud revenue $39.306B",
+    "fetched_value": 39.306,
+    "fetched_source": "Microsoft FY2026 Q4 segment results"
+  },
+  {
+    "id": 8,
+    "label": "Azure growth",
+    "reported_value": 43,
+    "unit": "percent",
+    "line_number": 72,
+    "raw_text": "Azure and other cloud services increased 43%",
+    "fetched_value": 43,
+    "fetched_source": "Microsoft FY2026 Q4 operating metrics"
+  },
+  {
+    "id": 9,
+    "label": "Commercial remaining performance obligation",
+    "reported_value": 678,
+    "unit": "USD billions",
+    "line_number": 72,
+    "raw_text": "Commercial RPO reached $678B",
+    "fetched_value": 678,
+    "fetched_source": "Microsoft FY2026 Q4 earnings release"
+  },
+  {
+    "id": 10,
+    "label": "Calculated property additions growth",
+    "reported_value": 109.63,
+    "unit": "percent",
+    "line_number": 44,
+    "raw_text": "$35.802B / $17.079B - 1 = 109.63%",
+    "fetched_value": 109.6259,
+    "fetched_source": "Exact recomputation"
+  }
+]
