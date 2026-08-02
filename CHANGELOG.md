@@ -4,6 +4,20 @@ All notable changes to **AI Value Investing Agents** are documented in this file
 
 The project follows [Semantic Versioning](https://semver.org/) for maintained English-edition releases.
 
+## Unreleased
+
+### Added
+
+- Repository-wide quality gates for links, project identity, private paths, high-confidence secrets, operational language, and workflow inventory.
+- Deterministic cross-platform tests for financial calculations, report auditing, Taiwan-stock transformations, and verified example reports.
+- Three point-in-time verified English research examples under `reports/examples/` with source registers and executable audit fixtures.
+
+### Fixed
+
+- Replaced float-based expression evaluation with restricted Decimal arithmetic.
+- Corrected cross-source comparison behavior for negative values and empty source sets.
+- Prevented report audits from passing unverified data or a mismatching single source.
+
 ## [1.0.0] — 2026-08-02
 
 ### Added

@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "label": "Microsoft Cloud Q4 revenue",
+    "reported_value": 59.3,
+    "unit": "USD billions",
+    "line_number": 37,
+    "raw_text": "Microsoft Cloud revenue $59.3B",
+    "fetched_value": 59.3,
+    "fetched_source": "Microsoft FY2026 Q4 earnings release"
+  },
+  {
+    "id": 2,
+    "label": "Azure and other cloud services growth",
+    "reported_value": 43,
+    "unit": "percent",
+    "line_number": 39,
+    "raw_text": "Azure and other cloud services +43%",
+    "fetched_value": 43,
+    "fetched_source": "Microsoft FY2026 Q4 operating metrics"
+  },
+  {
+    "id": 3,
+    "label": "AWS Q1 2026 sales",
+    "reported_value": 37.6,
+    "unit": "USD billions",
+    "line_number": 40,
+    "raw_text": "AWS sales $37.6B",
+    "fetched_value": 37.6,
+    "fetched_source": "Amazon Q1 2026 earnings release"
+  },
+  {
+    "id": 4,
+    "label": "AWS Q1 2026 operating income",
+    "reported_value": 14.2,
+    "unit": "USD billions",
+    "line_number": 40,
+    "raw_text": "AWS operating income $14.2B",
+    "fetched_value": 14.2,
+    "fetched_source": "Amazon Q1 2026 earnings release"
+  },
+  {
+    "id": 5,
+    "label": "AWS calculated operating margin",
+    "reported_value": 37.77,
+    "unit": "percent",
+    "line_number": 40,
+    "raw_text": "$14.2B / $37.6B = 37.77%",
+    "fetched_value": 37.766,
+    "fetched_source": "Exact recomputation"
+  },
+  {
+    "id": 6,
+    "label": "Google Cloud Q4 revenue",
+    "reported_value": 17.7,
+    "unit": "USD billions",
+    "line_number": 41,
+    "raw_text": "Google Cloud revenue $17.7B",
+    "fetched_value": 17.7,
+    "fetched_source": "Alphabet 2025 Q4 earnings call"
+  },
+  {
+    "id": 7,
+    "label": "Google Cloud Q4 operating margin",
+    "reported_value": 30.1,
+    "unit": "percent",
+    "line_number": 41,
+    "raw_text": "Google Cloud operating margin 30.1%",
+    "fetched_value": 30.1,
+    "fetched_source": "Alphabet 2025 Q4 earnings call"
+  },
+  {
+    "id": 8,
+    "label": "Oracle Q4 total cloud revenue",
+    "reported_value": 9.9,
+    "unit": "USD billions",
+    "line_number": 42,
+    "raw_text": "Oracle total cloud revenue $9.9B",
+    "fetched_value": 9.9,
+    "fetched_source": "Oracle FY2026 Q4 earnings release"
+  },
+  {
+    "id": 9,
+    "label": "Oracle Q4 OCI revenue growth",
+    "reported_value": 93,
+    "unit": "percent",
+    "line_number": 43,
+    "raw_text": "Oracle OCI IaaS revenue +93%",
+    "fetched_value": 93,
+    "fetched_source": "Oracle FY2026 Q4 earnings release"
+  },
+  {
+    "id": 10,
+    "label": "Oracle FY2026 free cash flow",
+    "reported_value": -23.7,
+    "unit": "USD billions",
+    "line_number": 106,
+    "raw_text": "Oracle reported FY2026 FCF -$23.7B",
+    "fetched_value": -23.7,
+    "fetched_source": "Oracle FY2026 Q4 earnings release"
+  }
+]
