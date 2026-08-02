@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 未上市公司研究：多Agent并行深度研究框架."
+description: "AI Value Investing Agents slash entry for Private Company Research: Multi-Agent Deep Research Framework."
 argument-hint: $ARGUMENTS
 ---
 

@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 去劣筛选：7条指标快速排除非一流公司."
+description: "AI Value Investing Agents slash entry for Quality Screen: Seven Metrics to Eliminate Clearly Inferior Companies."
 argument-hint: $ARGUMENTS
 ---
 
