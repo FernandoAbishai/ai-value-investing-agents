@@ -300,6 +300,7 @@ def render_verdict(results: list, report_name: str = "") -> dict:
 
     fail_items = []
     warn_items = []
+    unverified_items = []
 
     for item in results:
         label = item.get('label', '?')
@@ -312,8 +313,14 @@ def render_verdict(results: list, report_name: str = "") -> dict:
 
         # --- 主来源比对 ---
         if fetched is None:
-            # 没有提供核验值 → 跳过（不计入通过/失败）
-            print(f'  ⬜ [{item["id"]:>2}] {label[:35]:35s} {reported:>12.2f} {unit}  →  [未提供核验值，跳过]')
+            unverified_items.append({
+                'id': item.get('id'),
+                'label': label,
+                'reported': reported,
+                'unit': unit,
+                'line_number': item.get('line_number', 0),
+            })
+            print(f'  ⬜ [{item["id"]:>2}] {label[:35]:35s} {reported:>12.2f} {unit}  →  [unverified: no fetched value]')
             continue
 
         fetched = float(fetched)
@@ -327,14 +334,14 @@ def render_verdict(results: list, report_name: str = "") -> dict:
 
         # 判断
         pass1 = diff1 <= _TOLERANCE
-        pass2 = (diff2 is None) or (diff2 <= _TOLERANCE)
+        pass2 = None if diff2 is None else (diff2 <= _TOLERANCE)
 
-        if pass1 and pass2:
+        if pass1 and (pass2 is None or pass2):
             status = f'{GREEN}✅ 通过{RESET}'
             detail = f'{source}: {fetched:.2f} (偏差 {diff1*100:.2f}%)'
             if diff2 is not None:
                 detail += f'  |  {source2}: {fetched2:.2f} (偏差 {diff2*100:.2f}%)'
-        elif not pass1 and not pass2:
+        elif (not pass1) and (pass2 is None or not pass2):
             status = f'{RED}❌ 不通过{RESET}'
             detail = f'{source}: {fetched:.2f} (偏差 {diff1*100:.2f}%)'
             if diff2 is not None:
@@ -375,26 +382,33 @@ def render_verdict(results: list, report_name: str = "") -> dict:
     total = len([r for r in results if r.get('fetched_value') is not None])
     fail_count = len(fail_items)
     warn_count = len(warn_items)
+    unverified_count = len(unverified_items)
     pass_count = total - fail_count - warn_count
 
-    print(f'  抽检总数: {total}  |  通过: {GREEN}{pass_count}{RESET}  |  警告: {YELLOW}{warn_count}{RESET}  |  不通过: {RED}{fail_count}{RESET}')
+    print(f'  已核验: {total}  |  通过: {GREEN}{pass_count}{RESET}  |  警告: {YELLOW}{warn_count}{RESET}  |  不通过: {RED}{fail_count}{RESET}  |  Unverified: {unverified_count}')
     print()
 
-    if fail_count == 0:
+    if fail_count == 0 and unverified_count == 0:
         print(f'{BOLD}{GREEN}【准出】所有抽检数据通过，报告可发布。{RESET}')
         verdict = 'PASS'
     else:
-        print(f'{BOLD}{RED}【打回】{fail_count} 个数据点核验不通过，报告需修正后重审。{RESET}')
-        print()
-        print(f'{BOLD}打回原因：{RESET}')
-        for fi in fail_items:
-            print(f'  ❌ 第 {fi["line_number"]} 行 | {fi["label"]}')
-            print(f'     报告值：{fi["reported"]} {fi["unit"]}')
-            print(f'     {fi["source"]}：{fi["fetched"]}  （偏差 {fi["diff1_pct"]}%）')
-            if fi.get('fetched2') is not None:
-                print(f'     {fi["source2"]}：{fi["fetched2"]}  （偏差 {fi["diff2_pct"]}%）')
-            print(f'     原文：{fi["raw_text"][:80]}')
+        issue_count = fail_count + unverified_count
+        print(f'{BOLD}{RED}【打回】{issue_count} 个数据点失败或未核验，报告需修正后重审。{RESET}')
+        if fail_items:
             print()
+            print(f'{BOLD}打回原因：{RESET}')
+            for fi in fail_items:
+                print(f'  ❌ 第 {fi["line_number"]} 行 | {fi["label"]}')
+                print(f'     报告值：{fi["reported"]} {fi["unit"]}')
+                print(f'     {fi["source"]}：{fi["fetched"]}  （偏差 {fi["diff1_pct"]}%）')
+                if fi.get('fetched2') is not None:
+                    print(f'     {fi["source2"]}：{fi["fetched2"]}  （偏差 {fi["diff2_pct"]}%）')
+                print(f'     原文：{fi["raw_text"][:80]}')
+                print()
+        if unverified_items:
+            print(f'{BOLD}Unverified items：{RESET}')
+            for item in unverified_items:
+                print(f'  ⬜ 第 {item["line_number"]} 行 | {item["label"]} — no fetched value')
         verdict = 'FAIL'
 
     if warn_count > 0:
@@ -409,9 +423,11 @@ def render_verdict(results: list, report_name: str = "") -> dict:
         'pass_count': pass_count,
         'warn_count': warn_count,
         'fail_count': fail_count,
+        'unverified_count': unverified_count,
         'total': total,
         'fail_items': fail_items,
         'warn_items': warn_items,
+        'unverified_items': unverified_items,
     }
 
 

@@ -16,6 +16,7 @@ Usage (called automatically by Skills, no manual execution needed):
 """
 
 import argparse
+import ast
 import json
 import math
 import sys
@@ -183,14 +184,25 @@ def cross_validate(field_name, source_values: dict, unit="", tolerance_pct=2.0):
     print(f"交叉验证: {field_name} (Cross-Validation)")
     print("=" * 60)
 
+    if not source_values:
+        raise ValueError("source_values must contain at least one source")
+
     values = {k: exact(v) for k, v in source_values.items()}
     sources = list(values.keys())
     nums = list(values.values())
 
-    # Find median as reference
-    sorted_vals = sorted(float(v) for v in nums)
+    # Use an exact Decimal median so negative and fractional values remain auditable.
+    sorted_vals = sorted(nums)
     n = len(sorted_vals)
-    median = sorted_vals[n // 2] if n % 2 == 1 else (sorted_vals[n//2-1] + sorted_vals[n//2]) / 2
+    median_decimal = (
+        sorted_vals[n // 2]
+        if n % 2 == 1
+        else _CTX.divide(
+            _CTX.add(sorted_vals[n // 2 - 1], sorted_vals[n // 2]),
+            Decimal("2"),
+        )
+    )
+    median = float(median_decimal)
 
     print(f"  数据来源数: {len(sources)}")
     print(f"  参考中位数: {fmt_number(exact(median))} {unit}")
@@ -198,7 +210,11 @@ def cross_validate(field_name, source_values: dict, unit="", tolerance_pct=2.0):
 
     all_ok = True
     for src, val in values.items():
-        dev = abs(float(val) - median) / median * 100 if median != 0 else 0
+        dev = (
+            abs(float(val) - median) / abs(median) * 100
+            if median != 0
+            else (0 if val == 0 else float("inf"))
+        )
         status = "✅" if dev <= tolerance_pct else "❌"
         if dev > tolerance_pct:
             all_ok = False
@@ -298,31 +314,44 @@ def benford_check(values: list):
 # 5. Exact Calculator (精确计算器)
 # ---------------------------------------------------------------------------
 
-def exact_calc(expr: str):
-    """Evaluate a financial expression with exact decimal arithmetic.
+_BINARY_DECIMAL_OPERATIONS = {
+    ast.Add: _CTX.add,
+    ast.Sub: _CTX.subtract,
+    ast.Mult: _CTX.multiply,
+    ast.Div: _CTX.divide,
+}
 
-    Supports: +, -, *, /, (), numbers (including scientific notation).
-    """
+
+def _eval_decimal_node(node) -> Decimal:
+    """Evaluate a restricted arithmetic AST using Decimal operations only."""
+    if isinstance(node, ast.Expression):
+        return _eval_decimal_node(node.body)
+    if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+        return Decimal(str(node.value))
+    if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.UAdd, ast.USub)):
+        value = _eval_decimal_node(node.operand)
+        return value if isinstance(node.op, ast.UAdd) else -value
+    if isinstance(node, ast.BinOp) and type(node.op) in _BINARY_DECIMAL_OPERATIONS:
+        operation = _BINARY_DECIMAL_OPERATIONS[type(node.op)]
+        return operation(_eval_decimal_node(node.left), _eval_decimal_node(node.right))
+    raise ValueError("expression contains unsupported syntax")
+
+
+def exact_calc(expr: str):
+    """Evaluate +, -, *, /, unary signs, and parentheses with Decimal arithmetic."""
     print("=" * 60)
     print("精确计算 (Exact Calculator)")
     print("=" * 60)
 
-    # Safe evaluation: only allow numbers and arithmetic
-    allowed = set("0123456789.+-*/() eE")
-    if not all(c in allowed for c in expr.replace(" ", "")):
-        print(f"  ❌ 不安全的表达式: {expr}")
-        return None
-
     try:
-        # Replace scientific notation for Decimal compatibility
-        result = eval(expr, {"__builtins__": {}}, {})
-        d_result = exact(result)
+        tree = ast.parse(expr, mode="eval")
+        d_result = _eval_decimal_node(tree)
         print(f"  表达式: {expr}")
         print(f"  结果:   {fmt_number(d_result)}")
         print(f"  精确值: {d_result}")
         return float(d_result)
-    except Exception as e:
-        print(f"  ❌ 计算错误: {e}")
+    except (SyntaxError, ValueError, InvalidOperation, ZeroDivisionError) as error:
+        print(f"  ❌ Unsupported or invalid expression: {error}")
         return None
 
 
