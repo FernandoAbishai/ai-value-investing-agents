@@ -6,7 +6,7 @@
 
 - **Repository:** `FernandoAbishai/ai-value-investing-agents`
 - **Display name:** AI Value Investing Agents
-- **Stable release:** `v1.0.0`
+- **Stable release:** `v1.1.0`
 - **Framework lineage:** AI Berkshire
 - **Maintainer:** Fernando Abishai
 - **Original project:** [xbtlin/ai-berkshire](https://github.com/xbtlin/ai-berkshire)
@@ -49,10 +49,10 @@ A Codex-only skill may be maintained directly under `codex-skills/` only when it
 | Unified installation management | Install, update, doctor, uninstall, backups, manifests, and dry-run |
 | Cross-platform installation validation | Ubuntu, macOS, and Windows |
 | End-to-end workflow demonstration | Published in `docs/QUICKSTART_DEMO.md` |
-| Tagged English-edition release | `v1.0.0` |
+| Tagged English-edition release | `v1.1.0` |
 | Public launch article and channel copy | Prepared in `docs/launch/` |
 | Video demonstration script and publishing gate | Prepared in `docs/launch/` |
-| Structured support and feedback intake | Four issue forms, `SUPPORT.md`, and launch triage plan |
+| Structured support and feedback intake | Four issue forms, `SUPPORT.md`, issue #17, and launch triage plan |
 | Social-preview design source | Prepared at `assets/social-preview-source.svg` |
 | GitHub social-preview metadata | Uploaded by the maintainer |
 | Historical research archive | Preserved primarily in its original language |
@@ -70,9 +70,9 @@ A Codex-only skill may be maintained directly under `codex-skills/` only when it
 - the presence of exactly one declared Codex-only package, `investment-memo-craft`;
 - clean installation of 20 Claude Code commands, 21 Codex skills, and 20 prompts on Ubuntu, macOS, and Windows.
 
-`.github/workflows/release.yml` publishes a semantic-version GitHub release only when a commit merged to `main` begins with `Release vX.Y.Z`, the matching release-notes file exists, and release validation succeeds.
+`.github/workflows/release.yml` publishes a semantic-version GitHub release only when a commit merged to `main` begins with `Release vX.Y.Z`, the matching release-notes file exists, and release validation succeeds. Release validation includes repository quality gates, the complete deterministic test suite, workflow inventory checks, and the unified installation lifecycle.
 
-Release notes for the first maintained edition are in `docs/releases/v1.0.0.md`.
+Release notes for the current maintained edition are in `docs/releases/v1.1.0.md`; the initial edition remains documented in `docs/releases/v1.0.0.md`.
 
 ## Historical Reports
 
@@ -121,25 +121,27 @@ Generated commentary must not impersonate a real person or imply endorsement. Un
 - [x] Publish a curated set of three verified English example reports.
 - [x] Add unified installation, update, diagnostics, and safe uninstall management.
 - [x] Add structured issue forms, support policy, feedback triage, video script, and publishing checklist.
+- [x] Prepare the `v1.1.0` reliability and operations release.
 
-## Post-v1.0.0 Roadmap
+## Post-v1.1.0 Roadmap
 
 - [ ] Publish the launch article and selected social posts.
 - [ ] Record and publish the prepared video demonstration using a verified example.
-- [ ] Collect external installation feedback through the structured issue forms.
+- [ ] Collect external installation feedback through issue #17 and the structured issue forms.
 - [ ] Expand verified examples to additional markets and accounting regimes.
 - [ ] Add deeper property-based and CLI error-path tests where useful.
 
-## v1.0.0 Release Checklist
+## v1.1.0 Release Checklist
 
 ```text
 [x] Both synchronization scripts pass with --check.
-[x] Installation scripts are covered on Unix-like environments and Windows.
-[x] README commands match actual repository paths.
-[x] Generated Codex shared artifacts match all canonical workflows.
-[x] The Codex-only package is explicitly declared and validated.
-[x] Active guidance contains no stale maintained-project paths.
-[x] Public documentation contains no private paths, tokens, or identity data.
-[x] An end-to-end workflow demonstration is published.
-[x] Release notes explain lineage, attribution, limitations, and migration.
+[x] Repository quality gates pass.
+[x] The complete deterministic test suite passes on Ubuntu, macOS, and Windows.
+[x] Unified install, doctor, idempotent update, and uninstall pass.
+[x] Backward-compatible installer aliases remain validated.
+[x] All three verified-example audit fixtures receive PASS.
+[x] Structured issue forms include reproducible fields and privacy guards.
+[x] README and edition metadata identify v1.1.0 as the stable release.
+[x] Release notes explain compatibility, upgrade steps, attribution, and limitations.
+[x] No temporary updater script or workflow remains in the merge candidate.
 ```
