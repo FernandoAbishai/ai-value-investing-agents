@@ -12,6 +12,8 @@ The project follows [Semantic Versioning](https://semver.org/) for maintained En
 - Deterministic cross-platform tests for financial calculations, report auditing, Taiwan-stock transformations, and verified example reports.
 - Three point-in-time verified English research examples under `reports/examples/` with source registers and executable audit fixtures.
 - Unified cross-platform installation management with manifests, backups, dry runs, drift diagnostics, updates, and safe uninstall behavior.
+- Structured issue forms for workflow, financial-data, installation, and workflow-proposal feedback.
+- Support policy, launch feedback triage plan, verified-workflow video script, and public publishing checklist.
 
 ### Fixed
 

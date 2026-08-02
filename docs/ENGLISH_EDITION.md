@@ -51,6 +51,8 @@ A Codex-only skill may be maintained directly under `codex-skills/` only when it
 | End-to-end workflow demonstration | Published in `docs/QUICKSTART_DEMO.md` |
 | Tagged English-edition release | `v1.0.0` |
 | Public launch article and channel copy | Prepared in `docs/launch/` |
+| Video demonstration script and publishing gate | Prepared in `docs/launch/` |
+| Structured support and feedback intake | Four issue forms, `SUPPORT.md`, and launch triage plan |
 | Social-preview design source | Prepared at `assets/social-preview-source.svg` |
 | GitHub social-preview metadata | Uploaded by the maintainer |
 | Historical research archive | Preserved primarily in its original language |
@@ -62,7 +64,7 @@ A Codex-only skill may be maintained directly under `codex-skills/` only when it
 
 - generator `--check` modes;
 - repository quality gates for links, identity, privacy, secrets, and operational language;
-- deterministic unit and example-report tests;
+- deterministic unit, example-report, installer, and community-template tests;
 - Python compilation;
 - one-to-one correspondence among 20 canonical workflows, 20 generated Codex shared packages, and 20 prompts;
 - the presence of exactly one declared Codex-only package, `investment-memo-craft`;
@@ -118,12 +120,13 @@ Generated commentary must not impersonate a real person or imply endorsement. Un
 - [x] Add deterministic financial and audit-tool tests.
 - [x] Publish a curated set of three verified English example reports.
 - [x] Add unified installation, update, diagnostics, and safe uninstall management.
+- [x] Add structured issue forms, support policy, feedback triage, video script, and publishing checklist.
 
 ## Post-v1.0.0 Roadmap
 
 - [ ] Publish the launch article and selected social posts.
-- [ ] Record and publish a video demonstration using a verified example.
-- [ ] Collect installation feedback from Claude Code and Codex users.
+- [ ] Record and publish the prepared video demonstration using a verified example.
+- [ ] Collect external installation feedback through the structured issue forms.
 - [ ] Expand verified examples to additional markets and accounting regimes.
 - [ ] Add deeper property-based and CLI error-path tests where useful.
 
