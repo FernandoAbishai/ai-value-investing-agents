@@ -92,7 +92,7 @@ jobs:
           PY
 
           ./scripts/manage.sh uninstall --all
-          test -z "$(find "$CLAUDE_COMMANDS_DIR" -maxdepth 1 -name '*.md' -print -quit)"
+          test -z "$(find "$CLAUDE_COMMANDS_DIR" -maxdepth 1 -name '*.md' -print -quit 2>/dev/null || true)"
           test -z "$(find "$CODEX_HOME/skills" -mindepth 1 -maxdepth 1 -type d -print -quit 2>/dev/null || true)"
           test -z "$(find "$CODEX_HOME/prompts" -maxdepth 1 -name '*.md' -print -quit 2>/dev/null || true)"
 
@@ -163,13 +163,13 @@ jobs:
 
           cmd /c scripts\manage.bat uninstall --all
           if ($LASTEXITCODE -ne 0) { throw 'Unified uninstall failed' }
-          if ((Get-ChildItem $env:CLAUDE_COMMANDS_DIR -Filter *.md).Count -ne 0) {
+          if ((Test-Path $env:CLAUDE_COMMANDS_DIR) -and ((Get-ChildItem $env:CLAUDE_COMMANDS_DIR -Filter *.md).Count -ne 0)) {
             throw 'Claude managed files remain after uninstall'
           }
-          if ((Get-ChildItem "$env:CODEX_HOME\skills" -Directory -ErrorAction SilentlyContinue).Count -ne 0) {
+          if ((Test-Path "$env:CODEX_HOME\skills") -and ((Get-ChildItem "$env:CODEX_HOME\skills" -Directory).Count -ne 0)) {
             throw 'Codex skills remain after uninstall'
           }
-          if ((Get-ChildItem "$env:CODEX_HOME\prompts" -Filter *.md -ErrorAction SilentlyContinue).Count -ne 0) {
+          if ((Test-Path "$env:CODEX_HOME\prompts") -and ((Get-ChildItem "$env:CODEX_HOME\prompts" -Filter *.md).Count -ne 0)) {
             throw 'Codex prompts remain after uninstall'
           }
 
