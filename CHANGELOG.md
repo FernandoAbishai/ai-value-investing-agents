@@ -8,8 +8,9 @@ The project follows [Semantic Versioning](https://semver.org/) for maintained En
 
 ### Added
 
-- English canonical versions of all 20 investment-research workflows.
-- Generated Codex skill packages and optional slash prompts synchronized from canonical sources.
+- English canonical versions of all 20 shared investment-research workflows.
+- Twenty generated Codex skill packages and 20 optional slash prompts synchronized from canonical sources.
+- The hand-written Codex-only `investment-memo-craft` report-writing and layout overlay.
 - Cross-platform installers for Claude Code and OpenAI Codex.
 - Permanent GitHub Actions validation on Ubuntu, macOS, and Windows.
 - Automatic semantic-version release publication for approved `Release vX.Y.Z` commits.
@@ -21,14 +22,16 @@ The project follows [Semantic Versioning](https://semver.org/) for maintained En
 - Renamed the maintained edition and active checkout path to `ai-value-investing-agents`.
 - Rebuilt the English README, maintenance documentation, and repository identity.
 - Updated `AGENTS.md` and `CLAUDE.md` to remove stale project names, paths, fixed-language requirements, and obsolete operating assumptions.
+- Rewrote `investment-memo-craft` for the maintained English edition and removed its inherited Chinese report template.
 - Converted real-investor style simulations into explicitly labeled framework-based interpretations where appropriate.
 - Strengthened source, attribution, privacy, copyright, current-date, and false-precision controls.
 
 ### Compatibility
 
-- Claude Code uses `skills/*.md` as installed slash commands.
-- Codex uses generated `codex-skills/*/SKILL.md` packages and optional `codex-prompts/*.md` entries.
-- Canonical source and generated artifacts are validated for one-to-one consistency.
+- Claude Code installs 20 canonical workflows from `skills/*.md`.
+- Codex installs 20 generated shared skill packages plus `investment-memo-craft`.
+- Codex optionally installs 20 generated slash prompts for the shared workflows.
+- Canonical source and generated shared artifacts are validated for one-to-one consistency.
 
 ### Migration
 
