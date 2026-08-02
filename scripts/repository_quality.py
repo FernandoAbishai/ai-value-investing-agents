@@ -91,6 +91,12 @@ def line_number(text: str, offset: int) -> int:
     return text.count("\n", 0, offset) + 1
 
 
+def source_line(text: str, offset: int) -> str:
+    start = text.rfind("\n", 0, offset) + 1
+    end = text.find("\n", offset)
+    return text[start:] if end == -1 else text[start:end]
+
+
 def clean_markdown_target(raw: str) -> str:
     target = raw.strip()
     if target.startswith("<") and ">" in target:
@@ -173,6 +179,10 @@ def check_private_paths(files: list[Path]) -> list[Finding]:
             continue
         for label, pattern in PRIVATE_PATH_PATTERNS.items():
             for match in pattern.finditer(text):
+                line = source_line(text, match.start())
+                # Detection examples are allowed only when explicitly marked with placeholders.
+                if "<local-username>" in line and "<private-identifier>" in line:
+                    continue
                 findings.append(Finding("privacy", rel, line_number(text, match.start()), label))
     return findings
 
