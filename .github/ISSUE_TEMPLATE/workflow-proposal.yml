@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Explain the research decision this proposal improves. New workflows should have a clear boundary, testable output contract, and no unnecessary duplication.
+        Explain the research decision this proposal improves. New workflows should have a clear boundary, testable output contract, and no unnecessary duplication. Do not include credentials, confidential documents, private paths, unpublished holdings, or personal financial information.
   - type: input
     id: name
     attributes:
@@ -65,4 +65,6 @@ body:
         - label: The proposal does not request personalized investment advice or promise returns.
           required: true
         - label: The proposed behavior can be evaluated with concrete tests or examples.
+          required: true
+        - label: I removed credentials, confidential information, private paths, and personal financial data.
           required: true
