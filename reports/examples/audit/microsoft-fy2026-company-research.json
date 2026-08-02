@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "label": "FY2026 revenue",
+    "reported_value": 331.839,
+    "unit": "USD billions",
+    "line_number": 56,
+    "raw_text": "Revenue | $331.839B",
+    "fetched_value": 331.839,
+    "fetched_source": "Microsoft FY2026 Q4 financial statements"
+  },
+  {
+    "id": 2,
+    "label": "FY2026 operating income",
+    "reported_value": 155.237,
+    "unit": "USD billions",
+    "line_number": 57,
+    "raw_text": "Operating income | $155.237B",
+    "fetched_value": 155.237,
+    "fetched_source": "Microsoft FY2026 Q4 financial statements"
+  },
+  {
+    "id": 3,
+    "label": "FY2026 adjusted net income",
+    "reported_value": 128.786,
+    "unit": "USD billions",
+    "line_number": 60,
+    "raw_text": "Adjusted net income | $128.786B",
+    "fetched_value": 128.786,
+    "fetched_source": "Microsoft OpenAI-adjusted reconciliation"
+  },
+  {
+    "id": 4,
+    "label": "FY2026 operating cash flow",
+    "reported_value": 182.935,
+    "unit": "USD billions",
+    "line_number": 63,
+    "raw_text": "Net cash from operations | $182.935B",
+    "fetched_value": 182.935,
+    "fetched_source": "Microsoft FY2026 cash flow statement"
+  },
+  {
+    "id": 5,
+    "label": "FY2026 property additions",
+    "reported_value": 115.948,
+    "unit": "USD billions",
+    "line_number": 64,
+    "raw_text": "Property and equipment additions | $115.948B",
+    "fetched_value": 115.948,
+    "fetched_source": "Microsoft FY2026 cash flow statement"
+  },
+  {
+    "id": 6,
+    "label": "FY2026 simple free cash flow",
+    "reported_value": 66.987,
+    "unit": "USD billions",
+    "line_number": 65,
+    "raw_text": "$182.935B - $115.948B = $66.987B",
+    "fetched_value": 66.987,
+    "fetched_source": "Exact recomputation"
+  },
+  {
+    "id": 7,
+    "label": "Productivity and Business Processes revenue",
+    "reported_value": 139.996,
+    "unit": "USD billions",
+    "line_number": 91,
+    "raw_text": "PBP revenue $139.996B",
+    "fetched_value": 139.996,
+    "fetched_source": "Microsoft FY2026 segment results"
+  },
+  {
+    "id": 8,
+    "label": "Intelligent Cloud revenue",
+    "reported_value": 137.791,
+    "unit": "USD billions",
+    "line_number": 92,
+    "raw_text": "Intelligent Cloud revenue $137.791B",
+    "fetched_value": 137.791,
+    "fetched_source": "Microsoft FY2026 segment results"
+  },
+  {
+    "id": 9,
+    "label": "Calculated net cash",
+    "reported_value": 36.549,
+    "unit": "USD billions",
+    "line_number": 130,
+    "raw_text": "$76.843B - $9.227B - $31.067B = $36.549B",
+    "fetched_value": 36.549,
+    "fetched_source": "Exact recomputation"
+  },
+  {
+    "id": 10,
+    "label": "Approximate price to simple FCF",
+    "reported_value": 50.01,
+    "unit": "x",
+    "line_number": 183,
+    "raw_text": "$3.35T / $66.987B = 50.01x",
+    "fetched_value": 50.0097,
+    "fetched_source": "Exact recomputation from rounded market capitalization"
+  }
+]
