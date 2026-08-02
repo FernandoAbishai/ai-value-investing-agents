@@ -29,7 +29,7 @@ The repository now uses English as its default entry point. Translation of the o
 | Main README | English |
 | Installation instructions | English and updated for this fork |
 | Community and maintenance documentation | English-first |
-| Core canonical workflows | `investment-research`, `investment-team`, `investment-checklist`, `financial-data`, `news-pulse`, `earnings-review`, `earnings-team`, `management-deep-dive`, `private-company-research`, and `quality-screen` translated |
+| Core canonical workflows | `investment-research`, `investment-team`, `investment-checklist`, `financial-data`, `news-pulse`, `earnings-review`, `earnings-team`, `management-deep-dive`, `private-company-research`, `quality-screen`, `industry-research`, `industry-funnel`, `bottleneck-hunter`, `portfolio-review`, and `thesis-tracker` translated |
 | Remaining canonical `skills/*.md` workflows | Translation in progress |
 | Generated Codex skills and prompts | Synchronized from the current canonical workflow sources |
 | Historical research reports | Preserved primarily in their original language |
