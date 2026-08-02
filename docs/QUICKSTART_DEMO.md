@@ -49,6 +49,8 @@ Windows:
 
 Restart Codex after installation.
 
+Codex installs the 20 shared research workflows plus the hand-written Codex-only `investment-memo-craft` writing overlay. The optional prompt installer creates prompts only for the 20 canonical shared workflows.
+
 ## 4. Run the Same Workflow in Either Environment
 
 Claude Code:
@@ -115,18 +117,20 @@ python3 scripts/sync-codex-skills.py --check
 python3 scripts/sync-codex-prompts.py --check
 ```
 
-Both commands must complete successfully. Claude Code and Codex should then be following the same canonical workflow.
+Both commands must complete successfully. Claude Code and Codex should then be following the same canonical workflow for the shared skill.
 
 ## Demonstration Success Criteria
 
 The demonstration succeeds when:
 
 - installation completes without writing into the repository itself;
-- 20 Claude Code commands, 20 Codex skills, and 20 Codex prompts are installed;
+- 20 Claude Code commands are installed;
+- 21 Codex skills are installed: 20 generated shared skills plus `investment-memo-craft`;
+- 20 optional Codex prompts are installed;
 - the workflow confirms the current date;
 - current evidence is sourced rather than recalled from training data;
 - financial calculations use repository tools;
 - the report passes its audit or remains explicitly labeled as a draft;
-- Claude Code and Codex produce the same decision structure even when their wording differs.
+- Claude Code and Codex produce the same decision structure for the shared workflow even when their wording differs.
 
 The repository's GitHub Actions validation workflow automatically tests installation counts and generated-file consistency on Ubuntu, macOS, and Windows.
