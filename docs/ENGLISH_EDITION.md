@@ -31,7 +31,9 @@ The repository uses one canonical source per shared workflow:
 4. Run both synchronization scripts with `--check`.
 5. Verify command names, paths, placeholders, code blocks, audit gates, and output contracts.
 
-Generated files must not be translated or edited independently because that creates drift between Claude Code and Codex behavior.
+Generated shared files must not be translated or edited independently because that creates drift between Claude Code and Codex behavior.
+
+A Codex-only skill may be maintained directly under `codex-skills/` only when it is clearly declared and has no same-named canonical source. The current declared Codex-only skill is `investment-memo-craft`.
 
 ## Current Status
 
@@ -40,9 +42,10 @@ Generated files must not be translated or edited independently because that crea
 | Repository identity and clone paths | Complete |
 | English README and installation instructions | Complete |
 | `AGENTS.md` and `CLAUDE.md` | English and aligned with the maintained edition |
-| All 20 canonical `skills/*.md` workflows | English |
-| Codex skill packages | Generated from canonical English sources |
-| Codex slash prompts | Generated from canonical English sources |
+| Canonical shared `skills/*.md` workflows | 20 English workflows |
+| Generated Codex shared packages | 20 packages from canonical English sources |
+| Codex-only packages | 1 declared package: `investment-memo-craft` |
+| Codex slash prompts | 20 generated prompts for shared workflows |
 | Cross-platform installation validation | Ubuntu, macOS, and Windows |
 | End-to-end workflow demonstration | Published in `docs/QUICKSTART_DEMO.md` |
 | Tagged English-edition release | `v1.0.0` |
@@ -56,8 +59,9 @@ Generated files must not be translated or edited independently because that crea
 
 - generator `--check` modes;
 - Python compilation;
-- one-to-one correspondence among 20 canonical workflows, 20 Codex skill packages, and 20 prompts;
-- clean installation on Ubuntu, macOS, and Windows.
+- one-to-one correspondence among 20 canonical workflows, 20 generated Codex shared packages, and 20 prompts;
+- the presence of exactly one declared Codex-only package, `investment-memo-craft`;
+- clean installation of 20 Claude Code commands, 21 Codex skills, and 20 prompts on Ubuntu, macOS, and Windows.
 
 `.github/workflows/release.yml` publishes a semantic-version GitHub release only when a commit merged to `main` begins with `Release vX.Y.Z`, the matching release-notes file exists, and release validation succeeds.
 
@@ -98,6 +102,7 @@ Generated commentary must not impersonate a real person or imply endorsement. Un
 - [x] Synchronize Codex skills and prompts from canonical sources.
 - [x] Clarify historical-report and performance attribution.
 - [x] Replace stale Claude Code and Codex repository guidance.
+- [x] Update the Codex-only report overlay for the English edition.
 - [x] Add cross-platform installation and consistency validation.
 - [x] Publish an end-to-end workflow demonstration.
 - [x] Prepare and publish the `v1.0.0` English-edition release.
@@ -117,7 +122,8 @@ Generated commentary must not impersonate a real person or imply endorsement. Un
 [x] Both synchronization scripts pass with --check.
 [x] Installation scripts are covered on Unix-like environments and Windows.
 [x] README commands match actual repository paths.
-[x] Generated Codex artifacts match all canonical workflows.
+[x] Generated Codex shared artifacts match all canonical workflows.
+[x] The Codex-only package is explicitly declared and validated.
 [x] Active guidance contains no stale maintained-project paths.
 [x] Public documentation contains no private paths, tokens, or identity data.
 [x] An end-to-end workflow demonstration is published.
