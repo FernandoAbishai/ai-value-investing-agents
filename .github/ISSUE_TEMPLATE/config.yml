@@ -1,1 +1,11 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/FernandoAbishai/ai-value-investing-agents/security/policy
+    about: Report credential exposure, unsafe execution, prompt-injection bypasses, or another security issue privately.
+  - name: Installation and usage guide
+    url: https://github.com/FernandoAbishai/ai-value-investing-agents/blob/main/docs/INSTALLATION.md
+    about: Review installation, update, doctor, uninstall, backup, and recovery instructions before opening an issue.
+  - name: Verified examples
+    url: https://github.com/FernandoAbishai/ai-value-investing-agents/tree/main/reports/examples
+    about: See complete point-in-time examples and their verification register.
