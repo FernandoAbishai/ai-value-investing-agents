@@ -31,13 +31,15 @@ The canonical operational translation is complete.
 | Area | Status |
 |---|---|
 | Stable English-edition release | `v1.0.0` |
-| Canonical `skills/*.md` workflows | All 20 available in English |
-| Generated Codex skills and prompts | Synchronized from canonical sources |
+| Canonical shared workflows | 20 English `skills/*.md` sources |
+| Generated Codex shared skills | 20 synchronized packages |
+| Codex-only skills | 1 declared overlay: `investment-memo-craft` |
+| Optional Codex prompts | 20 synchronized prompts for shared workflows |
 | Installation validation | Ubuntu, macOS, and Windows |
 | End-to-end demonstration | [`docs/QUICKSTART_DEMO.md`](docs/QUICKSTART_DEMO.md) |
 | Historical research reports | Preserved primarily in their original language |
 
-Claude Code and Codex use the same English canonical workflows. Generated-file checks prevent the two environments from silently drifting apart.
+Claude Code and Codex use the same English canonical workflows for the 20 shared capabilities. Codex additionally includes the hand-written `investment-memo-craft` report-structure overlay. Generated-file checks prevent the shared environments from silently drifting apart.
 
 ## Skills
 
@@ -75,6 +77,7 @@ Claude Code and Codex use the same English canonical workflows. Generated-file c
 
 - [`dyp-ask`](skills/dyp-ask.md): Duan Yongping-inspired reasoning with explicit attribution boundaries.
 - [`wechat-article`](skills/wechat-article.md): Author–Editor–Reader workflow for publication-ready long-form articles.
+- [`investment-memo-craft`](codex-skills/investment-memo-craft/SKILL.md): Codex-only report-writing and layout overlay.
 
 ## Installation
 
@@ -105,6 +108,8 @@ git clone https://github.com/FernandoAbishai/ai-value-investing-agents.git
 cd ai-value-investing-agents
 ./scripts/install-codex-skills.sh
 ```
+
+This installs 20 generated shared skills and the Codex-only `investment-memo-craft` overlay.
 
 Optional slash prompts:
 
@@ -154,21 +159,22 @@ Use investment-research to research Tencent.
 Use earnings-review to analyze Apple's latest quarterly results.
 Use industry-funnel to screen AI infrastructure companies.
 Use thesis-drift to compare two investment thesis reports.
+Use investment-memo-craft to restructure the completed report for decision use.
 ```
 
 ## Repository architecture
 
 ```text
-skills/*.md                 Canonical workflow sources
-codex-skills/*/SKILL.md     Generated Codex skill packages
-codex-prompts/*.md          Optional generated Codex prompts
+skills/*.md                 20 canonical shared workflow sources
+codex-skills/*/SKILL.md     20 generated shared packages + 1 Codex-only package
+codex-prompts/*.md          20 optional generated Codex prompts
 scripts/                    Installation and synchronization scripts
 tools/                      Financial validation utilities
 reports/                    Historical and community research output
 docs/                       Maintainer, release, and usage documentation
 ```
 
-Canonical workflows should be edited in `skills/*.md` first. Generated Codex files must then be synchronized using the repository scripts rather than edited independently.
+Canonical shared workflows should be edited in `skills/*.md` first. Their generated Codex files must then be synchronized using the repository scripts rather than edited independently. A clearly marked Codex-only package may be maintained directly when no same-named canonical source exists.
 
 ## Validation
 
@@ -182,8 +188,10 @@ python3 -m compileall -q scripts tools
 
 The permanent GitHub Actions workflow additionally checks:
 
-- one-to-one consistency among 20 canonical workflows, 20 Codex skills, and 20 prompts;
-- clean Claude Code and Codex installation;
+- 20 canonical shared workflows;
+- 20 matching generated Codex skills and 20 prompts;
+- exactly one declared Codex-only skill, `investment-memo-craft`;
+- clean installation of 20 Claude commands, 21 Codex skills, and 20 Codex prompts;
 - Unix-like installation on Ubuntu and macOS;
 - Windows `.bat` installation.
 
