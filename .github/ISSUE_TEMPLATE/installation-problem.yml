@@ -1,0 +1,85 @@
+name: Installation problem
+description: Report a reproducible install, update, doctor, uninstall, or compatibility failure.
+title: "[Install]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Run the doctor command when possible. Redact local usernames and do not include tokens, private paths, or the contents of unrelated files.
+  - type: dropdown
+    id: operating_system
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: os_version
+    attributes:
+      label: Operating-system version
+      placeholder: Windows 11 24H2, macOS 15, Ubuntu 24.04
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: Python 3.12.10
+    validations:
+      required: true
+  - type: dropdown
+    id: operation
+    attributes:
+      label: Operation
+      options:
+        - Install
+        - Update
+        - Doctor
+        - Uninstall
+        - Dry run
+        - Backward-compatible installer alias
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command
+      description: Replace private path segments with placeholders such as `<local-username>`.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Redacted output
+      description: Include the complete error and remove credentials, usernames, and unrelated private file names.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Doctor output
+      description: Run `scripts/manage.sh doctor --all` or `scripts\manage.bat doctor --all` when installation state exists.
+      render: text
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Safety checks
+      options:
+        - label: I reviewed `docs/INSTALLATION.md` and tried the relevant recovery step.
+          required: true
+        - label: I removed credentials, local usernames, private paths, and confidential data.
+          required: true
+        - label: I am using an official Python 3.10+ installation.
+          required: true
