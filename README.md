@@ -37,6 +37,7 @@ The canonical operational translation is complete.
 | Optional Codex prompts | 20 synchronized prompts for shared workflows |
 | Installation validation | Ubuntu, macOS, and Windows |
 | End-to-end demonstration | [`docs/QUICKSTART_DEMO.md`](docs/QUICKSTART_DEMO.md) |
+| Verified English examples | [`reports/examples/`](reports/examples/) |
 | Public launch kit | [`docs/launch/`](docs/launch/) |
 | Social-preview source | [`assets/social-preview-source.svg`](assets/social-preview-source.svg) |
 | Historical research reports | Preserved primarily in their original language |
@@ -140,6 +141,17 @@ Follow [`docs/QUICKSTART_DEMO.md`](docs/QUICKSTART_DEMO.md) to:
 4. audit a generated report;
 5. confirm Claude Code and Codex use synchronized decision structures.
 
+## Verified English examples
+
+The curated [`reports/examples/`](reports/examples/) collection demonstrates the repository's research and audit controls with point-in-time public evidence:
+
+- [`microsoft-fy2026-company-research-20260802.md`](reports/examples/microsoft-fy2026-company-research-20260802.md): full company research, cash conversion, valuation, and scenario analysis;
+- [`microsoft-fy2026-q4-earnings-review-20260802.md`](reports/examples/microsoft-fy2026-q4-earnings-review-20260802.md): earnings quality, segment changes, capital intensity, and monitoring signals;
+- [`cloud-infrastructure-comparison-20260802.md`](reports/examples/cloud-infrastructure-comparison-20260802.md): definition-aware comparison of Microsoft, AWS, Google Cloud, and Oracle;
+- [`VERIFICATION.md`](reports/examples/VERIFICATION.md): source and calculation register.
+
+The examples are newly prepared research artifacts, not mechanical translations of the historical archive. CI requires their metadata and selected audit fixtures to remain valid.
+
 ## Public launch resources
 
 The repository includes a reusable launch package:
@@ -183,7 +195,7 @@ codex-skills/*/SKILL.md     20 generated shared packages + 1 Codex-only package
 codex-prompts/*.md          20 optional generated Codex prompts
 scripts/                    Installation and synchronization scripts
 tools/                      Financial validation utilities
-reports/                    Historical and community research output
+reports/                    Verified examples plus historical and community research output
 docs/                       Maintainer, release, launch, and usage documentation
 ```
 
@@ -194,13 +206,17 @@ Canonical shared workflows should be edited in `skills/*.md` first. Their genera
 Before submitting a workflow or tooling change, run:
 
 ```bash
+python3 scripts/repository_quality.py
 python3 scripts/sync-codex-skills.py --check
 python3 scripts/sync-codex-prompts.py --check
-python3 -m compileall -q scripts tools
+python3 -m compileall -q scripts tools tests
+python3 -m unittest discover -s tests -v
 ```
 
 The permanent GitHub Actions workflow additionally checks:
 
+- repository links, maintained identity, private paths, high-confidence secrets, and operational-language drift;
+- deterministic financial, audit, Taiwan-data, and verified-example tests;
 - 20 canonical shared workflows;
 - 20 matching generated Codex skills and 20 prompts;
 - exactly one declared Codex-only skill, `investment-memo-craft`;

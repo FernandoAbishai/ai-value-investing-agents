@@ -51,15 +51,17 @@ A Codex-only skill may be maintained directly under `codex-skills/` only when it
 | Tagged English-edition release | `v1.0.0` |
 | Public launch article and channel copy | Prepared in `docs/launch/` |
 | Social-preview design source | Prepared at `assets/social-preview-source.svg` |
-| GitHub social-preview metadata | Manual image upload still required in repository settings |
+| GitHub social-preview metadata | Uploaded by the maintainer |
 | Historical research archive | Preserved primarily in its original language |
-| Curated newly verified English reports | Planned after v1.0.0 |
+| Curated newly verified English reports | Three published under `reports/examples/` with executable audit fixtures |
 
 ## Validation and Release Process
 
 `.github/workflows/validate.yml` verifies:
 
 - generator `--check` modes;
+- repository quality gates for links, identity, privacy, secrets, and operational language;
+- deterministic unit and example-report tests;
 - Python compilation;
 - one-to-one correspondence among 20 canonical workflows, 20 generated Codex shared packages, and 20 prompts;
 - the presence of exactly one declared Codex-only package, `investment-memo-craft`;
@@ -110,16 +112,19 @@ Generated commentary must not impersonate a real person or imply endorsement. Un
 - [x] Prepare and publish the `v1.0.0` English-edition release.
 - [x] Prepare a long-form launch article and channel-specific social copy.
 - [x] Prepare an editable 1280 × 640 social-preview source.
+- [x] Upload the GitHub social preview.
+- [x] Add repository-wide quality gates.
+- [x] Add deterministic financial and audit-tool tests.
+- [x] Publish a curated set of three verified English example reports.
 
 ## Post-v1.0.0 Roadmap
 
-- [ ] Upload the prepared PNG in GitHub **Settings → Social preview**.
+- [ ] Add a unified installer, updater, uninstaller, and diagnostics command.
 - [ ] Publish the launch article and selected social posts.
-- [ ] Record and publish a video demonstration.
-- [ ] Add a small curated set of newly verified English research reports.
-- [ ] Add link checking and stale-repository-reference validation.
-- [ ] Expand tool-level tests for financial and report-audit utilities.
+- [ ] Record and publish a video demonstration using a verified example.
 - [ ] Collect installation feedback from Claude Code and Codex users.
+- [ ] Expand verified examples to additional markets and accounting regimes.
+- [ ] Add deeper property-based and CLI error-path tests where useful.
 
 ## v1.0.0 Release Checklist
 
