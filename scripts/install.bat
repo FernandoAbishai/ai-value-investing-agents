@@ -9,5 +9,5 @@ if %ERRORLEVEL%==0 (
   set "PY=python"
 )
 
-%PY% "%ROOT%\scripts\manage.py" install --claude %*
+%PY% "%ROOT%\scripts\manage.py" install %*
 exit /b %ERRORLEVEL%

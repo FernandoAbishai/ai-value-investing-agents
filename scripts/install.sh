@@ -2,4 +2,4 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-exec python3 "$ROOT/scripts/manage.py" install --codex-prompts "$@"
+exec python3 "$ROOT/scripts/manage.py" install "$@"

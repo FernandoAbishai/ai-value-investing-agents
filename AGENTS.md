@@ -16,7 +16,8 @@ Do not reintroduce the old repository name or checkout path into active installa
 - `skills/*.md`: canonical workflow sources used by Claude Code and as the source for generated Codex artifacts.
 - `codex-skills/*/SKILL.md`: generated Codex skill packages.
 - `codex-prompts/*.md`: generated optional slash-command prompts for Codex.
-- `scripts/`: synchronization and installation scripts.
+- `scripts/manage.py`: unified install, update, doctor, and uninstall manager.
+- `scripts/`: compatibility wrappers, synchronization, quality, and release scripts.
 - `tools/`: exact-arithmetic, financial-data, and report-audit utilities.
 - `reports/`: historical and newly generated research output.
 - `docs/`: edition, release, and usage documentation.
@@ -76,5 +77,7 @@ Do not reintroduce the old repository name or checkout path into active installa
 Claude Code commands install to `${CLAUDE_COMMANDS_DIR:-$HOME/.claude/commands}`.
 
 Codex skills and optional prompts install under `${CODEX_HOME:-$HOME/.codex}`.
+
+Use `scripts/manage.py` or its shell and batch wrappers for installation changes. Preserve manifest ownership, collision backups, `--dry-run`, drift diagnostics, and refusal to delete modified entries without explicit force. Keep component-specific installers as compatible aliases.
 
 Use the repository-root-relative commands documented in the README. Do not assume that the checkout is located in a particular user's home directory when running tools; locate the actual repository root first.

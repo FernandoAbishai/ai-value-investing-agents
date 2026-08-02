@@ -11,6 +11,7 @@ The project follows [Semantic Versioning](https://semver.org/) for maintained En
 - Repository-wide quality gates for links, project identity, private paths, high-confidence secrets, operational language, and workflow inventory.
 - Deterministic cross-platform tests for financial calculations, report auditing, Taiwan-stock transformations, and verified example reports.
 - Three point-in-time verified English research examples under `reports/examples/` with source registers and executable audit fixtures.
+- Unified cross-platform installation management with manifests, backups, dry runs, drift diagnostics, updates, and safe uninstall behavior.
 
 ### Fixed
 

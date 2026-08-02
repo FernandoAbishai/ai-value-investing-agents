@@ -17,7 +17,7 @@ The repository preserves historical reports and methodology from the original pr
 skills/                       Canonical workflow definitions
 codex-skills/*/SKILL.md       Generated Codex skill packages
 codex-prompts/*.md            Generated optional Codex prompts
-scripts/                      Synchronization and installation scripts
+scripts/                      Synchronization, quality, and installation-management scripts
 tools/                        Financial and report-validation utilities
 reports/                      Historical and newly generated research
 assets/                       Images and other report assets
@@ -76,6 +76,19 @@ Use filesystem-safe names and the path defined by each workflow. Common patterns
 | `portfolio-review` | `reports/portfolio-latest.md` |
 
 When an existing report structure differs, preserve it unless the task specifically requests migration.
+
+## Local Installation Management
+
+Use the unified manager rather than copying installed files manually:
+
+```bash
+./scripts/install.sh --all
+./scripts/manage.sh update --all
+./scripts/manage.sh doctor --all
+./scripts/manage.sh uninstall --all
+```
+
+Windows uses `scripts\install.bat` and `scripts\manage.bat`. Preserve backups, manifests, `--dry-run`, component targeting, and modified-file deletion safeguards when changing installer behavior. Existing component-specific scripts are compatibility aliases and must remain tested.
 
 ## Git and Repository Operations
 

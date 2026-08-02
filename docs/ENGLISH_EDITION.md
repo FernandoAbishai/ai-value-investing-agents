@@ -46,6 +46,7 @@ A Codex-only skill may be maintained directly under `codex-skills/` only when it
 | Generated Codex shared packages | 20 packages from canonical English sources |
 | Codex-only packages | 1 declared package: `investment-memo-craft` |
 | Codex slash prompts | 20 generated prompts for shared workflows |
+| Unified installation management | Install, update, doctor, uninstall, backups, manifests, and dry-run |
 | Cross-platform installation validation | Ubuntu, macOS, and Windows |
 | End-to-end workflow demonstration | Published in `docs/QUICKSTART_DEMO.md` |
 | Tagged English-edition release | `v1.0.0` |
@@ -116,10 +117,10 @@ Generated commentary must not impersonate a real person or imply endorsement. Un
 - [x] Add repository-wide quality gates.
 - [x] Add deterministic financial and audit-tool tests.
 - [x] Publish a curated set of three verified English example reports.
+- [x] Add unified installation, update, diagnostics, and safe uninstall management.
 
 ## Post-v1.0.0 Roadmap
 
-- [ ] Add a unified installer, updater, uninstaller, and diagnostics command.
 - [ ] Publish the launch article and selected social posts.
 - [ ] Record and publish a video demonstration using a verified example.
 - [ ] Collect installation feedback from Claude Code and Codex users.

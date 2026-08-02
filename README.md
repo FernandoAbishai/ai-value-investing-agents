@@ -36,6 +36,7 @@ The canonical operational translation is complete.
 | Codex-only skills | 1 declared overlay: `investment-memo-craft` |
 | Optional Codex prompts | 20 synchronized prompts for shared workflows |
 | Installation validation | Ubuntu, macOS, and Windows |
+| Unified local management | [`docs/INSTALLATION.md`](docs/INSTALLATION.md) |
 | End-to-end demonstration | [`docs/QUICKSTART_DEMO.md`](docs/QUICKSTART_DEMO.md) |
 | Verified English examples | [`reports/examples/`](reports/examples/) |
 | Public launch kit | [`docs/launch/`](docs/launch/) |
@@ -84,52 +85,51 @@ Claude Code and Codex use the same English canonical workflows for the 20 shared
 
 ## Installation
 
-### Claude Code
+Clone the repository after installing Claude Code, OpenAI Codex, or both through their official distribution channels:
 
 ```bash
-npm install -g @anthropic-ai/claude-code
-
 git clone https://github.com/FernandoAbishai/ai-value-investing-agents.git
 cd ai-value-investing-agents
-./scripts/install-claude-commands.sh
+```
+
+### Install both environments
+
+Unix-like systems:
+
+```bash
+./scripts/install.sh --all
 ```
 
 Windows:
 
 ```bat
-git clone https://github.com/FernandoAbishai/ai-value-investing-agents.git
-cd ai-value-investing-agents
-.\scripts\install-claude-commands.bat
+scripts\install.bat --all
 ```
 
-### OpenAI Codex
-
-Install Codex using an official installation method, then clone this repository:
+### Install one environment
 
 ```bash
-git clone https://github.com/FernandoAbishai/ai-value-investing-agents.git
-cd ai-value-investing-agents
-./scripts/install-codex-skills.sh
+./scripts/install.sh --claude
+./scripts/install.sh --codex
 ```
 
-This installs 20 generated shared skills and the Codex-only `investment-memo-craft` overlay.
+Codex installation includes 20 generated shared skills, the Codex-only `investment-memo-craft` overlay, and 20 optional compatibility prompts.
 
-Optional slash prompts:
+### Update, diagnose, or uninstall
 
 ```bash
-./scripts/install-codex-prompts.sh
+./scripts/manage.sh update --all
+./scripts/manage.sh doctor --all
+./scripts/manage.sh uninstall --all
 ```
 
-Windows:
+Windows uses `scripts\manage.bat` with the same arguments.
 
-```bat
-git clone https://github.com/FernandoAbishai/ai-value-investing-agents.git
-cd ai-value-investing-agents
-.\scripts\install-codex-skills.bat
-.\scripts\install-codex-prompts.bat
-```
+The manager supports `--dry-run`, collision backups, SHA-256 drift detection, JSON diagnostics, component-specific targets, and safe forced removal. It never downloads content or runs `git pull`.
 
-Restart Claude Code or Codex after installation.
+See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for destinations, environment overrides, backup behavior, recovery, and backward-compatible commands.
+
+Restart Claude Code or Codex after installation or update.
 
 ## End-to-end demonstration
 
@@ -161,7 +161,7 @@ The repository includes a reusable launch package:
 - [`docs/launch/SOCIAL_PREVIEW.md`](docs/launch/SOCIAL_PREVIEW.md): preview requirements and upload procedure;
 - [`assets/social-preview-source.svg`](assets/social-preview-source.svg): editable 1280 × 640 social-card source.
 
-The GitHub social-preview image must be uploaded through repository settings; tracking the source asset in Git does not activate the repository metadata automatically.
+The editable source remains tracked in Git; the raster social preview was uploaded separately through repository settings.
 
 ## Usage examples
 
@@ -193,7 +193,7 @@ Use investment-memo-craft to restructure the completed report for decision use.
 skills/*.md                 20 canonical shared workflow sources
 codex-skills/*/SKILL.md     20 generated shared packages + 1 Codex-only package
 codex-prompts/*.md          20 optional generated Codex prompts
-scripts/                    Installation and synchronization scripts
+scripts/                    Synchronization, installation management, and quality scripts
 tools/                      Financial validation utilities
 reports/                    Verified examples plus historical and community research output
 docs/                       Maintainer, release, launch, and usage documentation
@@ -216,7 +216,8 @@ python3 -m unittest discover -s tests -v
 The permanent GitHub Actions workflow additionally checks:
 
 - repository links, maintained identity, private paths, high-confidence secrets, and operational-language drift;
-- deterministic financial, audit, Taiwan-data, and verified-example tests;
+- deterministic financial, audit, Taiwan-data, verified-example, and installer-safety tests;
+- unified install, update, doctor, uninstall, and backward-compatible alias lifecycles;
 - 20 canonical shared workflows;
 - 20 matching generated Codex skills and 20 prompts;
 - exactly one declared Codex-only skill, `investment-memo-craft`;
