@@ -49,9 +49,11 @@ A Codex-only skill may be maintained directly under `codex-skills/` only when it
 | Cross-platform installation validation | Ubuntu, macOS, and Windows |
 | End-to-end workflow demonstration | Published in `docs/QUICKSTART_DEMO.md` |
 | Tagged English-edition release | `v1.0.0` |
+| Public launch article and channel copy | Prepared in `docs/launch/` |
+| Social-preview design source | Prepared at `assets/social-preview-source.svg` |
+| GitHub social-preview metadata | Manual image upload still required in repository settings |
 | Historical research archive | Preserved primarily in its original language |
 | Curated newly verified English reports | Planned after v1.0.0 |
-| Social preview and launch material | Planned after v1.0.0 |
 
 ## Validation and Release Process
 
@@ -106,11 +108,14 @@ Generated commentary must not impersonate a real person or imply endorsement. Un
 - [x] Add cross-platform installation and consistency validation.
 - [x] Publish an end-to-end workflow demonstration.
 - [x] Prepare and publish the `v1.0.0` English-edition release.
+- [x] Prepare a long-form launch article and channel-specific social copy.
+- [x] Prepare an editable 1280 × 640 social-preview source.
 
 ## Post-v1.0.0 Roadmap
 
-- [ ] Add a GitHub social preview image.
-- [ ] Publish a public launch article and video demonstration.
+- [ ] Upload the prepared PNG in GitHub **Settings → Social preview**.
+- [ ] Publish the launch article and selected social posts.
+- [ ] Record and publish a video demonstration.
 - [ ] Add a small curated set of newly verified English research reports.
 - [ ] Add link checking and stale-repository-reference validation.
 - [ ] Expand tool-level tests for financial and report-audit utilities.
