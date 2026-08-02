@@ -1,152 +1,154 @@
 ---
 name: investment-memo-craft
-description: Codex-only writing and layout overlay for AI Berkshire investment research reports. Use whenever Codex creates, rewrites, revises, or critiques company/industry/fund research reports, especially long-form Markdown reports that need financial rigor, readable business mechanics, contrarian analysis, valuation-to-action guidance, investor-specific recommendations, restrained typography, and clear buy/hold/sell signals. Do not use this to modify Claude Code slash-command sources.
+description: Codex-only writing and layout overlay for AI Value Investing Agents research reports. Use when Codex creates, rewrites, revises, or critiques company, industry, portfolio, or fund research—especially long-form Markdown that needs financial rigor, readable business mechanics, inversion, valuation-to-action guidance, restrained typography, and explicit monitoring signals. Do not use this skill to modify Claude Code canonical workflow sources.
 ---
 
 # Investment Memo Craft
 
 ## Purpose
 
-Turn investment research into a decision-ready Codex research report. Keep the data discipline of the underlying research skill, but make the output easier for an investor to use: concrete business mechanics, sharp inverse thinking, explicit opportunity cost, action thresholds, and calm Markdown typography.
+Turn investment research into a decision-ready Codex report. Preserve the data discipline of the underlying research workflow while making the output easier to use: concrete business mechanics, serious inverse thinking, explicit opportunity cost, action thresholds, and calm Markdown structure.
 
-Use this as a writing and judgment overlay. It does not replace financial-data rules, primary-source checks, valuation tools, or report audit tooling.
+This is a writing and judgment overlay. It does not replace primary-source checks, `financial-data`, valuation tools, report-audit tooling, or the gates defined by the underlying workflow.
 
-For long-form AI Berkshire outputs, title the artifact as a "research report" by default. Use "investment memo" only when the user explicitly asks for a memo format.
+For long-form AI Value Investing Agents output, call the artifact a `research report` by default. Use `investment memo` only when the user explicitly requests that format.
 
-This is a Codex-only hand-written skill kept under `codex-skills/` for simple installation. Do not add a same-named `skills/investment-memo-craft.md` source unless intentionally adopting this workflow for Claude Code too.
+This is a hand-written Codex-only skill kept under `codex-skills/` for simple installation. Do not create `skills/investment-memo-craft.md` unless the workflow is intentionally adopted for Claude Code as well.
 
 ## Core Workflow
 
-1. Open with context; reserve the full decision for after the evidence.
-   - In the first screen, state the research date, price, market cap, valuation, and a short thesis.
-   - Do not front-load the full buy/hold/sell table unless the user explicitly asks for an executive memo.
-   - Put the detailed recommendation, investor-specific actions, and price bands near the end, after business quality, risk, and valuation have been argued.
-   - Separate "good business" from "good investment at this price".
+1. **Open with context; reserve the final action for after the evidence.**
+   - State the research date, data cutoff, price, market capitalization, valuation, and short thesis early.
+   - Do not front-load a complete buy, hold, or sell table unless the user asks for an executive memo.
+   - Put detailed recommendations, user-specific implications, and price bands after business quality, risk, and valuation have been argued.
+   - Separate `good business` from `good investment at this price`.
 
-2. Build the operating map before the philosophy.
-   - Include revenue structure, segment economics, unit drivers, and 3-5 year trends early.
-   - For asset-heavy businesses, show the key assets individually when they explain the moat.
-   - Explain the pricing mechanism, customer lock-in, cost structure, and reinvestment needs.
+2. **Build the operating map before applying philosophy.**
+   - Show revenue structure, segment economics, unit drivers, and three-to-five-year trends.
+   - For asset-heavy businesses, identify the assets that explain economics or moat.
+   - Explain pricing, customer lock-in, cost structure, reinvestment needs, and cash conversion.
 
-3. Compress business essence into one memorable sentence.
-   - Prefer a sentence that describes who pays, why they pay, what is scarce, and what repeats.
-   - Avoid generic labels such as "industry leader" unless followed by the mechanism that makes leadership durable.
+3. **Compress the business essence into one memorable sentence.**
+   - Explain who pays, why they pay, what is scarce, and what repeats.
+   - Avoid generic labels such as `industry leader` unless the mechanism behind durable leadership is stated.
 
-4. Make the moat falsifiable.
-   - Score or table the moat by source: brand/pricing power, switching cost, network effect, scale, cost advantage, regulation, resource scarcity, technology.
-   - Explain whether the moat widened or narrowed over the last 5 years.
-   - Ask what can destroy the moat, even if the answer is "not competitors, but regulation/weather/price paid".
+4. **Make the moat falsifiable.**
+   - Assess brand and pricing power, switching costs, network effects, scale, cost advantage, regulation, resource scarcity, technology, and culture as applicable.
+   - Explain whether the moat widened or narrowed over the last five years.
+   - State what could destroy or bypass it.
 
-5. Do real inverse thinking.
-   - Include failure paths with probability, impact, and observable indicators.
-   - Write the strongest bear case in language a smart short seller or non-buyer would actually use.
-   - Explicitly identify the most likely analytical mistake.
+5. **Use genuine inversion.**
+   - Include failure paths with likelihood, impact, and observable indicators.
+   - Write the strongest bear case in language a serious non-buyer would accept.
+   - Identify the most likely analytical mistake.
+   - Do not assign precise probabilities without a defensible empirical basis.
 
-6. Evaluate management through capital allocation.
-   - Replace vague praise with decision history: acquisitions, divestitures, buybacks, dividends, leverage, reinvestment, strategic pivots.
-   - Judge incentives: insider ownership, controlling shareholder behavior, compensation, related-party transactions, and shareholder return policy.
-   - Ask whether the business depends on a person or on a system.
+6. **Evaluate management through capital allocation and conduct.**
+   - Replace vague praise with decisions: acquisitions, divestitures, buybacks, dividends, leverage, reinvestment, and strategic pivots.
+   - Assess incentives, ownership, controlling-shareholder behavior, compensation, related-party transactions, and shareholder treatment.
+   - Determine whether the business depends on one person or on a durable system.
 
-7. Connect industry trend to value capture.
-   - Distinguish civilization-level trend from investable company-level economics.
-   - Describe where the company sits in the value chain and who captures the profit pool.
-   - Identify whether TAM growth, pricing, utilization, or capital intensity is the real driver.
+7. **Connect industry trend to value capture.**
+   - Separate a broad structural trend from company-level economics.
+   - Show where the company sits in the value chain and who captures the profit pool.
+   - Identify whether TAM growth, pricing, utilization, market share, or capital intensity is the real driver.
 
-8. Convert valuation into action.
-   - Show current multiples, reverse DCF intuition, scenario valuation, historical comparison, and comparable companies when relevant.
-   - Include dividends or capital returns in expected return when they matter.
-   - Provide price bands, add signals, trim/sell signals, and what would change the thesis.
+8. **Convert valuation into conditional action.**
+   - Show current multiples, reverse-DCF intuition, scenario valuation, historical comparison, and comparable companies when useful.
+   - Include dividends and other capital returns where material.
+   - Define price bands, reinforcement conditions, reduction conditions, and thesis-breaking evidence.
+   - Use exact-arithmetic repository tools for decision-sensitive calculations.
 
-9. Close with a decision memo.
-   - Include a summary table by business quality, moat, management, risk, trend, and valuation.
-   - Give distinct advice for empty-handed investors and existing holders.
-   - Include the action table here, not at the top, for long-form research reports.
-   - End by separating AI analysis confidence from actual investment certainty.
+9. **Close with a decision section.**
+   - Summarize business quality, moat, management, risk, trend, valuation, and confidence.
+   - Separate implications for an investor without a position from those for an existing holder.
+   - End by distinguishing evidence confidence from actual investment certainty.
 
 ## Style Standards
 
-- Prefer concrete numbers and mechanisms over adjectives.
-- Use tables when they reduce cognitive load: assets, segments, failure paths, management decisions, scenario valuations, action bands.
-- Write in clear investor prose. A good memo should be understandable after one read and useful after one month.
+- Prefer numbers, mechanisms, and sourced examples over adjectives.
+- Use tables when they reduce cognitive load: segments, assets, failure paths, management decisions, scenarios, and action bands.
+- Write clear investor prose that remains useful after the immediate news cycle.
 - Keep memorable formulations, but never let rhetoric outrun evidence.
-- Avoid hiding behind vague labels such as "wait and see" without specifying the price or event that would change the recommendation.
+- Avoid vague recommendations such as `wait and see` without naming the price, event, or evidence that changes the decision.
+- Follow the user's requested language. English is the default for this maintained edition.
+- Do not imitate real investors or present framework commentary as an authentic quotation or endorsement.
 
 ## Layout Standards
 
-For long-form research reports, prefer a calm stepped layout:
+For long-form reports, prefer a calm stepped layout:
 
-- Use a simple title: `公司名（ticker）研究报告`. Avoid adding "四大师综合" or "投资备忘录" to the title unless the user asks for that framing.
-- Use dated filenames for reports: `公司名研究报告-YYYYMMDD.md`.
-- Start with one compact metadata block: research date, price, market cap, key multiples, and a one-sentence thesis.
-- Use horizontal separators between major sections.
-- Use Chinese step headings for readability, for example "第一步：核心数据总览", "第二步：生意本质分析", and "第八步：最终决策与行动清单".
-- Keep section titles short and concrete; avoid dense numbering such as "2.3.1" unless the document is technical.
-- Use quote blocks for master-style questions, not inline bold paragraphs.
-- Treat GitHub Markdown as the typography system: use heading levels, tables, quote blocks, and bold text; do not add HTML/CSS font styling unless the user explicitly asks for a non-GitHub artifact.
-- Use bold sparingly as a reading guide: metadata labels, one-sentence conclusion labels, key phrases, total/current-company rows, latest-year values, scenario target prices, action rows, and audit verdicts.
-- Keep ordinary facts in normal weight. Do not bold full tables or every important-looking number; over-emphasis makes long research feel noisy.
-- Use explicit `+` and `-` signs for growth rates and return ranges so positive/negative movement can be scanned without rereading the sentence.
-- Put checklists under "AI research bias awareness" when the company is information-rich or consensus-heavy.
-- Keep audit and tool details light at the end. Do not expose command lines unless the user asks for reproducibility commands.
-- If a prior report has a layout the user likes, preserve its reading rhythm while keeping only data that passes the current validation standard.
+- Use a simple title such as `{Company} ({ticker}) Research Report`.
+- Use dated filenames such as `{company}-research-report-{YYYYMMDD}.md`.
+- Start with one compact metadata block: research date, cutoff date, price, market cap, key multiples, and one-sentence thesis.
+- Use horizontal separators only between major sections.
+- Keep section titles short and concrete; avoid dense numbering such as `2.3.1` unless the document is technical.
+- Use quote blocks for framework questions, not to fabricate quotations.
+- Treat GitHub Markdown as the typography system. Avoid HTML or CSS styling unless the user requests another artifact format.
+- Use bold sparingly for labels, decisive phrases, scenario outputs, action rows, and audit verdicts.
+- Keep ordinary facts in normal weight. Excess emphasis makes long research harder to scan.
+- Use explicit `+` and `-` signs for growth and return ranges.
+- Keep audit and tool detail concise at the end unless reproducibility commands are requested.
+- Preserve a prior report's useful reading rhythm only when its facts pass current validation.
 
 ## Default Report Shape
 
-For AI Berkshire company reports, use this order unless the user asks otherwise:
+Use this order unless the underlying workflow or the user requires another structure:
 
-1. `AI研究偏见自觉`
-   - State the information-richness rating, consensus trap, bias checklist, and AI research limitation.
+1. **Research scope and bias controls**
+   - Data cutoff, evidence quality, consensus risks, missing information, and likely AI biases.
 
-2. `第一步：核心数据总览`
-   - Show segment revenue, key operating assets or units, 3-5 year financial trend, and cross-source validation.
+2. **Core data overview**
+   - Segments, operating units or assets, three-to-five-year trends, and source reconciliation.
 
-3. `第二步：生意本质分析`
-   - Define the business in one sentence, map revenue/cost/customer/asset life/growth drivers, and explain the real profit variables.
+3. **Business essence**
+   - Who pays, why revenue repeats, cost structure, customer behavior, asset life, and principal profit drivers.
 
-4. `第三步：护城河评估`
-   - Score moat sources, explain evidence, and state what can destroy or weaken the moat.
+4. **Moat assessment**
+   - Moat sources, evidence, direction, durability, and invalidation conditions.
 
-5. `第四步：逆向思考与风险清单`
-   - Put the bear case in serious language. Include failure paths, probability, impact, and observable warning indicators.
+5. **Inversion and risk**
+   - Serious bear case, failure paths, impact, observable warnings, and the analyst's most likely mistake.
 
-6. `第五步：管理层评估`
-   - Judge management through capital allocation, governance, incentives, dividends/buybacks, leverage, and whether the business is system-driven.
+6. **Management and capital allocation**
+   - Governance, incentives, reinvestment, M&A, buybacks, dividends, leverage, and succession.
 
-7. `第六步：行业与文明趋势`
-   - Separate broad trend from investable economics and explain where the company captures value.
+7. **Industry and structural trend**
+   - Value-chain position, profit-pool capture, cycle or structural trend, and disruption risk.
 
-8. `第七步：估值与安全边际`
-   - Show current valuation, reverse-DCF intuition, scenario valuation, comparable companies if useful, and explicit price bands.
+8. **Valuation and margin of safety**
+   - Current valuation, reverse-DCF intuition, bull/base/bear scenarios, peers where useful, and conditional price bands.
 
-9. `第八步：最终决策与行动清单`
-   - Put the full decision here, not at the top: summary table, advice for empty-handed investors, advice for holders, add/sell triggers, and master-style comments if useful.
+9. **Decision and monitoring plan**
+   - Summary table, implications for new and existing investors, action triggers, thesis-breaking evidence, and monitoring cadence.
 
-10. `AI分析置信度 vs 投资确定性`
-    - Separate data confidence from investment certainty.
+10. **Evidence confidence versus investment certainty**
+    - Separate data quality from the certainty of the investment outcome.
 
-11. `数据来源与审计记录`
-    - List key sources and concise audit results. Keep command lines out of the report unless explicitly requested.
+11. **Sources and audit record**
+    - Key sources, reporting periods, accessed dates, discrepancies, and concise audit result.
 
 ## Quality Bar
 
-A strong memo should answer these questions without forcing the reader to infer:
+A strong report answers these questions directly:
 
-- What exactly does this company sell, to whom, and why does money repeat?
-- What are the 2-3 variables that actually move profit?
-- Why might smart people refuse to buy?
-- What is already priced in?
-- What return is plausible under bull/base/bear cases, including dividends if relevant?
-- What should an empty-handed investor do?
-- What should a holder do?
+- What does the company sell, to whom, and why does revenue repeat?
+- Which two or three variables actually move profit and owner earnings?
+- Why might an informed investor refuse to buy?
+- What expectations are already reflected in the price?
+- What outcomes are plausible under bull, base, and bear scenarios?
+- What should a prospective investor study or wait for?
+- What should an existing holder monitor?
 - What evidence would make the thesis wrong?
 
 ## Pairing With Other Skills
 
-When the task requires fresh company research, first use the relevant data/research skill and its validation requirements. Then use this skill to rewrite or structure the output as a memo.
+When a task requires fresh research, use the relevant canonical workflow and its validation requirements first. Apply this skill afterward to structure or rewrite the result.
 
-For AI Berkshire work, pair especially with:
+Pair especially with:
 
-- `financial-data` for source hierarchy and cross-source validation.
-- `investment-research` for the Buffett/Munger/Duan/Li Lu framework.
-- `management-deep-dive` when management quality is the core uncertainty.
-- `report_audit.py` before treating a report as publishable.
+- `financial-data` for source hierarchy and reconciliation;
+- `investment-research` or `investment-team` for full company analysis;
+- `management-deep-dive` when stewardship is the central uncertainty;
+- `portfolio-review` when position sizing and opportunity cost matter;
+- `tools/report_audit.py` before treating financially material output as publishable.
