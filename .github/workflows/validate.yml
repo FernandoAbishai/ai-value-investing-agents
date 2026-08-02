@@ -1,0 +1,118 @@
+name: Validate
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  posix:
+    name: Validate ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify generated artifacts
+        run: |
+          python3 scripts/sync-codex-skills.py --check
+          python3 scripts/sync-codex-prompts.py --check
+
+      - name: Compile Python files
+        run: python3 -m compileall -q scripts tools
+
+      - name: Verify workflow inventory
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          canonical = {path.stem for path in Path('skills').glob('*.md')}
+          codex_skills = {path.parent.name for path in Path('codex-skills').glob('*/SKILL.md')}
+          prompts = {path.stem for path in Path('codex-prompts').glob('*.md')}
+
+          assert len(canonical) == 20, f'Expected 20 canonical workflows, found {len(canonical)}'
+          assert canonical == codex_skills, f'Codex skill mismatch: {canonical ^ codex_skills}'
+          assert canonical == prompts, f'Codex prompt mismatch: {canonical ^ prompts}'
+          print('Verified 20 synchronized workflows.')
+          PY
+
+      - name: Test clean installation
+        env:
+          CLAUDE_COMMANDS_DIR: ${{ runner.temp }}/claude/commands
+          CODEX_HOME: ${{ runner.temp }}/codex
+        run: |
+          bash scripts/install-claude-commands.sh
+          bash scripts/install-codex-skills.sh
+          bash scripts/install-codex-prompts.sh
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          claude = list(Path(os.environ['CLAUDE_COMMANDS_DIR']).glob('*.md'))
+          codex_home = Path(os.environ['CODEX_HOME'])
+          skills = list((codex_home / 'skills').glob('*/SKILL.md'))
+          prompts = list((codex_home / 'prompts').glob('*.md'))
+
+          assert len(claude) == 20, f'Claude install count: {len(claude)}'
+          assert len(skills) == 20, f'Codex skill install count: {len(skills)}'
+          assert len(prompts) == 20, f'Codex prompt install count: {len(prompts)}'
+          print('Clean installation verified.')
+          PY
+
+  windows:
+    name: Validate Windows
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify generated artifacts
+        shell: pwsh
+        run: |
+          python scripts/sync-codex-skills.py --check
+          python scripts/sync-codex-prompts.py --check
+          python -m compileall -q scripts tools
+
+      - name: Test clean installation
+        shell: pwsh
+        env:
+          CLAUDE_COMMANDS_DIR: ${{ runner.temp }}\claude\commands
+          CODEX_HOME: ${{ runner.temp }}\codex
+        run: |
+          cmd /c scripts\install-claude-commands.bat
+          if ($LASTEXITCODE -ne 0) { throw 'Claude installer failed' }
+
+          cmd /c scripts\install-codex-skills.bat
+          if ($LASTEXITCODE -ne 0) { throw 'Codex skill installer failed' }
+
+          cmd /c scripts\install-codex-prompts.bat
+          if ($LASTEXITCODE -ne 0) { throw 'Codex prompt installer failed' }
+
+          $claude = (Get-ChildItem $env:CLAUDE_COMMANDS_DIR -Filter *.md).Count
+          $skills = (Get-ChildItem "$env:CODEX_HOME\skills" -Directory).Count
+          $prompts = (Get-ChildItem "$env:CODEX_HOME\prompts" -Filter *.md).Count
+
+          if ($claude -ne 20) { throw "Claude install count: $claude" }
+          if ($skills -ne 20) { throw "Codex skill install count: $skills" }
+          if ($prompts -ne 20) { throw "Codex prompt install count: $prompts" }
+
+          Write-Host 'Clean Windows installation verified.'
