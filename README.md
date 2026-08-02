@@ -40,6 +40,7 @@ The canonical operational translation is complete.
 | End-to-end demonstration | [`docs/QUICKSTART_DEMO.md`](docs/QUICKSTART_DEMO.md) |
 | Verified English examples | [`reports/examples/`](reports/examples/) |
 | Public launch kit | [`docs/launch/`](docs/launch/) |
+| Support and structured feedback | [`SUPPORT.md`](SUPPORT.md) |
 | Social-preview source | [`assets/social-preview-source.svg`](assets/social-preview-source.svg) |
 | Historical research reports | Preserved primarily in their original language |
 
@@ -159,9 +160,23 @@ The repository includes a reusable launch package:
 - [`docs/launch/LAUNCH_ARTICLE.md`](docs/launch/LAUNCH_ARTICLE.md): long-form public announcement;
 - [`docs/launch/SOCIAL_POSTS.md`](docs/launch/SOCIAL_POSTS.md): LinkedIn, X, Reddit, Hacker News, and release copy;
 - [`docs/launch/SOCIAL_PREVIEW.md`](docs/launch/SOCIAL_PREVIEW.md): preview requirements and upload procedure;
+- [`docs/launch/VIDEO_DEMO_SCRIPT.md`](docs/launch/VIDEO_DEMO_SCRIPT.md): 6–8 minute verified-workflow demonstration script;
+- [`docs/launch/PUBLISHING_CHECKLIST.md`](docs/launch/PUBLISHING_CHECKLIST.md): research, privacy, attribution, and platform publication gate;
+- [`docs/launch/FEEDBACK_PLAN.md`](docs/launch/FEEDBACK_PLAN.md): launch feedback triage, severity, and acceptance process;
 - [`assets/social-preview-source.svg`](assets/social-preview-source.svg): editable 1280 × 640 social-card source.
 
 The editable source remains tracked in Git; the raster social preview was uploaded separately through repository settings.
+
+## Support and feedback
+
+Use the structured GitHub issue forms for:
+
+- workflow or generated-surface errors;
+- financial-data, period, unit, source, or calculation errors;
+- installation, update, doctor, or uninstall failures;
+- distinct workflow proposals with testable output contracts.
+
+Read [`SUPPORT.md`](SUPPORT.md) before opening an issue. Do not post credentials, private paths, confidential documents, unpublished holdings, or requests for personalized investment advice. Potential vulnerabilities must follow [`SECURITY.md`](SECURITY.md).
 
 ## Usage examples
 
@@ -216,7 +231,7 @@ python3 -m unittest discover -s tests -v
 The permanent GitHub Actions workflow additionally checks:
 
 - repository links, maintained identity, private paths, high-confidence secrets, and operational-language drift;
-- deterministic financial, audit, Taiwan-data, verified-example, and installer-safety tests;
+- deterministic financial, audit, Taiwan-data, verified-example, installer-safety, and community-template tests;
 - unified install, update, doctor, uninstall, and backward-compatible alias lifecycles;
 - 20 canonical shared workflows;
 - 20 matching generated Codex skills and 20 prompts;
@@ -245,6 +260,6 @@ Past performance does not guarantee future results. Nothing in this repository c
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request. Contributions should preserve command names, paths, variables, output contracts, financial terminology, and source/generated consistency.
+Read [SUPPORT.md](SUPPORT.md) before opening an issue and [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Contributions should preserve command names, paths, variables, output contracts, financial terminology, and source/generated consistency.
 
 See [`CHANGELOG.md`](CHANGELOG.md), [`docs/ENGLISH_EDITION.md`](docs/ENGLISH_EDITION.md), and the [v1.0.0 release notes](docs/releases/v1.0.0.md) for edition history and release details.

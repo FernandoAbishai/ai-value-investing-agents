@@ -1,0 +1,76 @@
+name: Financial data error
+description: Report an incorrect value, unit, period, calculation, or source interpretation.
+title: "[Data]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use primary filings or official company material when possible. This form is for reproducible data-quality problems, not requests for a personalized stock opinion.
+  - type: input
+    id: company
+    attributes:
+      label: Company or instrument
+      placeholder: Microsoft (MSFT)
+    validations:
+      required: true
+  - type: input
+    id: period
+    attributes:
+      label: Reporting period and cutoff
+      placeholder: FY2026, research cutoff 2026-08-02
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Affected file or workflow
+      placeholder: reports/examples/... or tools/financial_rigor.py
+    validations:
+      required: true
+  - type: textarea
+    id: incorrect
+    attributes:
+      label: Incorrect value or behavior
+      description: Include the displayed value, currency, unit, formula, and line or section.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected value or behavior
+      description: Show the corrected value and calculation when applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Source evidence
+      description: Provide primary-source links, document titles, dates, and page or section references.
+    validations:
+      required: true
+  - type: dropdown
+    id: cause
+    attributes:
+      label: Likely error category
+      options:
+        - Currency or unit mismatch
+        - Fiscal period mismatch
+        - GAAP versus adjusted metric
+        - Share count or corporate action
+        - Arithmetic or rounding
+        - Source transcription
+        - Stale data
+        - Unknown
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Verification
+      options:
+        - label: I identified the currency, units, and reporting period.
+          required: true
+        - label: I removed credentials, private paths, and confidential data.
+          required: true
+        - label: I understand that this issue is not a request for personalized investment advice.
+          required: true
