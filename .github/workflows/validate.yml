@@ -59,15 +59,21 @@ jobs:
           print('Verified 20 shared workflows and 1 declared Codex-only skill.')
           PY
 
-      - name: Test clean installation
+      - name: Test unified installation lifecycle
         env:
           CLAUDE_COMMANDS_DIR: ${{ runner.temp }}/claude/commands
           CODEX_HOME: ${{ runner.temp }}/codex
+          AIVA_STATE_HOME: ${{ runner.temp }}/state
         run: |
-          bash scripts/install-claude-commands.sh
-          bash scripts/install-codex-skills.sh
-          bash scripts/install-codex-prompts.sh
+          ./scripts/install.sh --all --dry-run
+          test ! -e "$AIVA_STATE_HOME/manifest.json"
+
+          ./scripts/install.sh --all
+          ./scripts/manage.sh doctor --all
+          ./scripts/manage.sh update --all
+
           python3 - <<'PY'
+          import json
           import os
           from pathlib import Path
 
@@ -75,13 +81,31 @@ jobs:
           codex_home = Path(os.environ['CODEX_HOME'])
           skills = list((codex_home / 'skills').glob('*/SKILL.md'))
           prompts = list((codex_home / 'prompts').glob('*.md'))
+          manifest = json.loads((Path(os.environ['AIVA_STATE_HOME']) / 'manifest.json').read_text())
 
           assert len(claude) == 20, f'Claude install count: {len(claude)}'
           assert len(skills) == 21, f'Codex skill install count: {len(skills)}'
           assert len(prompts) == 20, f'Codex prompt install count: {len(prompts)}'
           assert (codex_home / 'skills' / 'investment-memo-craft' / 'SKILL.md').is_file()
-          print('Clean installation verified.')
+          assert set(manifest['components']) == {'claude', 'codex-skills', 'codex-prompts'}
+          print('Unified installation and manifest verified.')
           PY
+
+          ./scripts/manage.sh uninstall --all
+          test -z "$(find "$CLAUDE_COMMANDS_DIR" -maxdepth 1 -name '*.md' -print -quit)"
+          test -z "$(find "$CODEX_HOME/skills" -mindepth 1 -maxdepth 1 -type d -print -quit 2>/dev/null || true)"
+          test -z "$(find "$CODEX_HOME/prompts" -maxdepth 1 -name '*.md' -print -quit 2>/dev/null || true)"
+
+      - name: Test backward-compatible installer aliases
+        env:
+          CLAUDE_COMMANDS_DIR: ${{ runner.temp }}/legacy-claude/commands
+          CODEX_HOME: ${{ runner.temp }}/legacy-codex
+          AIVA_STATE_HOME: ${{ runner.temp }}/legacy-state
+        run: |
+          ./scripts/install-claude-commands.sh
+          ./scripts/install-codex-skills.sh
+          ./scripts/install-codex-prompts.sh
+          ./scripts/manage.sh doctor --all
 
   windows:
     name: Validate Windows
@@ -106,20 +130,25 @@ jobs:
         shell: pwsh
         run: python -m unittest discover -s tests -v
 
-      - name: Test clean installation
+      - name: Test unified installation lifecycle
         shell: pwsh
         env:
           CLAUDE_COMMANDS_DIR: ${{ runner.temp }}\claude\commands
           CODEX_HOME: ${{ runner.temp }}\codex
+          AIVA_STATE_HOME: ${{ runner.temp }}\state
         run: |
-          cmd /c scripts\install-claude-commands.bat
-          if ($LASTEXITCODE -ne 0) { throw 'Claude installer failed' }
+          cmd /c scripts\install.bat --all --dry-run
+          if ($LASTEXITCODE -ne 0) { throw 'Unified dry run failed' }
+          if (Test-Path "$env:AIVA_STATE_HOME\manifest.json") { throw 'Dry run created a manifest' }
 
-          cmd /c scripts\install-codex-skills.bat
-          if ($LASTEXITCODE -ne 0) { throw 'Codex skill installer failed' }
+          cmd /c scripts\install.bat --all
+          if ($LASTEXITCODE -ne 0) { throw 'Unified installation failed' }
 
-          cmd /c scripts\install-codex-prompts.bat
-          if ($LASTEXITCODE -ne 0) { throw 'Codex prompt installer failed' }
+          cmd /c scripts\manage.bat doctor --all
+          if ($LASTEXITCODE -ne 0) { throw 'Doctor failed after installation' }
+
+          cmd /c scripts\manage.bat update --all
+          if ($LASTEXITCODE -ne 0) { throw 'Unified update failed' }
 
           $claude = (Get-ChildItem $env:CLAUDE_COMMANDS_DIR -Filter *.md).Count
           $skills = (Get-ChildItem "$env:CODEX_HOME\skills" -Directory).Count
@@ -132,4 +161,30 @@ jobs:
             throw 'Missing Codex-only investment-memo-craft skill'
           }
 
-          Write-Host 'Clean Windows installation verified.'
+          cmd /c scripts\manage.bat uninstall --all
+          if ($LASTEXITCODE -ne 0) { throw 'Unified uninstall failed' }
+          if ((Get-ChildItem $env:CLAUDE_COMMANDS_DIR -Filter *.md).Count -ne 0) {
+            throw 'Claude managed files remain after uninstall'
+          }
+          if ((Get-ChildItem "$env:CODEX_HOME\skills" -Directory -ErrorAction SilentlyContinue).Count -ne 0) {
+            throw 'Codex skills remain after uninstall'
+          }
+          if ((Get-ChildItem "$env:CODEX_HOME\prompts" -Filter *.md -ErrorAction SilentlyContinue).Count -ne 0) {
+            throw 'Codex prompts remain after uninstall'
+          }
+
+      - name: Test backward-compatible installer aliases
+        shell: pwsh
+        env:
+          CLAUDE_COMMANDS_DIR: ${{ runner.temp }}\legacy-claude\commands
+          CODEX_HOME: ${{ runner.temp }}\legacy-codex
+          AIVA_STATE_HOME: ${{ runner.temp }}\legacy-state
+        run: |
+          cmd /c scripts\install-claude-commands.bat
+          if ($LASTEXITCODE -ne 0) { throw 'Legacy Claude installer failed' }
+          cmd /c scripts\install-codex-skills.bat
+          if ($LASTEXITCODE -ne 0) { throw 'Legacy Codex skill installer failed' }
+          cmd /c scripts\install-codex-prompts.bat
+          if ($LASTEXITCODE -ne 0) { throw 'Legacy Codex prompt installer failed' }
+          cmd /c scripts\manage.bat doctor --all
+          if ($LASTEXITCODE -ne 0) { throw 'Doctor failed for legacy aliases' }
