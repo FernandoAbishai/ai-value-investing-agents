@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 行业投资研究：产业链全景扫描 + 四大师个股分析框架."
+description: "AI Value Investing Agents slash entry for Industry Investment Research: Full Value-Chain Scan and Four-Framework Company Analysis."
 argument-hint: $ARGUMENTS
 ---
 

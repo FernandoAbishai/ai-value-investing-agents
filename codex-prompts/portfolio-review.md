@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 组合管理：从\"研究公司\"到\"管理组合\"."
+description: "AI Value Investing Agents slash entry for Portfolio Review: From Researching Companies to Managing a Portfolio."
 argument-hint: $ARGUMENTS
 ---
 
