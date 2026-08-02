@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 投资论文追踪：买入后的纪律系统."
+description: "AI Value Investing Agents slash entry for Investment Thesis Tracker: A Post-Purchase Discipline System."
 argument-hint: $ARGUMENTS
 ---
 

@@ -1,268 +1,328 @@
-# 行业投资研究：产业链全景扫描 + 四大师个股分析框架
+# Industry Investment Research: Full Value-Chain Scan and Four-Framework Company Analysis
 
-对 $ARGUMENTS 行业进行系统化产业链投资研究。
+Perform a systematic value-chain investment study of the industry or theme in $ARGUMENTS.
 
-## 研究目标
+## Research Objectives
 
-从一个投资主题/逻辑链出发，完成：
-1. 验证投资逻辑链的每一个环节
-2. 绘制完整产业链全景图
-3. 扫描全球所有上市公司（A股/港股/美股/国际）
-4. 对每个细分环节的头部公司执行四大师框架分析
-5. 输出行业级投资组合配置建议
-
----
-
-## 第一步：投资逻辑链构建与验证
-
-### 1.1 画出逻辑链
-用箭头链路表达从"底层趋势"到"受益标的"的因果关系，例如：
-```
-底层趋势 A
-    → 导致需求 B
-        → 创造瓶颈/刚需 C
-            → 受益产业链 D
-```
-
-### 1.2 逐环节验证
-对逻辑链的每个箭头提出质疑并寻找证据：
-
-| 环节 | 核心假设 | 验证方式 | 数据来源 |
-|------|---------|---------|---------|
-| A→B | | 搜索行业数据/预测 | |
-| B→C | | 搜索供需分析 | |
-| C→D | | 搜索实际案例/签约 | |
-
-### 1.3 寻找"已发生的验证事件"
-列出支撑该逻辑链的**已签约/已落地的真实商业事件**（而非预测），例如大公司的采购协议、政策文件、行业报告等。
+Starting from an investment theme or causal thesis:
+1. Validate every link in the investment logic chain.
+2. Map the complete industry value chain.
+3. Scan relevant public companies globally, including mainland China, Hong Kong, the United States, and other major markets.
+4. Analyze leading companies in each segment through four value-investing frameworks.
+5. Produce an industry-level portfolio-allocation proposal.
 
 ---
 
-## 第二步：产业链全景图绘制
+## Step 1: Build and Validate the Investment Logic Chain
 
-### 2.1 绘制产业链结构
-将行业拆解为上游→中游→下游→辅助环节，例如：
-```
-上游：原材料/资源开采 → 材料加工/提纯
-中游：核心设备制造 → 系统集成/工程建设 → 新技术研发
-下游：运营/服务 → 终端客户
-辅助：检测/认证 → 维护服务 → 金融工具（ETF/信托）
+### 1.1 Express the Causal Chain
+
+Represent the path from the underlying trend to the potential beneficiaries:
+
+```text
+Underlying trend A
+    → creates demand B
+        → produces bottleneck or essential need C
+            → benefits value-chain segment D
 ```
 
-### 2.2 识别每个环节的"生意特征"
-对每个环节标注：
+### 1.2 Challenge Every Link
 
-| 环节 | 商业模式 | 毛利率区间 | 竞争格局 | 壁垒类型 | 周期性 |
-|------|---------|-----------|---------|---------|--------|
-| | 卖资源/卖设备/卖服务/收租 | | 垄断/寡头/充分竞争 | 资源/牌照/技术/规模 | 强/中/弱 |
+| Link | Core Assumption | Validation Method | Evidence Source |
+|---|---|---|---|
+| A → B | | Industry data and forecasts | |
+| B → C | | Supply-demand evidence | |
+| C → D | | Contracts, deployments, orders, or realized revenue | |
 
-### 2.3 标记"卡脖子环节"
-识别产业链中供给最紧张、替代最难、利润率最高的环节——这些往往是最佳投资标的所在。
+Do not treat correlation, media attention, or management claims as proof of causation.
 
----
+### 1.3 Identify Realized Validation Events
 
-## AI研究偏见自觉：行业研究的特殊陷阱
+List signed, funded, delivered, or operational events that support the thesis. Prioritize:
+- Customer procurement agreements.
+- Capacity additions already under construction.
+- Regulatory or policy documents with implemented funding.
+- Reported order growth or revenue contribution.
 
-行业研究中，AI数据偏见会以独特方式放大：
-
-**行业级偏见**：
-| 偏见类型 | 表现 | 应对 |
-|---------|------|------|
-| 成熟行业偏好 | 传统行业（银行/能源/消费）资料极多，AI分析看起来"更确定" | 确定性来自商业模式，不来自研报数量 |
-| 新兴行业低估 | 新行业（AI应用/合成生物等）资料少，AI分析偏保守 | 用"终局思维"而非"当前数据"判断行业价值 |
-| 龙头偏好 | 大公司资料远多于小公司，AI天然倾向推荐龙头 | 小公司可能有更好的风险回报比，不要因为AI分析篇幅短就忽略 |
-| 上市偏好 | 只扫描上市公司会遗漏产业链中的关键未上市玩家 | 必须搜索未上市公司，标注"未来IPO候选" |
-| 英文偏好 | AI对英文资料的处理能力更强，可能低估中国/亚洲市场玩家 | 必须同时搜索中英文信息源 |
-
-**产业链扫描中的反偏见措施**：
-1. 对每个环节，不仅列出"AI容易找到的公司"，还要主动搜索"冷门但可能优质的标的"
-2. 对信息稀缺的小市值公司，不因分析篇幅短就降低推荐度——用核心问题（生意本质、护城河、管理层）而非报告长度来评判
-3. 在最终报告中标注每家公司的"信息充分度"（A/B/C级），让读者知道AI分析的可靠程度
-
-## 第三步：全球上市公司扫描
-
-使用 Task 工具启动后台 Agent，全面搜索该行业所有上市公司。
-
-### 搜索清单
-- 美股（NYSE/NASDAQ/NYSE American）相关公司
-- A股（上海/深圳）相关公司
-- 港股相关公司
-- 其他国际市场（日本/韩国/欧洲/澳大利亚等）
-- 行业ETF
-- 关键未上市公司（可能未来IPO）
-
-### 对每家公司收集
-- 公司名称（中英文）
-- 股票代码和交易所
-- 市值（近似）
-- 一句话描述（在产业链中的位置和作用）
-- 是否纯正标的（纯核电 vs 多元化中有核电业务）
-- 产业链所属环节
-
-### 输出格式
-按产业链环节分类，每个环节一张表，包含所有扫描到的公司。
-再按投资确定性分层：
-- **Tier 1**：大市值、纯正标的、行业龙头
-- **Tier 2**：中市值、纯正或高占比、细分龙头
-- **Tier 3**：小市值、开发阶段、高风险高弹性
-- **Tier 4**：多元化公司中有相关业务的大型企业
+Separate completed events from forecasts and non-binding announcements.
 
 ---
 
-## 第四步：各环节头部公司四大师分析
+## Step 2: Map the Full Value Chain
 
-对每个产业链环节的**Tier 1和Tier 2公司**，执行以下分析（Tier 3/4公司简要点评即可）：
+### 2.1 Build the Industry Structure
 
-### 4.1 生意本质（段永平）
-- 一句话定义这家公司在产业链中做什么
-- 收入结构与增速
-- 毛利率/净利率水平及趋势
-- 现金流特征
-- **追问**：这是一门好生意吗？为什么？
+Decompose the industry into upstream, midstream, downstream, and enabling layers:
 
-### 4.2 护城河（巴菲特）
-用五类护城河评分（★1-5）：
+```text
+Upstream: raw materials and extraction → processing and purification
+Midstream: core equipment → integration and construction → technology development
+Downstream: operations and services → end customers
+Enablers: testing and certification → maintenance → financing vehicles and ETFs
+```
 
-| 护城河 | 强度 | 证据 |
-|--------|------|------|
-| 品牌/定价权 | | |
-| 转换成本 | | |
-| 网络效应 | | |
-| 规模效应 | | |
-| 技术/牌照壁垒 | | |
+### 2.2 Describe the Economics of Every Segment
 
-**追问**：10年后护城河还在吗？
+| Segment | Business Model | Gross-Margin Range | Competitive Structure | Barrier Type | Cyclicality |
+|---|---|---:|---|---|---|
+| | Resources / equipment / services / rental or recurring fees | | Monopoly / oligopoly / fragmented | Resource / license / technology / scale | High / Medium / Low |
 
-### 4.3 风险（芒格）
-- 这家公司最可能怎么失败？
-- 最坏情景下值多少钱？
-- 聪明人为什么不买？
+### 2.3 Mark Critical Bottlenecks
 
-### 4.4 管理层（段永平+巴菲特）
-- CEO/创始人是谁？关键决策记录
-- 持股比例与利益对齐
-- 简评（A/B/C级）
+Identify segments with:
+- The tightest supply.
+- The longest expansion lead time.
+- The greatest qualification or substitution difficulty.
+- The strongest pricing power or profit pool.
 
-### 4.5 估值快照
-- 当前PE/PS/EV/EBITDA
-- 与同环节竞争对手对比
-- 简评：贵了/合理/便宜
-
-### 4.6 推荐度
-用★1-5标注：
-- ★★★★★ = 核心仓位候选
-- ★★★★☆ = 卫星仓位候选
-- ★★★☆☆ = 观察名单
-- ★★☆☆☆ = 高风险期权
-- ★☆☆☆☆ = 不推荐
+A bottleneck is not automatically an investment opportunity. It must later pass business-quality and valuation checks.
 
 ---
 
-## 第五步：行业级风险评估（芒格"检查清单"）
+## AI Bias Awareness for Industry Research
 
-### 5.1 系统性风险清单
+Industry research amplifies several AI biases:
 
-| 风险 | 概率 | 影响 | 应对策略 |
-|------|------|------|---------|
-| 投资逻辑链的某个环节被证伪 | | | |
-| 替代技术出现 | | | |
-| 政策/监管黑天鹅 | | | |
-| 需求周期性回调 | | | |
-| 估值泡沫破裂 | | | |
+| Bias | Typical Failure | Required Countermeasure |
+|---|---|---|
+| Mature-industry preference | More documents make traditional industries appear more certain | Judge certainty from economics and evidence, not document volume |
+| Emerging-industry underestimation | Sparse data creates excessively conservative or vague conclusions | Use end-state reasoning while clearly labeling uncertainty |
+| Large-cap preference | Better-covered companies dominate the analysis | Search deliberately for smaller, high-quality specialists |
+| Public-company preference | Critical private suppliers are omitted | Include important private companies as potential IPO or acquisition candidates |
+| English-language preference | Chinese and Asian participants are underrepresented | Search in both English and relevant local-language sources |
 
-### 5.2 历史类比
-找到历史上类似的产业链投资主题，分析其最终结局：
-- 类比行业是什么？
-- 最终赢家是谁？（上游/中游/下游？）
-- 多数投资者赚钱了还是亏钱了？
-- 对当前行业的启示是什么？
+For every company, assign an information-availability grade:
+- **A**: strong primary-source coverage.
+- **B**: sufficient evidence with manageable gaps.
+- **C**: material gaps; conclusions require caution.
 
-### 5.3 偏误自查
-- 叙事偏差：故事是否太完美？
-- 锚定效应：是否被近期涨幅锚定？
-- 从众效应：是否因为"所有人都在买"？
+Do not lower a company's investment rating merely because less text can be generated about it.
 
 ---
 
-## 第六步：文明趋势判断（李录框架）
+## Step 3: Scan Global Public and Private Participants
 
-- 这个行业所依托的底层趋势，是"文明级范式转移"还是"阶段性热潮"？
-- 历史上最接近的技术革命类比是什么？
-- 10-20年后，这个行业的终局是什么？
-- 产业链中，哪个环节最可能出现"赢家通吃"？
-- 哪个环节最可能被颠覆？
+Use Task or the closest available parallel-agent capability to search comprehensively.
 
----
+### Required Markets
 
-## 第七步：投资组合配置建议
+- NYSE, Nasdaq, and NYSE American.
+- Mainland Chinese exchanges.
+- Hong Kong.
+- Japan, South Korea, Taiwan, Europe, Australia, and other relevant markets.
+- Industry ETFs.
+- Important private companies that may become IPO or acquisition candidates.
 
-### 7.1 推荐组合
-按以下结构输出：
+### Data to Collect for Every Company
 
-| 层级 | 仓位占比 | 标的 | 所属环节 | 核心逻辑 |
-|------|---------|------|---------|---------|
-| **核心仓位** | 占主题仓位50-60% | | | 最确定、护城河最宽 |
-| **卫星仓位** | 占主题仓位25-35% | | | 弹性较大、确定性稍低 |
-| **期权仓位** | 占主题仓位5-15% | | | 高风险高回报，可以归零 |
-| **ETF替代** | 可替代以上全部 | | | 不想选股的"懒人方案" |
+- Company name in English and local language when useful.
+- Ticker and exchange.
+- Approximate current market capitalization with date and currency.
+- One-sentence description of its role in the value chain.
+- Relevant-business revenue exposure.
+- Value-chain segment.
+- Public or private status.
+- Information-availability grade.
 
-### 7.2 买入/卖出信号
+### Classification
 
-| 信号类型 | 具体条件 |
-|---------|---------|
-| 加仓信号 | |
-| 减仓信号 | |
-| 清仓信号 | |
+Organize companies by value-chain segment, then assign:
+- **Tier 1**: large, focused industry leader with high certainty.
+- **Tier 2**: mid-cap specialist or segment leader with material exposure.
+- **Tier 3**: smaller or development-stage company with high upside and high risk.
+- **Tier 4**: diversified company with limited but relevant exposure.
 
-### 7.3 主题仓位上限建议
-根据投资逻辑链的确定性和风险程度，建议该主题占总仓位的上限百分比。
-
----
-
-## 第八步：综合决策备忘录
-
-### 行业总评表
-
-| 维度 | 结论 | 信心度 |
-|------|------|--------|
-| 投资逻辑链（验证程度） | | |
-| 最佳环节（段永平"对的生意"） | | |
-| 最宽护城河（巴菲特） | | |
-| 最大风险（芒格） | | |
-| 文明趋势定位（李录） | | |
-| 整体估值水平 | | |
-
-### 四位大师模拟点评
-用引用格式，模拟四位大师对该行业投资机会的点评。
+A company with less than 30% relevant-business exposure must be labeled a non-pure-play unless strategic importance clearly justifies inclusion.
 
 ---
 
-## 输出要求
+## Step 4: Analyze Leading Companies in Each Segment
 
-1. 所有分析必须有数据支撑，附数据来源
-2. 使用 Markdown 表格呈现关键数据
-3. 产业链全景图用代码块的文本图表示
-4. 每个环节至少分析2-3家头部公司
-5. 全球公司扫描要尽可能完整（A股/港股/美股/国际）
-6. 最终将完整报告写入 `~/[行业名]产业链投资研究报告.md`
-7. 结论要明确，给出具体的标的、仓位和价格区间建议
-8. 每个分析模块末尾有对应大师的"追问"
+Perform the full analysis for Tier 1 and Tier 2 companies. Give Tier 3 and Tier 4 companies a shorter review.
 
-## 数据抽检（准出流程）
+### 4.1 Business Economics — Duan Yongping-Inspired Framework
 
-报告写入后，执行数据抽检，通过方可发布：
+- Define in one sentence what the company does in the value chain.
+- Break down revenue mix and growth.
+- Review gross margin, net margin, and their trends.
+- Review cash-flow characteristics.
+- Ask: **Is this fundamentally a good business, and why?**
+
+### 4.2 Moat — Buffett-Inspired Framework
+
+Score each moat from 1 to 5:
+
+| Moat | Strength | Evidence |
+|---|:---:|---|
+| Brand and pricing power | | |
+| Switching costs | | |
+| Network effects | | |
+| Scale advantages | | |
+| Technology, license, or regulatory barriers | | |
+
+Ask: **Is the moat likely to remain meaningful in ten years?**
+
+### 4.3 Failure Modes — Munger-Inspired Framework
+
+- How is the company most likely to fail?
+- What could it be worth in a severe downside case?
+- Why might an informed investor decline to own it?
+- Which assumptions are most vulnerable to inversion?
+
+### 4.4 Management — Duan Yongping and Buffett-Inspired Framework
+
+- Identify the CEO, founder, and actual decision-makers.
+- Review major strategic and capital-allocation decisions.
+- Assess ownership, incentives, and alignment.
+- Assign an **A/B/C management evidence grade**, not a personality judgment unsupported by evidence.
+
+### 4.5 Valuation Snapshot
+
+- Current P/E, P/S, and EV/EBITDA when meaningful.
+- Historical range and same-segment peer comparison.
+- Share count, currency, and data date.
+- Clear assessment: Expensive / Reasonable / Attractive / Not Meaningfully Valued by This Metric.
+
+Use exact arithmetic tools for calculations and validate key inputs against at least two reliable sources.
+
+### 4.6 Recommendation Rating
+
+- ★★★★★ — potential core holding.
+- ★★★★☆ — potential satellite holding.
+- ★★★☆☆ — watchlist.
+- ★★☆☆☆ — speculative option-sized exposure only.
+- ★☆☆☆☆ — not recommended.
+
+A high-quality business can still receive a low recommendation because of valuation or portfolio fit.
+
+---
+
+## Step 5: Assess Industry-Level Risk
+
+### 5.1 Systemic Risk Checklist
+
+| Risk | Probability | Impact | Mitigation or Monitoring Plan |
+|---|---|---|---|
+| A link in the investment logic is falsified | | | |
+| A substitute technology emerges | | | |
+| Regulatory or policy shock | | | |
+| Cyclical demand contraction | | | |
+| Valuation bubble unwinds | | | |
+
+### 5.2 Historical Analogy
+
+Find one or more historical investment themes with comparable economics:
+- What was the analogous industry?
+- Which value-chain layer captured most value?
+- Who ultimately won and why?
+- Did most investors earn acceptable returns, or did valuation destroy returns despite industry growth?
+- What does the analogy imply, and where does it break down?
+
+### 5.3 Bias Check
+
+- **Narrative bias**: Is the story implausibly clean?
+- **Anchoring**: Is analysis anchored to recent price performance?
+- **Herding**: Is attention being mistaken for evidence?
+- **Base-rate neglect**: Are failure rates for comparable industries ignored?
+
+---
+
+## Step 6: Long-Term Civilization and Technology Trend — Li Lu-Inspired Framework
+
+- Is the underlying trend a civilization-level shift or a temporary cycle?
+- What historical technological transition is most comparable?
+- What could the industry look like in ten to twenty years?
+- Which segment could become winner-take-most?
+- Which segment is most vulnerable to substitution, commoditization, or regulation?
+
+Clearly label this section as scenario analysis rather than fact.
+
+---
+
+## Step 7: Propose an Industry Portfolio
+
+### 7.1 Allocation Structure
+
+| Layer | Share of Theme Allocation | Security | Segment | Core Logic |
+|---|---:|---|---|---|
+| **Core** | 50–60% | | | Highest certainty and widest moat |
+| **Satellite** | 25–35% | | | Higher upside with lower certainty |
+| **Option** | 5–15% | | | Can lose most or all capital |
+| **ETF Alternative** | May replace the stock basket | | | Diversified implementation |
+
+Do not force the percentages to sum to a fully invested portfolio when valuation is unattractive. Cash may be appropriate.
+
+### 7.2 Add, Reduce, and Exit Signals
+
+| Signal Type | Specific Condition |
+|---|---|
+| Add | |
+| Reduce | |
+| Exit | |
+
+Signals must be observable and thesis-linked.
+
+### 7.3 Theme Allocation Limit
+
+Recommend a maximum percentage of the investor's total portfolio based on:
+- Evidence strength.
+- Correlation with existing exposures.
+- Industry cyclicality.
+- Valuation dispersion.
+- Liquidity and downside risk.
+
+---
+
+## Step 8: Produce the Decision Memorandum
+
+### Industry Scorecard
+
+| Dimension | Conclusion | Confidence |
+|---|---|:---:|
+| Investment logic and validation | | |
+| Best business segment | | |
+| Widest moat | | |
+| Largest risk | | |
+| Long-term trend classification | | |
+| Overall valuation | | |
+
+### Four Framework-Based Commentaries
+
+Provide four short, clearly labeled **simulated framework perspectives** inspired by the publicly known principles associated with Duan Yongping, Warren Buffett, Charlie Munger, and Li Lu.
+
+Do not present generated wording as an authentic quotation or personal endorsement from any investor.
+
+---
+
+## Output Requirements
+
+1. Support every material conclusion with evidence and source attribution.
+2. Use Markdown tables for comparable data.
+3. Draw the value-chain map as a text diagram in a code block.
+4. Analyze at least two or three leading companies per material segment when sufficient candidates exist.
+5. Make a serious effort to cover mainland China, Hong Kong, the United States, and other relevant international markets.
+6. Save the report to `reports/{industry-name}-industry-research-{YYYYMMDD}.md`.
+7. Give clear recommendations, allocation ranges, monitoring signals, and valuation conditions.
+8. End each major analytical module with the relevant framework's unanswered question.
+9. Write the report in English unless the user explicitly requests another language.
+
+## Publication Audit Gate
+
+After writing the report, run the audit process before publication:
 
 ```bash
-# Step 1 — 提取抽检清单（15%随机抽样）
+# Step 1 — Extract a 15% random audit sample
 python3 tools/report_audit.py extract \
-  --report <报告文件路径>
+  --report <report-path>
 
-# Step 2 — 对清单每项从可靠信源取数（参见 skills/financial-data.md）
+# Step 2 — Recheck every sampled item against reliable sources
+# Follow skills/financial-data.md for source and validation requirements.
 
-# Step 3 — 输出准出/打回判决
+# Step 3 — Produce the release or rejection verdict
 python3 tools/report_audit.py verdict \
-  --results '<填好的JSON>' \
-  --report <报告文件名>
+  --results '<completed-JSON>' \
+  --report <report-file-name>
 ```
 
-**【准出】** 全部通过 → 报告可发布；**【打回】** 有不通过 → 修正后重审。
+- **Release**: every sampled item passes.
+- **Reject**: one or more items fail; correct the report and rerun the audit.

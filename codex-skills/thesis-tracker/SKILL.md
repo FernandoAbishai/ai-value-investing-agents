@@ -1,6 +1,6 @@
 ---
 name: thesis-tracker
-description: "AI Value Investing Agents skill: 投资论文追踪：买入后的纪律系统. Source: skills/thesis-tracker.md."
+description: "AI Value Investing Agents skill: Investment Thesis Tracker: A Post-Purchase Discipline System. Source: skills/thesis-tracker.md."
 ---
 
 ## Codex adapter note
@@ -13,213 +13,237 @@ This skill is generated from `skills/thesis-tracker.md` so Claude Code and Codex
 - Before starting research, run the `date` command to confirm today's date; treat it as the baseline for "latest" data and state the data cutoff date in the report header. Never assume the current date from training data.
 - Preserve the research quality rules from `AGENTS.md`: cross-check financial data, use exact arithmetic tools for valuation/math, and clearly label uncertainty and source gaps.
 
-# 投资论文追踪：买入后的纪律系统
+# Investment Thesis Tracker: A Post-Purchase Discipline System
 
-对 $ARGUMENTS 执行投资论文追踪检查。
+Run an investment-thesis tracking review for $ARGUMENTS.
 
-**支持输入格式**：
-- `公司名` — 首次使用时建立投资论文，后续使用时追踪检查
-- `公司名 建立论文` — 强制重新建立投资论文
-- `公司名 季度检查` — 基于最新财报进行论文检查
+**Supported input formats**:
+- `Company Name` — create a thesis on first use; review it on later uses.
+- `Company Name rebuild thesis` — force creation of a new thesis.
+- `Company Name quarterly review` — review the thesis using the latest reporting period.
 
-> "买入只是开始。真正的工作是持有期间的持续跟踪。" —— 李录
+> Buying is the beginning, not the end. The thesis must be monitored throughout the holding period.
 >
-> "当事实改变时，我就改变想法。你呢？" —— 凯恩斯
+> When the facts change, the conclusion must be reconsidered.
 
-## 设计理念
+## Purpose
 
-大多数投资者的流程是：研究 → 买入 → 祈祷。缺少买入后的系统化跟踪，导致：
-- 该卖的时候舍不得卖（"再等等，会涨回来的"）
-- 不该卖的时候恐慌卖出（"跌了20%，是不是我错了"）
-- 忘记了当初为什么买的（"我买这个是因为什么来着？"）
+Many investors follow this process: research → buy → hope. Without a post-purchase system, they may:
+- Refuse to sell after the thesis has broken.
+- Panic-sell because the price fell even though the thesis remains intact.
+- Forget the original reason for owning the company.
 
-巴菲特和李录的做法是：**买入前就写下卖出条件**。然后每个季度检查论文是否完整。
+Write the exit conditions before or at the time of purchase, then evaluate the thesis against observable evidence each quarter or after a material event.
 
-## 执行流程
+## Workflow
 
-### 第一步：判断操作模式
+### Step 1: Select the Operating Mode
 
-检查是否已存在该公司的投资论文文件（`reports/{公司名}-thesis.md`）：
-- 如果不存在 → 进入**建立论文**模式
-- 如果存在 → 进入**追踪检查**模式
-- 如果找不到但用户表示已有 → 询问文件路径
-
----
-
-## 模式A：建立投资论文
-
-### A0：数据收集
-
-使用 WebSearch 获取当前股价、估值指标（PE/PB/股息率）、最新财报核心数据，用于填写估值锚点。如果已有该公司的 `/investment-research` 或 `/investment-team` 报告，优先从中读取。
-
-使用 `tools/financial_rigor.py verify-valuation` 校验估值数据。
-
-### A1：核心论文（必须用200字以内写清楚）
-
-投资论文必须回答以下5个问题，每个问题一句话：
-
-```
-我以 ___元 买入 ___公司，因为：
-1. 这门生意的本质是___，我理解它的赚钱方式
-2. 它的护城河是___，而且在变宽/稳定
-3. 管理层___，值得信赖的原因是___
-4. 当前价格相当于内在价值的___折，安全边际来自___
-5. 即使我错了，下行风险可控，因为___
-```
-
-**如果5句话写不完整，这个论文本身就有问题——说明买入决策不够清晰。**
-
-### A2：核心假设清单
-
-把投资论文拆解成可验证的具体假设：
-
-| # | 核心假设 | 验证方式 | 验证频率 | 当前状态 |
-|---|---------|---------|---------|---------|
-| 1 | 例：收入增速维持15%+ | 季报收入增速 | 每季度 | 🟢 成立 |
-| 2 | 例：毛利率稳定在60%+ | 季报毛利率 | 每季度 | 🟢 成立 |
-| 3 | 例：管理层持续回购 | 回购公告/现金流表 | 每季度 | 🟢 成立 |
-| 4 | 例：竞争对手未取得突破 | 行业数据/竞对财报 | 每半年 | 🟢 成立 |
-| 5 | ... | ... | ... | ... |
-
-通常3-7个假设。太少说明思考不够深入，太多说明论文不够聚焦。
-
-### A3：红线清单（触发任何一条 = 必须重新评估）
-
-| # | 红线条件 | 严重程度 | 触发后动作 |
-|---|---------|---------|-----------|
-| 1 | 例：管理层诚信出问题（财务造假、关联交易） | 致命 | 立即清仓 |
-| 2 | 例：核心业务连续2季度收入下滑 | 严重 | 减仓50%，重新评估 |
-| 3 | 例：护城河被明确突破（竞对获得同等能力） | 严重 | 启动深度研究，考虑退出 |
-| 4 | 例：监管政策根本性改变商业模式 | 严重 | 重新评估内在价值 |
-| 5 | 例：管理层大规模减持（非计划性） | 警告 | 深入调查原因 |
-
-**段永平**："卖出只有三个理由：1.发现买错了；2.公司基本面变了；3.找到了更好的。"
-
-### A4：估值锚点
-
-| 指标 | 买入时 | 乐观目标 | 中性目标 | 悲观情景 |
-|------|-------|---------|---------|---------|
-| 股价 | | | | |
-| PE | | | | |
-| 市值 | | | | |
-| 内在价值估算 | | | | |
-| 安全边际 | | | | |
-
-### A5：保存论文
-
-将投资论文写入 `reports/{公司名}-thesis.md`，包含：
-- 建立日期
-- 买入价格和仓位
-- 核心论文（5句话）
-- 核心假设清单
-- 红线清单
-- 估值锚点
-- 追踪记录表（初始为空）
+Check whether `reports/{company-name}-thesis.md` exists:
+- If it does not exist, enter **Mode A: Build the Thesis**.
+- If it exists, enter **Mode B: Review the Thesis**.
+- If the user says a thesis exists but the file cannot be found, locate the referenced file or request its path only when the available workspace cannot resolve it.
 
 ---
 
-## 模式B：追踪检查
+## Mode A: Build the Thesis
 
-### B1：读取现有论文
+### A0: Collect Baseline Data
 
-读取 `reports/{公司名}-thesis.md`，加载：
-- 核心论文
-- 核心假设清单
-- 红线清单
-- 上次检查记录
+Use WebSearch or the closest available research tools to obtain:
+- Current share price.
+- Current valuation metrics, including P/E, P/B, and dividend yield when applicable.
+- Core figures from the latest financial statements.
 
-### B2：收集最新数据
+If an `/investment-research` or `/investment-team` report already exists, use it as the primary research base and refresh time-sensitive data.
 
-使用 WebSearch 收集：
-1. 最新财报数据（如果有新的季报/年报）
-2. 近期重大事件（管理层变动、监管政策、竞争动态）
-3. 当前股价和估值指标
-4. 内部人交易记录（大股东增减持）
+Validate valuation inputs with `tools/financial_rigor.py verify-valuation`.
 
-### B3：逐条检查核心假设
+Record the data date and source quality.
 
-对每个核心假设，用最新数据验证：
+### A1: Write the Core Thesis in No More Than 200 Words
 
-| # | 核心假设 | 上次状态 | 最新证据 | 当前状态 | 变化 |
-|---|---------|---------|---------|---------|------|
-| 1 | 收入增速15%+ | 🟢 成立 | Q4收入增速12% | 🟡 边际弱化 | ⚠️ |
-| 2 | 毛利率60%+ | 🟢 成立 | 毛利率61.2% | 🟢 成立 | — |
-| 3 | ... | ... | ... | ... | ... |
+The thesis must answer these five questions, ideally in one sentence each:
 
-状态定义：
-- 🟢 **成立** — 最新数据支持该假设
-- 🟡 **边际弱化** — 数据仍在可接受范围，但趋势不利
-- 🔴 **受损** — 数据明确不支持该假设
-- ⚫ **破裂** — 假设已被推翻
-
-### B4：红线检查
-
-逐条检查红线清单：
-
-| # | 红线条件 | 是否触发 | 证据 |
-|---|---------|:-------:|------|
-| 1 | 管理层诚信问题 | ❌ 未触发 | — |
-| 2 | 核心业务连续2季下滑 | ❌ 未触发 | — |
-
-**任何一条红线触发 → 在报告中用醒目标注，给出明确的行动建议。**
-
-### B5：估值更新
-
-| 指标 | 买入时 | 上次检查 | 当前 | 变化 |
-|------|-------|---------|------|------|
-| 股价 | | | | |
-| PE(TTM) | | | | |
-| 内在价值估算 | | | | |
-| 安全边际 | | | | |
-
-### B6：输出追踪报告
-
-#### 报告结构
-
-```
-一、论文健康度评分（满分10分）
-二、核心假设检查结果（表格）
-三、红线检查结果（表格）
-四、本期关键变化（不超过500字）
-五、估值更新
-六、结论与行动建议
-七、下次检查需关注的重点
+```text
+I am buying or holding {company} at {price} because:
+1. The business earns money by ______, and I understand the economic engine.
+2. Its moat is ______ and is widening / stable.
+3. Management is ______, supported by ______.
+4. The current price represents approximately ______ of estimated intrinsic value, and the margin of safety comes from ______.
+5. Even if the thesis is wrong, downside may be limited because ______.
 ```
 
-#### 论文健康度评分标准
+If the five statements cannot be completed clearly, the decision is not yet sufficiently defined.
 
-| 评分 | 含义 | 建议动作 |
-|:----:|------|---------|
-**计算公式**：健康度 = 10 - (⚫破裂假设数×3) - (🔴受损假设数×2) - (🟡弱化假设数×1) - (红线触发数×5)，最低1分最高10分。
+### A2: Define Testable Assumptions
 
-| 评分 | 含义 | 建议动作 |
-|:----:|------|---------|
-| 9-10 | 所有假设成立，论文比买入时更强 | 考虑加仓 |
-| 7-8 | 核心假设成立，个别边际弱化 | 继续持有 |
-| 5-6 | 1-2个假设受损，但核心逻辑未变 | 持有但提高警惕 |
-| 3-4 | 多个假设受损，论文基础动摇 | 考虑减仓 |
-| 1-2 | 红线触发或核心假设破裂 | 强烈建议卖出 |
+Break the thesis into three to seven specific assumptions:
 
-#### 结论必须明确回答
+| # | Core Assumption | Validation Method | Review Frequency | Current Status |
+|---|---|---|---|---|
+| 1 | Revenue growth remains above 15% | Quarterly revenue growth | Quarterly | 🟢 Supported |
+| 2 | Gross margin remains above 60% | Reported gross margin | Quarterly | 🟢 Supported |
+| 3 | Management continues disciplined repurchases | Filings and cash-flow statement | Quarterly | 🟢 Supported |
+| 4 | Competitors do not achieve a material breakthrough | Industry data and competitor filings | Semiannual | 🟢 Supported |
 
-1. **论文还完整吗？** 完整 / 边际弱化 / 受损 / 破裂
-2. **该怎么做？** 加仓 / 持有 / 减仓 / 清仓
-3. **下次检查时间**：下一个季报发布后 / 某个特定事件后
+Avoid vague assumptions such as “the company is good.” Every assumption must be measurable or falsifiable.
 
-### B7：更新论文文件
+### A3: Define Red Lines
 
-将本次检查记录追加到 `reports/{公司名}-thesis.md` 的追踪记录表中：
+A red line triggers mandatory reassessment. Define company-specific conditions before they occur:
 
-| 检查日期 | 健康度 | 核心变化 | 动作建议 |
-|---------|:------:|---------|---------|
-| 2026-04-09 | 7/10 | 收入增速放缓至12%，但利润率改善 | 持有 |
+| # | Red-Line Condition | Severity | Required Response |
+|---|---|---|---|
+| 1 | Management-integrity failure, fraud, or abusive related-party transactions | Fatal | Exit unless evidence clearly disproves the event |
+| 2 | Core-business revenue declines for two consecutive quarters | Severe | Reduce exposure and rebuild the thesis |
+| 3 | A competitor demonstrably neutralizes the core moat | Severe | Start deep research and evaluate exit |
+| 4 | Regulation fundamentally impairs the business model | Severe | Re-estimate intrinsic value |
+| 5 | Unplanned large-scale insider selling | Warning | Investigate the cause |
+
+The principal reasons to sell are:
+1. The original analysis was wrong.
+2. The business or thesis changed materially.
+3. A clearly superior opportunity exists after considering taxes, risk, and switching costs.
+
+### A4: Record Valuation Anchors
+
+| Metric | Entry | Bull Case | Base Case | Bear Case |
+|---|---:|---:|---:|---:|
+| Share price | | | | |
+| P/E | | | | |
+| Market capitalization | | | | |
+| Estimated intrinsic value | | | | |
+| Margin of safety | | | | |
+
+State the assumptions, date, currency, share count, and calculation method behind every intrinsic-value estimate.
+
+### A5: Save the Thesis
+
+Write the thesis to `reports/{company-name}-thesis.md`, including:
+- Creation date.
+- Entry price and position size when available.
+- Core five-sentence thesis.
+- Testable assumptions.
+- Red-line conditions.
+- Valuation anchors.
+- An initially empty review-history table.
 
 ---
 
-## 关键原则
+## Mode B: Review the Thesis
 
-- **买入前就写好卖出条件** — 冷静时做的决策比恐慌时做的好
-- **论文要具体到可验证** — "公司很好"不是论文，"ROE>25%且趋势稳定"才是
-- **红线一旦触发就行动** — 最怕的是"再等等看"，这是亏大钱的开始
-- **论文破裂 ≠ 股价下跌** — 股价跌30%不一定要卖，论文破裂才要卖
-- **诚实面对错误** — 论文建错了就承认，不要为了面子硬撑
+### B1: Read the Existing Thesis
+
+Load from `reports/{company-name}-thesis.md`:
+- Core thesis.
+- Assumption list.
+- Red-line list.
+- Valuation anchors.
+- Most recent review record.
+
+Do not silently rewrite the original thesis. Preserve it as a historical record and document changes explicitly.
+
+### B2: Collect Current Evidence
+
+Collect:
+1. New financial statements or operating data.
+2. Material events, including management changes, regulation, litigation, and competitive developments.
+3. Current price and valuation metrics.
+4. Insider transactions and major shareholder activity.
+
+Prioritize primary sources. Record the data cutoff date and label source gaps.
+
+### B3: Test Every Core Assumption
+
+| # | Core Assumption | Prior Status | New Evidence | Current Status | Change |
+|---|---|---|---|---|---|
+| 1 | Revenue growth above 15% | 🟢 Supported | Q4 growth was 12% | 🟡 Weakening | ⚠️ |
+| 2 | Gross margin above 60% | 🟢 Supported | Gross margin was 61.2% | 🟢 Supported | — |
+
+Status definitions:
+- 🟢 **Supported** — current evidence supports the assumption.
+- 🟡 **Weakening** — still within an acceptable range, but the trend is unfavorable.
+- 🔴 **Impaired** — current evidence materially contradicts the assumption.
+- ⚫ **Broken** — the assumption has been falsified.
+
+Distinguish temporary volatility from structural change. Explain the evidence required to upgrade or downgrade each status.
+
+### B4: Check Every Red Line
+
+| # | Red-Line Condition | Triggered? | Evidence |
+|---|---|:---:|---|
+| 1 | Management-integrity failure | No | — |
+| 2 | Two consecutive quarters of core-business decline | No | — |
+
+Any triggered red line must be prominently disclosed with a specific action recommendation. Do not bury it in a general summary.
+
+### B5: Update Valuation
+
+| Metric | Entry | Previous Review | Current | Change |
+|---|---:|---:|---:|---:|
+| Share price | | | | |
+| P/E (TTM) | | | | |
+| Estimated intrinsic value | | | | |
+| Margin of safety | | | | |
+
+Recalculate rather than merely copying a market-data provider. State whether the change in intrinsic value comes from business performance, revised assumptions, dilution, discount rates, or valuation methodology.
+
+### B6: Produce the Review Report
+
+#### Report Structure
+
+```text
+1. Thesis health score out of 10
+2. Core-assumption review table
+3. Red-line review table
+4. Key changes since the previous review, no more than 500 words
+5. Updated valuation
+6. Conclusion and action recommendation
+7. Evidence and events to monitor before the next review
+```
+
+#### Thesis Health Formula
+
+```text
+Health score = 10
+             - 3 × number of broken assumptions
+             - 2 × number of impaired assumptions
+             - 1 × number of weakening assumptions
+             - 5 × number of triggered red lines
+```
+
+Floor the score at 1 and cap it at 10. The formula is a discipline aid, not a substitute for judgment. A fatal integrity event may justify exit regardless of the numeric score.
+
+| Score | Meaning | Default Action |
+|:---:|---|---|
+| 9–10 | All material assumptions remain supported; thesis may be stronger | Consider adding only if valuation and portfolio constraints permit |
+| 7–8 | Core assumptions hold with limited weakening | Hold |
+| 5–6 | One or two assumptions are impaired, but the core thesis survives | Hold with heightened monitoring or reduce modestly |
+| 3–4 | Multiple assumptions are impaired; the foundation is unstable | Consider reducing materially |
+| 1–2 | A red line is triggered or a core assumption is broken | Strongly consider exiting |
+
+#### Required Conclusions
+
+Answer clearly:
+1. **Is the thesis intact?** Intact / Weakening / Impaired / Broken.
+2. **What action is appropriate?** Add / Hold / Reduce / Exit.
+3. **When should the next review occur?** After the next report, after a specified event, or on a concrete date.
+
+### B7: Update the Thesis File
+
+Append the review to the history table in `reports/{company-name}-thesis.md`:
+
+| Review Date | Health Score | Core Change | Recommended Action |
+|---|:---:|---|---|
+| 2026-04-09 | 7/10 | Revenue growth slowed to 12%, while margins improved | Hold |
+
+Also update each assumption's current status without deleting prior evidence.
+
+## Core Principles
+
+- **Define exit conditions before emotions take over.** Decisions made calmly are more reliable than decisions made during a drawdown.
+- **Make the thesis falsifiable.** “This is a good company” is not testable; a measurable economic claim is.
+- **Act when a genuine red line is triggered.** Repeatedly postponing reassessment can turn a correctable error into a permanent loss.
+- **A falling price is not the same as a broken thesis.** Separate market volatility from business deterioration.
+- **Admit analytical mistakes.** Do not defend an invalid thesis merely to protect ego or avoid realizing a loss.

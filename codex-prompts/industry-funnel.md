@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 行业漏斗筛选：从全市场到 3 家的价值投资精选流程."
+description: "AI Value Investing Agents slash entry for Industry Funnel: From the Full Market to Three Value-Investing Finalists."
 argument-hint: $ARGUMENTS
 ---
 

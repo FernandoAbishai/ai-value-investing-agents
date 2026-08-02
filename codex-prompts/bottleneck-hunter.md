@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 供应链瓶颈猎手：AI驱动的全球产业链瓶颈套利."
+description: "AI Value Investing Agents slash entry for Supply-Chain Bottleneck Hunter: Global Physical-Constraint Opportunity Scan."
 argument-hint: $ARGUMENTS
 ---
 
