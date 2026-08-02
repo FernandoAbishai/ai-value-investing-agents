@@ -6,6 +6,10 @@ The project follows [Semantic Versioning](https://semver.org/) for maintained En
 
 ## Unreleased
 
+No unreleased changes.
+
+## [1.1.0] — 2026-08-02
+
 ### Added
 
 - Repository-wide quality gates for links, project identity, private paths, high-confidence secrets, operational language, and workflow inventory.
@@ -14,6 +18,11 @@ The project follows [Semantic Versioning](https://semver.org/) for maintained En
 - Unified cross-platform installation management with manifests, backups, dry runs, drift diagnostics, updates, and safe uninstall behavior.
 - Structured issue forms for workflow, financial-data, installation, and workflow-proposal feedback.
 - Support policy, launch feedback triage plan, verified-workflow video script, and public publishing checklist.
+
+### Changed
+
+- Strengthened release publication so repository quality gates, deterministic tests, and the unified installation lifecycle must pass before a tag is created.
+- Updated maintained stable-version references and release documentation for `v1.1.0`.
 
 ### Fixed
 
