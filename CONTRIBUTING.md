@@ -1,6 +1,6 @@
 # Contributing Guide
 
-Thank you for contributing to **AI Value Investing Agents**. This repository is an English-first, independently maintained edition derived from the original AI Berkshire framework. Contributions should improve research rigor, reproducibility, compatibility, or usability without weakening attribution or financial-safety controls.
+Thank you for contributing to **AI Value Investing Agents**. This repository is an English-first, independently maintained value-investing research framework. Contributions should improve research rigor, reproducibility, compatibility, or usability without weakening attribution or financial-safety controls.
 
 ## Before opening a pull request
 
