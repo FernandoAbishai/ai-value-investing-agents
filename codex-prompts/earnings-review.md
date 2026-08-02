@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 财报精读：一手资料深度解读."
+description: "AI Value Investing Agents slash entry for Earnings Review: Primary-Source Deep Reading."
 argument-hint: $ARGUMENTS
 ---
 

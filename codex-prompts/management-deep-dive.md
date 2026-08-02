@@ -1,5 +1,5 @@
 ---
-description: "AI Value Investing Agents slash entry for 管理层纵深研究：买股票就是买人."
+description: "AI Value Investing Agents slash entry for Management Deep Dive: Buying a Stock Means Buying People."
 argument-hint: $ARGUMENTS
 ---
 
