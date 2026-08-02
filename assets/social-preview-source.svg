@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">AI Value Investing Agents social preview</title>
+  <desc id="desc">Dark social preview graphic for the v1.0.0 English Edition, showing a research network and an evidence-to-decision chart.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a101c"/>
+      <stop offset="1" stop-color="#111d2b"/>
+    </linearGradient>
+    <radialGradient id="greenGlow" cx="100%" cy="0" r="70%">
+      <stop offset="0" stop-color="#1cbe87" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#1cbe87" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#1f3042" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#greenGlow)"/>
+  <rect width="1280" height="640" fill="url(#grid)" opacity=".9"/>
+
+  <rect x="72" y="80" width="12" height="480" rx="6" fill="#2ac48b"/>
+
+  <rect x="104" y="78" width="84" height="84" rx="18" fill="#131d2b" stroke="#36d59d" stroke-width="2"/>
+  <text x="126" y="135" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" fill="#ecf4ef">AI</text>
+
+  <rect x="210" y="92" width="238" height="53" rx="26" fill="#182634" stroke="#3d5364"/>
+  <text x="233" y="126" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#c3d3dd">v1.0.0  •  ENGLISH EDITION</text>
+
+  <text x="104" y="266" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="700" fill="#f8fbfa">AI Value</text>
+  <text x="104" y="340" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700" fill="#f8fbfa">Investing Agents</text>
+
+  <text x="108" y="418" font-family="Arial, Helvetica, sans-serif" font-size="27" fill="#b5c7d2">Multi-agent investment research workflows</text>
+  <text x="108" y="453" font-family="Arial, Helvetica, sans-serif" font-size="27" fill="#b5c7d2">for Claude Code and OpenAI Codex</text>
+
+  <rect x="104" y="512" width="206" height="50" rx="25" fill="#111e2b" stroke="#385061"/>
+  <text x="124" y="543" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#d8e4e9">20 shared workflows</text>
+
+  <rect x="328" y="512" width="322" height="50" rx="25" fill="#111e2b" stroke="#385061"/>
+  <text x="348" y="543" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#d8e4e9">Evidence • Valuation • Audit</text>
+
+  <rect x="780" y="96" width="410" height="448" rx="34" fill="#0d1723" stroke="#2f4757" stroke-width="2"/>
+  <text x="823" y="131" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#8ba0ad">RESEARCH SYSTEM</text>
+
+  <g stroke="#3b5c68" stroke-width="3" fill="none">
+    <path d="M858 190L1000 150L1100 245L940 300L858 190"/>
+    <path d="M1000 150L940 300L1085 390L1000 475L865 430L940 300"/>
+    <path d="M1100 245L1085 390"/>
+  </g>
+
+  <g stroke="#ebf4f0" stroke-width="2">
+    <circle cx="858" cy="190" r="14" fill="#3d6374"/>
+    <circle cx="1000" cy="150" r="14" fill="#d3a44e"/>
+    <circle cx="1100" cy="245" r="14" fill="#3d6374"/>
+    <circle cx="940" cy="300" r="20" fill="#33cd94"/>
+    <circle cx="1085" cy="390" r="14" fill="#d3a44e"/>
+    <circle cx="865" cy="430" r="14" fill="#3d6374"/>
+    <circle cx="1000" cy="475" r="14" fill="#3d6374"/>
+  </g>
+
+  <polyline points="810,455 845,438 880,445 920,410 960,420 1000,375 1040,390 1080,335 1130,350 1170,300" fill="none" stroke="#37da9f" stroke-width="4"/>
+  <g fill="#e9f4f0">
+    <circle cx="810" cy="455" r="4"/><circle cx="880" cy="445" r="4"/><circle cx="960" cy="420" r="4"/><circle cx="1040" cy="390" r="4"/><circle cx="1130" cy="350" r="4"/>
+  </g>
+
+  <text x="800" y="518" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#c2d3dc">Sources → Analysis → Decision</text>
+  <text x="1030" y="605" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#748b99">FernandoAbishai</text>
+</svg>
