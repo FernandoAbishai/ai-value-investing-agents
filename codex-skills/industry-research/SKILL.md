@@ -1,6 +1,6 @@
 ---
 name: industry-research
-description: "AI Berkshire skill: 行业投资研究：产业链全景扫描 + 四大师个股分析框架. Source: skills/industry-research.md."
+description: "AI Value Investing Agents skill: 行业投资研究：产业链全景扫描 + 四大师个股分析框架. Source: skills/industry-research.md."
 ---
 
 ## Codex adapter note

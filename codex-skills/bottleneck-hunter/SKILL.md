@@ -1,6 +1,6 @@
 ---
 name: bottleneck-hunter
-description: "AI Berkshire skill: 供应链瓶颈猎手：AI驱动的全球产业链瓶颈套利. Source: skills/bottleneck-hunter.md."
+description: "AI Value Investing Agents skill: 供应链瓶颈猎手：AI驱动的全球产业链瓶颈套利. Source: skills/bottleneck-hunter.md."
 ---
 
 ## Codex adapter note

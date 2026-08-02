@@ -1,6 +1,6 @@
 ---
 name: wechat-article
-description: "AI Berkshire skill: 微信公众号文章：作者-编辑-读者三Agent协作. Source: skills/wechat-article.md."
+description: "AI Value Investing Agents skill: 微信公众号文章：作者-编辑-读者三Agent协作. Source: skills/wechat-article.md."
 ---
 
 ## Codex adapter note

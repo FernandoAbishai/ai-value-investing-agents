@@ -1,6 +1,6 @@
 ---
 name: private-company-research
-description: "AI Berkshire skill: 未上市公司研究：多Agent并行深度研究框架. Source: skills/private-company-research.md."
+description: "AI Value Investing Agents skill: 未上市公司研究：多Agent并行深度研究框架. Source: skills/private-company-research.md."
 ---
 
 ## Codex adapter note

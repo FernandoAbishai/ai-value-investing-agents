@@ -1,6 +1,6 @@
 ---
 name: management-deep-dive
-description: "AI Berkshire skill: 管理层纵深研究：买股票就是买人. Source: skills/management-deep-dive.md."
+description: "AI Value Investing Agents skill: 管理层纵深研究：买股票就是买人. Source: skills/management-deep-dive.md."
 ---
 
 ## Codex adapter note

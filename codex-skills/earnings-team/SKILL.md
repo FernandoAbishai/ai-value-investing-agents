@@ -1,6 +1,6 @@
 ---
 name: earnings-team
-description: "AI Berkshire skill: 财报精读团队：四大师并行解读 + 公众号发布. Source: skills/earnings-team.md."
+description: "AI Value Investing Agents skill: 财报精读团队：四大师并行解读 + 公众号发布. Source: skills/earnings-team.md."
 ---
 
 ## Codex adapter note

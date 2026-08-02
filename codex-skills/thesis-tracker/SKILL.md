@@ -1,6 +1,6 @@
 ---
 name: thesis-tracker
-description: "AI Berkshire skill: 投资论文追踪：买入后的纪律系统. Source: skills/thesis-tracker.md."
+description: "AI Value Investing Agents skill: 投资论文追踪：买入后的纪律系统. Source: skills/thesis-tracker.md."
 ---
 
 ## Codex adapter note
