@@ -1,0 +1,68 @@
+name: Workflow proposal
+description: Propose a distinct research workflow or a material extension to an existing one.
+title: "[Proposal]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Explain the research decision this proposal improves. New workflows should have a clear boundary, testable output contract, and no unnecessary duplication.
+  - type: input
+    id: name
+    attributes:
+      label: Proposed workflow name
+      placeholder: lowercase-hyphenated-name
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Research decision or problem
+      description: What decision becomes more reliable or reproducible?
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: Gap in existing workflows
+      description: Explain why current workflows cannot cover the use case without becoming unclear or overloaded.
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Inputs and source hierarchy
+      description: Identify required arguments, primary sources, and any current-data requirements.
+    validations:
+      required: true
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Expected outputs and decision gates
+      description: Describe report paths, mandatory sections, blocking failures, and audit requirements.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation strategy
+      description: Explain how the workflow can be tested deterministically and how generated Codex surfaces remain synchronized.
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Failure modes and safety boundaries
+      description: Include sourcing, privacy, impersonation, financial, legal, or operational risks.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Proposal checks
+      options:
+        - label: I reviewed all existing workflows for overlap.
+          required: true
+        - label: The proposal does not request personalized investment advice or promise returns.
+          required: true
+        - label: The proposed behavior can be evaluated with concrete tests or examples.
+          required: true
