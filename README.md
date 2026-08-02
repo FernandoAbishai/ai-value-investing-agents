@@ -31,10 +31,10 @@ The repository now uses English as its default entry point. Translation of the o
 | Community and maintenance documentation | English-first |
 | Core canonical workflows | `investment-research`, `investment-team`, `investment-checklist`, `financial-data`, and `news-pulse` translated |
 | Remaining canonical `skills/*.md` workflows | Translation in progress |
-| Generated Codex skills and prompts | Pending regeneration from translated canonical sources |
+| Generated Codex skills and prompts | Synchronized from the current canonical workflow sources |
 | Historical research reports | Preserved primarily in their original language |
 
-Translated canonical workflows are ready for Claude Code review. Until their generated Codex packages are regenerated, Codex users should verify whether the installed package still contains legacy-language content.
+The translated core workflows are available for both Claude Code and Codex. Workflows not yet translated may still contain legacy-language content in both canonical and generated files.
 
 ## Skills
 
