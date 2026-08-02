@@ -54,12 +54,13 @@ Before submitting a pull request, run:
 python3 scripts/repository_quality.py
 python3 scripts/sync-codex-skills.py --check
 python3 scripts/sync-codex-prompts.py --check
-python3 -m compileall -q scripts tools
+python3 -m compileall -q scripts tools tests
+python3 -m unittest discover -s tests -v
 ```
 
 The repository-quality check validates local Markdown targets, external URL structure, current project identity, private-path leakage, high-confidence secrets, English operational content, and workflow inventory.
 
-Installation and synchronization are also tested automatically on Ubuntu, macOS, and Windows.
+The deterministic unit suite covers financial calculations, audit decisions, report extraction, text-encoding regressions, and Taiwan-stock data transformations without requiring live market APIs. Installation, synchronization, and tests run automatically on Ubuntu, macOS, and Windows.
 
 ## Pull request description
 
