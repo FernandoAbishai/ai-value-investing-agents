@@ -52,11 +52,11 @@ jobs:
           prompts = {path.stem for path in Path('codex-prompts').glob('*.md')}
           codex_only = codex_skills - canonical
 
-          assert len(canonical) == 20, f'Expected 20 canonical workflows, found {len(canonical)}'
+          assert len(canonical) == 21, f'Expected 21 canonical workflows, found {len(canonical)}'
           assert canonical <= codex_skills, f'Missing Codex packages: {canonical - codex_skills}'
           assert codex_only == {'investment-memo-craft'}, f'Unexpected Codex-only skills: {codex_only}'
           assert canonical == prompts, f'Codex prompt mismatch: {canonical ^ prompts}'
-          print('Verified 20 shared workflows and 1 declared Codex-only skill.')
+          print('Verified 21 shared workflows and 1 declared Codex-only skill.')
           PY
 
       - name: Test unified installation lifecycle
@@ -83,9 +83,9 @@ jobs:
           prompts = list((codex_home / 'prompts').glob('*.md'))
           manifest = json.loads((Path(os.environ['AIVA_STATE_HOME']) / 'manifest.json').read_text())
 
-          assert len(claude) == 20, f'Claude install count: {len(claude)}'
-          assert len(skills) == 21, f'Codex skill install count: {len(skills)}'
-          assert len(prompts) == 20, f'Codex prompt install count: {len(prompts)}'
+          assert len(claude) == 21, f'Claude install count: {len(claude)}'
+          assert len(skills) == 22, f'Codex skill install count: {len(skills)}'
+          assert len(prompts) == 21, f'Codex prompt install count: {len(prompts)}'
           assert (codex_home / 'skills' / 'investment-memo-craft' / 'SKILL.md').is_file()
           assert set(manifest['components']) == {'claude', 'codex-skills', 'codex-prompts'}
           print('Unified installation and manifest verified.')
@@ -154,9 +154,9 @@ jobs:
           $skills = (Get-ChildItem "$env:CODEX_HOME\skills" -Directory).Count
           $prompts = (Get-ChildItem "$env:CODEX_HOME\prompts" -Filter *.md).Count
 
-          if ($claude -ne 20) { throw "Claude install count: $claude" }
-          if ($skills -ne 21) { throw "Codex skill install count: $skills" }
-          if ($prompts -ne 20) { throw "Codex prompt install count: $prompts" }
+          if ($claude -ne 21) { throw "Claude install count: $claude" }
+          if ($skills -ne 22) { throw "Codex skill install count: $skills" }
+          if ($prompts -ne 21) { throw "Codex prompt install count: $prompts" }
           if (-not (Test-Path "$env:CODEX_HOME\skills\investment-memo-craft\SKILL.md")) {
             throw 'Missing Codex-only investment-memo-craft skill'
           }
