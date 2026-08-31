@@ -21,20 +21,21 @@ It is designed to help users:
 - Run multiple investment perspectives in parallel.
 - Cross-check financial data and calculations.
 - Screen industries and compare companies consistently.
+- Identify high-growth secular alpha and define observable exit conditions.
 - Track whether an investment thesis is strengthening, weakening, or being falsified.
 - Produce long-form research with source, privacy, attribution, and revision controls.
 
 ## Release status
 
-The canonical operational translation is complete.
+The canonical operational translation is complete and the maintained branch now incorporates upstream research changes through August 30, 2026.
 
 | Area | Status |
 |---|---|
 | Stable English-edition release | `v1.1.0` |
-| Canonical shared workflows | 20 English `skills/*.md` sources |
-| Generated Codex shared skills | 20 synchronized packages |
+| Canonical shared workflows | 21 English `skills/*.md` sources |
+| Generated Codex shared skills | 21 synchronized packages |
 | Codex-only skills | 1 declared overlay: `investment-memo-craft` |
-| Optional Codex prompts | 20 synchronized prompts for shared workflows |
+| Optional Codex prompts | 21 synchronized prompts for shared workflows |
 | Installation validation | Ubuntu, macOS, and Windows |
 | Unified local management | [`docs/INSTALLATION.md`](docs/INSTALLATION.md) |
 | End-to-end demonstration | [`docs/QUICKSTART_DEMO.md`](docs/QUICKSTART_DEMO.md) |
@@ -42,15 +43,15 @@ The canonical operational translation is complete.
 | Public launch kit | [`docs/launch/`](docs/launch/) |
 | Support and structured feedback | [`SUPPORT.md`](SUPPORT.md) |
 | Social-preview source | [`assets/social-preview-source.svg`](assets/social-preview-source.svg) |
-| Historical research reports | Preserved primarily in their original language |
+| Historical research reports | Preserved primarily in their original language and synchronized from upstream where compatible |
 
-Claude Code and Codex use the same English canonical workflows for the 20 shared capabilities. Codex additionally includes the hand-written `investment-memo-craft` report-structure overlay. Generated-file checks prevent the shared environments from silently drifting apart.
+Claude Code and Codex use the same English canonical workflows for the 21 shared capabilities. Codex additionally includes the hand-written `investment-memo-craft` report-structure overlay. Generated-file checks prevent the shared environments from silently drifting apart.
 
 ## Skills
 
 ### Deep research
 
-- [`investment-research`](skills/investment-research.md): comprehensive company research.
+- [`investment-research`](skills/investment-research.md): comprehensive company research, including audited long-horizon terminal-value and IRR analysis.
 - [`investment-team`](skills/investment-team.md): parallel multi-agent company analysis.
 - [`management-deep-dive`](skills/management-deep-dive.md): management quality and capital-allocation review.
 - [`private-company-research`](skills/private-company-research.md): research for information-scarce private companies.
@@ -68,6 +69,7 @@ Claude Code and Codex use the same English canonical workflows for the 20 shared
 - [`industry-funnel`](skills/industry-funnel.md): progressive market-to-shortlist screening.
 - [`quality-screen`](skills/quality-screen.md): quantitative quality filtering.
 - [`bottleneck-hunter`](skills/bottleneck-hunter.md): supply-chain bottleneck discovery.
+- [`era-alpha`](skills/era-alpha.md): identify core alpha inside secular high-growth themes, validate growth durability, anchor valuation, and define falsifiable holding/exit signals.
 - [`investment-checklist`](skills/investment-checklist.md): rapid pre-research decision gates.
 
 ### Portfolio and thesis management
@@ -114,7 +116,7 @@ scripts\install.bat --all
 ./scripts/install.sh --codex
 ```
 
-Codex installation includes 20 generated shared skills, the Codex-only `investment-memo-craft` overlay, and 20 optional compatibility prompts.
+Codex installation includes 21 generated shared skills, the Codex-only `investment-memo-craft` overlay, and 21 optional compatibility prompts.
 
 ### Update, diagnose, or uninstall
 
@@ -187,6 +189,7 @@ Claude Code commands:
 /investment-team NVIDIA
 /earnings-review Apple 2026Q2
 /industry-funnel AI infrastructure
+/era-alpha AI data-center power and cooling
 /investment-checklist Microsoft, Alphabet, Amazon
 /portfolio-review Apple 30%, Microsoft 25%, Cash 20%
 /news-pulse Tesla
@@ -198,6 +201,7 @@ Codex skill requests:
 Use investment-research to research Tencent.
 Use earnings-review to analyze Apple's latest quarterly results.
 Use industry-funnel to screen AI infrastructure companies.
+Use era-alpha to identify and validate the strongest alpha candidates in a secular growth theme.
 Use thesis-drift to compare two investment thesis reports.
 Use investment-memo-craft to restructure the completed report for decision use.
 ```
@@ -205,12 +209,12 @@ Use investment-memo-craft to restructure the completed report for decision use.
 ## Repository architecture
 
 ```text
-skills/*.md                 20 canonical shared workflow sources
-codex-skills/*/SKILL.md     20 generated shared packages + 1 Codex-only package
-codex-prompts/*.md          20 optional generated Codex prompts
+skills/*.md                 21 canonical shared workflow sources
+codex-skills/*/SKILL.md     21 generated shared packages + 1 Codex-only package
+codex-prompts/*.md          21 optional generated Codex prompts
 scripts/                    Synchronization, installation management, and quality scripts
-tools/                      Financial validation utilities
-reports/                    Verified examples plus historical and community research output
+tools/                      Financial validation utilities, including terminal-value audit tooling
+reports/                    Verified examples plus historical and upstream research output
 docs/                       Maintainer, release, launch, and usage documentation
 ```
 
@@ -233,10 +237,10 @@ The permanent GitHub Actions workflow additionally checks:
 - repository links, maintained identity, private paths, high-confidence secrets, and operational-language drift;
 - deterministic financial, audit, Taiwan-data, verified-example, installer-safety, and community-template tests;
 - unified install, update, doctor, uninstall, and backward-compatible alias lifecycles;
-- 20 canonical shared workflows;
-- 20 matching generated Codex skills and 20 prompts;
+- 21 canonical shared workflows;
+- 21 matching generated Codex skills and 21 prompts;
 - exactly one declared Codex-only skill, `investment-memo-craft`;
-- clean installation of 20 Claude commands, 21 Codex skills, and 20 Codex prompts;
+- clean installation of 21 Claude commands, 22 Codex skills, and 21 Codex prompts;
 - Unix-like installation on Ubuntu and macOS;
 - Windows `.bat` installation.
 
@@ -249,6 +253,8 @@ The repository includes `tools/financial_rigor.py` for exact-decimal calculation
 - Multi-source value comparison.
 - Bull, base, and bear scenario calculations.
 - Benford's Law checks.
+
+For long-horizon analysis, `tools/terminal_value.py` adds terminal-value and IRR calculations plus publication gates for currency consistency, `r - g` denominator width, and separation of discrete risks from the discount rate.
 
 AI output can contain factual, mathematical, sourcing, or interpretation errors. Always verify primary documents, currencies, share counts, units, dates, and calculations before making a financial decision.
 
