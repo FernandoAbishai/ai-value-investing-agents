@@ -1,26 +1,26 @@
-name: 💬 讨论 / 新 Skill 提议 / 其他
-description: 新 skill 提议、用法讨论、致谢或一般反馈（非报错/数据/建议类）
-title: "[讨论] "
+name: 💬 Discussion / new skill proposal / other
+description: New skill proposals, usage discussion, acknowledgments, or general feedback
+title: "[Discussion] "
 labels: ["discussion"]
 body:
   - type: markdown
     attributes:
       value: |
-        这里用于**非问题类**的交流：新 skill 提议、用法讨论、致谢等。
-        如果你是要报告 skill 报错、数据错误或提改进建议，请返回选择对应的专用模板（那些需要可复现信息）。
+        Use this template for non-bug discussion: new skill proposals, usage questions, acknowledgments, or general feedback.
+        For a skill failure, data error, or concrete improvement request, use the dedicated template so the required reproduction details are collected.
   - type: textarea
     id: content
     attributes:
-      label: 内容
-      description: 说清楚你想讨论/提议什么。若是新 skill 提议，请说明它解决什么研究场景、和现有 skill 的边界。
+      label: Topic
+      description: Explain what you want to discuss or propose. For a new skill, describe the research problem it solves and how it differs from existing skills.
     validations:
       required: true
   - type: checkboxes
     id: confirm
     attributes:
-      label: 确认
+      label: Confirmation
       options:
-        - label: 我已搜索过现有 issue，确认没有重复
+        - label: I searched existing issues and did not find a duplicate
           required: true
-        - label: 这不是 skill 报错 / 数据错误 / 改进建议（那些应走专用模板）
+        - label: This is not a skill bug, data error, or concrete improvement request that belongs in another template
           required: true
