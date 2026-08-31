@@ -201,6 +201,66 @@ python3 tools/financial_rigor.py three-scenario \
 - Compare with the company's historical valuation
 - Compare with peer valuations
 
+#### Long-Term Discounted Valuation — Ten-Year Horizon (Mandatory for 10-Year IRR or Terminal Multiples)
+
+The three-year scenario model answers whether the stock is expensive today. A ten-year framework asks whether the economics can justify long-duration ownership. Whenever a report presents a ten-year IRR or terminal valuation multiple, use `tools/terminal_value.py` rather than selecting an exit multiple by analogy.
+
+Use the perpetual-growth relationship as the terminal-multiple anchor:
+
+$$PE_{terminal} = \frac{1 - g/ROIC}{r - g}$$
+
+Do not justify a terminal multiple with a peer's current multiple. That simply carries today's market pricing assumption into the terminal year.
+
+**Step 1 — Define and justify the three inputs before calculating:**
+
+| Input | How to set it | Common error |
+|---|---|---|
+| **r — cost of capital** | Match the currency of the cash flows. Built-in reference bands are CNY 6%–9% (8% primary working case) and USD/HKD 9%–11.5% (10% primary working case). | Mixing discount-rate regimes or mechanically following a temporarily low sovereign yield. |
+| **ROIC — steady-state incremental return on capital** | Use a sustainable incremental return, normally below unusually high historical returns created by mature intangible assets. | Assuming every future dollar can reproduce the economics of the company's original moat-building investments. |
+| **g — perpetual growth** | This is growth after the terminal year, not growth during the next ten years. Keep the base case within the currency/economy guardrails: CNY ≤2%; USD/HKD ≤4%. | Pairing a growth rate from one nominal currency regime with a discount rate from another. |
+
+**Do not move `g` automatically when changing `r`.** They represent different judgments. Sensitivity analysis should vary the discount rate independently unless the underlying long-run growth thesis itself changes.
+
+**Step 2 — Run the three hard publication gates before producing a terminal value:**
+
+```bash
+python3 tools/terminal_value.py audit \
+  --currency {CNY|USD|HKD} --r {cost_of_capital} --roic {steady_state_ROIC} \
+  --g {bear_g},{base_g},{bull_g} --rf {risk_free_rate} --beta 1.0 \
+  --discrete-risks "{risk}:{scenario|tail|probability|unmodeled},..."
+```
+
+The audit enforces:
+
+| Gate | Requirement |
+|---|---|
+| **C1 — Currency consistency** | `r`, the risk-free rate, and the perpetual-growth assumptions must use a coherent currency regime. |
+| **C2 — Denominator width** | `r - g` must be at least 5 percentage points for valuation cases. If a narrower spread is intentionally explored, mark it explicitly as an upside/downside scenario rather than a valuation conclusion. |
+| **C3 — Discrete-risk separation** | Delisting, VIE failure, geopolitical interruption, severe regulatory action, and similar discrete risks must not be hidden inside `r` or beta. Model them as scenarios, tail cases, probabilities, or explicitly unmodeled limitations. A beta other than 1.0 requires justification. |
+
+If the audit exits with a failure, correct the assumptions before continuing.
+
+**Step 3 — Calculate only after the audit passes:**
+
+```bash
+python3 tools/terminal_value.py pe --roic {ROIC} --g {g} --r {r}
+
+python3 tools/terminal_value.py irr \
+  --profit {terminal_year_profit} --mcap {current_market_cap} --pe {exit_PE} \
+  --years 10 --payout {dividend_yield_minus_dilution}
+```
+
+For multi-company comparisons, use the tool's config/table/sweep/check modes rather than hand-calculating rankings.
+
+**Step 4 — The report must disclose:**
+
+1. the chosen `r`, its currency, and the paired long-run `g` ceiling;
+2. sensitivity at no fewer than two discount rates, including whether company rankings remain stable;
+3. the `r - g` denominator width for every scenario, with narrow cases clearly labeled as scenario-only;
+4. every discrete risk left unmodeled by the valuation.
+
+**Buffett follow-up**: If the discount rate is wrong by two percentage points, does the investment conclusion reverse? If it does, is the thesis really about the company or about the discount-rate assumption?
+
 **Duan Yongping follow-up**: If the stock market closed tomorrow for five years, would you be willing to hold at this price?
 
 ### Step 8: Integrated Decision Memo
@@ -270,3 +330,16 @@ python3 tools/report_audit.py verdict \
 
 - **PASS FOR PUBLICATION**: every sampled discrepancy is ≤ 1%; the report may be published
 - **RETURN FOR CORRECTION**: any sampled discrepancy is > 1%; correct the affected data and repeat the audit until it passes
+
+Step 4 — Re-run the terminal-value assumption audit for reports containing a ten-year IRR or terminal multiple:
+
+```bash
+python3 tools/terminal_value.py audit \
+  --currency {currency} --r {r} --roic {ROIC} --g {bear_g},{base_g},{bull_g} \
+  --rf {risk_free_rate} --beta {beta} --discrete-risks "{risk_assignment_list}"
+```
+
+- **PASS** (exit code 0): the valuation assumptions are eligible for publication.
+- **RETURN FOR CORRECTION** (exit code 1): revise the assumptions and repeat the audit.
+
+This final re-check is mandatory because assumptions often change while a report is being edited. The published values must match the assumptions that actually passed the gate.
