@@ -102,21 +102,21 @@ class InstallationManager:
                 source=self.root / "skills",
                 destination=self.claude_commands_dir,
                 kind="files",
-                expected_count=20,
+                expected_count=21,
             ),
             "codex-skills": Component(
                 name="codex-skills",
                 source=self.root / "codex-skills",
                 destination=self.codex_home / "skills",
                 kind="directories",
-                expected_count=21,
+                expected_count=22,
             ),
             "codex-prompts": Component(
                 name="codex-prompts",
                 source=self.root / "codex-prompts",
                 destination=self.codex_home / "prompts",
                 kind="files",
-                expected_count=20,
+                expected_count=21,
             ),
         }
 

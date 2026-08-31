@@ -28,6 +28,7 @@ PUBLIC_PATH_SCAN = (
     "scripts/", "skills/", "codex-skills/", "codex-prompts/",
 )
 OPERATIONAL_ENGLISH_PREFIXES = ("skills/", "codex-skills/", "codex-prompts/")
+EXPECTED_SHARED_WORKFLOWS = 21
 
 MARKDOWN_LINK_RE = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 HTML_LINK_RE = re.compile(r"(?:href|src)\s*=\s*[\"']([^\"']+)[\"']", re.IGNORECASE)
@@ -233,8 +234,15 @@ def check_required_identity(_: list[Path]) -> list[Finding]:
     canonical = {path.stem for path in (ROOT / "skills").glob("*.md")}
     prompts = {path.stem for path in (ROOT / "codex-prompts").glob("*.md")}
     generated = {path.parent.name for path in (ROOT / "codex-skills").glob("*/SKILL.md")}
-    if len(canonical) != 20:
-        findings.append(Finding("inventory", "skills/", 0, f"expected 20 workflows, found {len(canonical)}"))
+    if len(canonical) != EXPECTED_SHARED_WORKFLOWS:
+        findings.append(
+            Finding(
+                "inventory",
+                "skills/",
+                0,
+                f"expected {EXPECTED_SHARED_WORKFLOWS} workflows, found {len(canonical)}",
+            )
+        )
     if prompts != canonical:
         findings.append(Finding("inventory", "codex-prompts/", 0, f"prompt mismatch: {sorted(prompts ^ canonical)}"))
     codex_only = generated - canonical

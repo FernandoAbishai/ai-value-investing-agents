@@ -44,17 +44,17 @@ class UnifiedManagerTests(unittest.TestCase):
 
     def test_install_all_writes_expected_files_and_manifest(self):
         result = self.install()
-        self.assertEqual(result.changed, 61)
-        self.assertEqual(len(list(self.claude.glob("*.md"))), 20)
-        self.assertEqual(len(list((self.codex / "skills").glob("*/SKILL.md"))), 21)
-        self.assertEqual(len(list((self.codex / "prompts").glob("*.md"))), 20)
+        self.assertEqual(result.changed, 64)
+        self.assertEqual(len(list(self.claude.glob("*.md"))), 21)
+        self.assertEqual(len(list((self.codex / "skills").glob("*/SKILL.md"))), 22)
+        self.assertEqual(len(list((self.codex / "prompts").glob("*.md"))), 21)
 
         manifest = json.loads((self.state / "manifest.json").read_text(encoding="utf-8"))
         self.assertEqual(manifest["project"], manage.PROJECT)
         self.assertEqual(set(manifest["components"]), set(self.all_components))
-        self.assertEqual(len(manifest["components"]["claude"]["entries"]), 20)
-        self.assertEqual(len(manifest["components"]["codex-skills"]["entries"]), 21)
-        self.assertEqual(len(manifest["components"]["codex-prompts"]["entries"]), 20)
+        self.assertEqual(len(manifest["components"]["claude"]["entries"]), 21)
+        self.assertEqual(len(manifest["components"]["codex-skills"]["entries"]), 22)
+        self.assertEqual(len(manifest["components"]["codex-prompts"]["entries"]), 21)
 
     def test_doctor_is_healthy_after_install(self):
         self.install()
@@ -71,7 +71,7 @@ class UnifiedManagerTests(unittest.TestCase):
                 backup=True,
                 operation="install",
             )
-        self.assertEqual(result.changed, 20)
+        self.assertEqual(result.changed, 21)
         self.assertFalse(self.claude.exists())
         self.assertFalse((self.state / "manifest.json").exists())
 
@@ -103,7 +103,7 @@ class UnifiedManagerTests(unittest.TestCase):
                 operation="update",
             )
         self.assertEqual(result.changed, 1)
-        self.assertEqual(result.unchanged, 19)
+        self.assertEqual(result.unchanged, 20)
         backups = list((self.state / "backups").glob("*/claude/investment-research.md"))
         self.assertEqual(len(backups), 1)
         report = self.manager.doctor(["claude"])
@@ -120,7 +120,7 @@ class UnifiedManagerTests(unittest.TestCase):
             force=False,
             backup=False,
         )
-        self.assertEqual(result.removed, 61)
+        self.assertEqual(result.removed, 64)
         self.assertTrue(unrelated.is_file())
         self.assertEqual(unrelated.read_text(encoding="utf-8"), "keep me\n")
         self.assertFalse((self.codex / "skills" / "investment-research").exists())
@@ -155,7 +155,7 @@ class UnifiedManagerTests(unittest.TestCase):
             force=True,
             backup=True,
         )
-        self.assertEqual(result.removed, 20)
+        self.assertEqual(result.removed, 21)
         self.assertEqual(result.backups, 1)
         self.assertFalse(target.exists())
         backups = list((self.state / "backups").glob("*/claude/investment-research.md"))
