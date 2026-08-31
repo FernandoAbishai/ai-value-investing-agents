@@ -28,13 +28,14 @@ CANONICAL_DIRECTORIES = (
     "codex-prompts",
 )
 
-# Explicit localizations are preserved by design rather than treated as canonical English docs.
-EXCLUDED_PATHS = {
-    "README_ZH.md",
-    "README_JA.md",
-}
-
 TEXT_SUFFIXES = {".md", ".py", ".sh", ".bat", ".yml", ".yaml", ".json", ".txt"}
+
+# The canonical README intentionally exposes localized navigation labels.
+ALLOWED_CJK_LINES = {
+    "README.md": {
+        "[English](README.md) · [中文](README_ZH.md) · [日本語](README_JA.md)",
+    },
+}
 
 
 class EnglishFirstLanguagePolicyTests(unittest.TestCase):
@@ -48,17 +49,19 @@ class EnglishFirstLanguagePolicyTests(unittest.TestCase):
             if not base.exists():
                 continue
             for path in base.rglob("*"):
-                if not path.is_file() or path.suffix.lower() not in TEXT_SUFFIXES:
-                    continue
-                rel = path.relative_to(ROOT).as_posix()
-                if rel in EXCLUDED_PATHS:
-                    continue
-                yield path
+                if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES:
+                    yield path
+
+    def filtered_text(self, path: Path) -> str:
+        rel = path.relative_to(ROOT).as_posix()
+        allowed = ALLOWED_CJK_LINES.get(rel, set())
+        lines = path.read_text(encoding="utf-8").splitlines()
+        return "\n".join(line for line in lines if line not in allowed)
 
     def test_canonical_maintained_surfaces_are_english_first(self):
         findings = []
         for path in self.iter_canonical_files():
-            text = path.read_text(encoding="utf-8")
+            text = self.filtered_text(path)
             match = CJK_RE.search(text)
             if not match:
                 continue
