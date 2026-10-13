@@ -1,11 +1,19 @@
 # AI Value Investing Agents Roadmap
 
+## Completed baseline — October 2026
+
+### Unified local-market data layer
+- Route maintained local-market workflows through `tools/market_data.py`.
+- Register Mainland China A-share and Taiwan adapters behind stable market aliases and capability metadata.
+- Preserve the existing direct adapter CLIs for backward compatibility.
+- Provide a versioned JSON metadata envelope without weakening the independent-source validation standard.
+
 ## P0 — Near term (1–2 months)
 
-### A-share data-source integration
-- Integrate free data sources such as AkShare and Eastmoney.
-- Cover A-share financial statements, market data, and trading-activity datasets.
-- Keep the existing skill interfaces stable while extending the data layer.
+### Structured market-data payloads
+- Add normalized structured fields behind the unified adapter interface instead of relying only on legacy `result_text`.
+- Normalize currency, fiscal period, units, source provenance, and missing-value semantics.
+- Keep the existing text interface stable while structured consumers migrate incrementally.
 
 ## P1 — Medium term (3–6 months)
 
