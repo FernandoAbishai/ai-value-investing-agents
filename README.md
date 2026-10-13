@@ -27,11 +27,12 @@ It is designed to help users:
 
 ## Release status
 
-The canonical operational translation is complete and the maintained branch now incorporates upstream research changes through August 30, 2026.
+The canonical operational translation is complete. Reusable upstream framework, tooling, correctness, and maintenance changes have been reviewed through October 12, 2026. Historical research content is synchronized selectively rather than mirrored wholesale.
 
 | Area | Status |
 |---|---|
 | Stable English-edition release | `v1.1.0` |
+| Upstream framework review | Through October 12, 2026 ([review record](docs/UPSTREAM_REVIEW_2026-10.md)) |
 | Canonical shared workflows | 21 English `skills/*.md` sources |
 | Generated Codex shared skills | 21 synchronized packages |
 | Codex-only skills | 1 declared overlay: `investment-memo-craft` |
@@ -155,6 +156,14 @@ The curated [`reports/examples/`](reports/examples/) collection demonstrates the
 
 The examples are newly prepared research artifacts, not mechanical translations of the historical archive. CI requires their metadata and selected audit fixtures to remain valid.
 
+## Upstream synchronization
+
+This edition uses selective semantic ports rather than commit-count parity with the original repository. Reusable methodology, tooling, correctness fixes, and privacy/security hardening are candidates for adaptation; upstream-specific portfolio records, publishing assets, and large batches of historical research are not imported automatically.
+
+The latest review boundary, incorporated changes, deliberate exclusions, and future synchronization rules are documented in [`docs/UPSTREAM_REVIEW_2026-10.md`](docs/UPSTREAM_REVIEW_2026-10.md).
+
+The hardened report-index generator is available at `tools/reports_index.py`. The generated `reports/README.md` and `reports/index.json` must be produced from this fork's own tracked archive rather than copied from upstream.
+
 ## Public launch resources
 
 The repository includes a reusable launch package:
@@ -213,9 +222,9 @@ skills/*.md                 21 canonical shared workflow sources
 codex-skills/*/SKILL.md     21 generated shared packages + 1 Codex-only package
 codex-prompts/*.md          21 optional generated Codex prompts
 scripts/                    Synchronization, installation management, and quality scripts
-tools/                      Financial validation utilities, including terminal-value audit tooling
+tools/                      Financial validation, terminal-value audit, and report-index utilities
 reports/                    Verified examples plus historical and upstream research output
-docs/                       Maintainer, release, launch, and usage documentation
+docs/                       Maintainer, release, launch, upstream-review, and usage documentation
 ```
 
 Canonical shared workflows should be edited in `skills/*.md` first. Their generated Codex files must then be synchronized using the repository scripts rather than edited independently. A clearly marked Codex-only package may be maintained directly when no same-named canonical source exists.
@@ -235,7 +244,7 @@ python3 -m unittest discover -s tests -v
 The permanent GitHub Actions workflow additionally checks:
 
 - repository links, maintained identity, private paths, high-confidence secrets, and operational-language drift;
-- deterministic financial, audit, Taiwan-data, verified-example, installer-safety, and community-template tests;
+- deterministic financial, audit, Taiwan-data, verified-example, installer-safety, report-index, and community-template tests;
 - unified install, update, doctor, uninstall, and backward-compatible alias lifecycles;
 - 21 canonical shared workflows;
 - 21 matching generated Codex skills and 21 prompts;
