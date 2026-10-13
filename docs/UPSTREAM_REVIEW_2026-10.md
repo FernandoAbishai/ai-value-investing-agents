@@ -14,16 +14,19 @@ This repository is not intended to mirror every upstream commit. Upstream resear
 
 ### Hardened report indexing
 
-Merged in PR #22 as commit `eb7b76eaacd06c38ad8d6306d7f368667dc445a1`.
+Initially ported in PR #22 as commit `eb7b76eaacd06c38ad8d6306d7f368667dc445a1`, then adapted for this fork's verified-example taxonomy and bootstrapped in follow-up PRs.
 
-The port includes:
+The completed integration includes:
 
 - `tools/reports_index.py` for deterministic human- and machine-readable report inventories;
 - `reports/_index/config.json` and `reports/_index/README.md` for archive classification and maintenance rules;
 - fail-closed publication behavior so untracked, ignored, and intent-to-add drafts are excluded;
 - Unicode-stable Git history handling;
 - explicit UTF-8 console behavior for Windows;
-- cross-platform regression tests using real temporary Git repositories.
+- cross-platform regression tests using real temporary Git repositories;
+- `reports/README.md` and `reports/index.json` generated from this fork's exact tracked archive;
+- fork-specific classification of `reports/examples/` under `Verified English examples`;
+- a permanent full-history, read-only report-index drift check in GitHub Actions.
 
 The implementation is a semantic port rather than a direct cherry-pick. The first cross-platform validation exposed Windows-specific encoding and file-system assumptions that were corrected before merge.
 
@@ -56,8 +59,8 @@ For future upstream reviews:
 5. Keep each port small, reviewable, reversible, and covered by the existing validation matrix.
 6. Record the upstream commit boundary after each completed review.
 
-## Pending generated report index bootstrap
+## Report index bootstrap status
 
-The report-index implementation is merged, but the generated `reports/README.md` and `reports/index.json` should be created by executing `python3 tools/reports_index.py` against this fork's exact checkout. They must not be reconstructed manually from upstream output because this fork's tracked report set differs.
+Complete. The generated report index was produced by executing the real generator against a full-history checkout of this fork, then immediately verified with `python3 tools/reports_index.py --check`.
 
-After those generated files are committed, `python3 tools/reports_index.py --check` can be added to permanent CI so report-index drift becomes a required gate.
+The committed inventory contains 2,203 tracked reports across 109 company groups and 16 themes as of this review. A permanent read-only GitHub Actions workflow now runs the full-history `--check` gate on pull requests and `main` pushes so index drift is detected before release.

@@ -8,6 +8,29 @@ The project follows [Semantic Versioning](https://semver.org/) for maintained En
 
 No unreleased changes.
 
+## [1.2.0] — 2026-10-12
+
+### Added
+
+- `era-alpha` as the 21st canonical shared workflow, with synchronized Codex skill and prompt surfaces.
+- Long-horizon terminal-value and IRR audit tooling integrated with the maintained investment-research workflow.
+- Hardened report indexing through `tools/reports_index.py`, generated `reports/README.md`, and machine-readable `reports/index.json`.
+- A full-history, read-only GitHub Actions gate that blocks stale report indexes.
+- An explicit upstream-review record through October 12, 2026 and a selective semantic synchronization policy.
+
+### Changed
+
+- The maintained inventory is now 21 canonical shared workflows, 21 generated Codex shared packages, 21 optional prompts, and one declared Codex-only overlay.
+- Release validation now checks report-index freshness and no longer duplicates a stale hardcoded canonical-workflow count.
+- Curated `reports/examples/` content is classified as `Verified English examples` rather than as a company in generated research navigation.
+- Repository documentation now distinguishes reusable upstream framework synchronization from bulk historical-report mirroring.
+
+### Fixed
+
+- Prevented untracked, ignored, or `git add -N` report drafts from appearing in generated public report indexes.
+- Made report-index generation and regression tests portable across Windows Unicode-console and filesystem behavior.
+- Excluded the verified-example source/calculation register from the report inventory.
+
 ## [1.1.0] — 2026-08-02
 
 ### Added

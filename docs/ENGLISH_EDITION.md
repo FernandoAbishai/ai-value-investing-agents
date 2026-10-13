@@ -6,12 +6,12 @@
 
 - **Repository:** `FernandoAbishai/ai-value-investing-agents`
 - **Display name:** AI Value Investing Agents
-- **Stable release:** `v1.1.0`
+- **Stable release:** `v1.2.0`
 - **Framework lineage:** AI Berkshire
 - **Maintainer:** Fernando Abishai
 - **Original project:** [xbtlin/ai-berkshire](https://github.com/xbtlin/ai-berkshire)
 
-The original methodology, Chinese workflows, historical reports, and performance materials were created or published by the original project maintainer. This edition focuses on English accessibility, source/generated consistency, clearer attribution, reproducible installation, and maintainable workflows for Claude Code and OpenAI Codex.
+The original methodology, Chinese workflows, historical reports, and performance materials were created or published by the original project maintainer. This edition focuses on English accessibility, source/generated consistency, clearer attribution, reproducible installation, deterministic research tooling, and maintainable workflows for Claude Code and OpenAI Codex.
 
 ## Repository Description
 
@@ -42,14 +42,17 @@ A Codex-only skill may be maintained directly under `codex-skills/` only when it
 | Repository identity and clone paths | Complete |
 | English README and installation instructions | Complete |
 | `AGENTS.md` and `CLAUDE.md` | English and aligned with the maintained edition |
-| Canonical shared `skills/*.md` workflows | 20 English workflows |
-| Generated Codex shared packages | 20 packages from canonical English sources |
+| Canonical shared `skills/*.md` workflows | 21 English workflows |
+| Generated Codex shared packages | 21 packages from canonical English sources |
 | Codex-only packages | 1 declared package: `investment-memo-craft` |
-| Codex slash prompts | 20 generated prompts for shared workflows |
+| Codex slash prompts | 21 generated prompts for shared workflows |
 | Unified installation management | Install, update, doctor, uninstall, backups, manifests, and dry-run |
 | Cross-platform installation validation | Ubuntu, macOS, and Windows |
 | End-to-end workflow demonstration | Published in `docs/QUICKSTART_DEMO.md` |
-| Tagged English-edition release | `v1.1.0` |
+| Tagged English-edition release | `v1.2.0` |
+| Upstream reusable-framework review | Complete through October 12, 2026 |
+| Historical report index | 2,203 tracked reports · 109 company groups · 16 themes |
+| Report-index drift gate | Full-history read-only GitHub Actions check |
 | Public launch article and channel copy | Prepared in `docs/launch/` |
 | Video demonstration script and publishing gate | Prepared in `docs/launch/` |
 | Structured support and feedback intake | Four issue forms, `SUPPORT.md`, issue #17, and launch triage plan |
@@ -62,17 +65,38 @@ A Codex-only skill may be maintained directly under `codex-skills/` only when it
 
 `.github/workflows/validate.yml` verifies:
 
-- generator `--check` modes;
+- generator `--check` modes for shared Codex surfaces;
 - repository quality gates for links, identity, privacy, secrets, and operational language;
-- deterministic unit, example-report, installer, and community-template tests;
+- deterministic unit, example-report, installer, report-index regression, and community-template tests;
 - Python compilation;
-- one-to-one correspondence among 20 canonical workflows, 20 generated Codex shared packages, and 20 prompts;
+- one-to-one correspondence among 21 canonical workflows, 21 generated Codex shared packages, and 21 prompts;
 - the presence of exactly one declared Codex-only package, `investment-memo-craft`;
-- clean installation of 20 Claude Code commands, 21 Codex skills, and 20 prompts on Ubuntu, macOS, and Windows.
+- clean installation of 21 Claude Code commands, 22 Codex skills, and 21 prompts on Ubuntu, macOS, and Windows.
 
-`.github/workflows/release.yml` publishes a semantic-version GitHub release only when a commit merged to `main` begins with `Release vX.Y.Z`, the matching release-notes file exists, and release validation succeeds. Release validation includes repository quality gates, the complete deterministic test suite, workflow inventory checks, and the unified installation lifecycle.
+`.github/workflows/report-index.yml` checks out full Git history and runs `python3 tools/reports_index.py --check`. This keeps the history-dependent archive index deterministic without requiring every cross-platform validation job to fetch the full repository history.
 
-Release notes for the current maintained edition are in `docs/releases/v1.1.0.md`; the initial edition remains documented in `docs/releases/v1.0.0.md`.
+`.github/workflows/release.yml` publishes a semantic-version GitHub release only when a commit merged to `main` begins with `Release vX.Y.Z`, the matching release-notes file exists, and release validation succeeds. Release validation includes repository quality gates, generated-surface checks, report-index freshness, the complete deterministic test suite, workflow inventory consistency, and the unified installation lifecycle.
+
+Release notes for the current maintained edition are in `docs/releases/v1.2.0.md`; earlier releases remain documented under `docs/releases/`.
+
+## Upstream Synchronization
+
+The English edition does not attempt commit-count parity with the original project. Upstream changes are reviewed selectively and adapted when they improve reusable methodology, tooling, correctness, privacy, or maintenance.
+
+The current review boundary is upstream commit `ab56abcb31ef8e3a92d925f1b18fb339341ac9d3` from October 12, 2026. The review record and synchronization policy are maintained in `docs/UPSTREAM_REVIEW_2026-10.md`.
+
+Bulk historical research, portfolio records, publishing assets, and maintainer-specific material are not automatically imported merely to reduce divergence.
+
+## Historical Report Index
+
+`tools/reports_index.py` generates:
+
+- `reports/README.md` for human navigation;
+- `reports/index.json` for machine-readable inventory.
+
+The generator indexes only report contents represented in Git's index. Untracked drafts, ignored files, and intent-to-add placeholders are excluded. Git-read failures stop generation rather than risking publication of local-only material.
+
+The initial committed inventory contains 2,203 reports across 109 company groups and 16 themes. `reports/examples/` is classified as `Verified English examples`, while its `VERIFICATION.md` register is excluded from the report inventory.
 
 ## Historical Reports
 
@@ -122,26 +146,36 @@ Generated commentary must not impersonate a real person or imply endorsement. Un
 - [x] Add unified installation, update, diagnostics, and safe uninstall management.
 - [x] Add structured issue forms, support policy, feedback triage, video script, and publishing checklist.
 - [x] Prepare the `v1.1.0` reliability and operations release.
+- [x] Add `era-alpha` as the 21st canonical shared workflow.
+- [x] Add long-horizon terminal-value and IRR audit tooling.
+- [x] Review reusable upstream framework changes through October 12, 2026.
+- [x] Add hardened report indexing with cross-platform regression coverage.
+- [x] Bootstrap the generated archive index from full Git history.
+- [x] Add permanent report-index drift validation.
+- [x] Prepare the `v1.2.0` upstream-sync and research-index release.
 
-## Post-v1.1.0 Roadmap
+## Post-v1.2.0 Roadmap
 
 - [ ] Publish the launch article and selected social posts.
 - [ ] Record and publish the prepared video demonstration using a verified example.
 - [ ] Collect external installation feedback through issue #17 and the structured issue forms.
 - [ ] Expand verified examples to additional markets and accounting regimes.
 - [ ] Add deeper property-based and CLI error-path tests where useful.
+- [ ] Continue selective upstream reviews when reusable framework changes appear.
 
-## v1.1.0 Release Checklist
+## v1.2.0 Release Checklist
 
 ```text
-[x] Both synchronization scripts pass with --check.
+[x] Both Codex synchronization scripts pass with --check.
 [x] Repository quality gates pass.
 [x] The complete deterministic test suite passes on Ubuntu, macOS, and Windows.
 [x] Unified install, doctor, idempotent update, and uninstall pass.
 [x] Backward-compatible installer aliases remain validated.
-[x] All three verified-example audit fixtures receive PASS.
-[x] Structured issue forms include reproducible fields and privacy guards.
-[x] README and edition metadata identify v1.1.0 as the stable release.
+[x] The report index was generated from a full-history checkout and passes --check.
+[x] The permanent report-index workflow passes after merge on main.
+[x] The upstream review boundary is documented through October 12, 2026.
+[x] README and edition metadata identify v1.2.0 as the stable release candidate.
 [x] Release notes explain compatibility, upgrade steps, attribution, and limitations.
-[x] No temporary updater script or workflow remains in the merge candidate.
+[x] Release validation no longer contains the stale hardcoded 20-workflow assertion.
+[x] No temporary write-enabled bootstrap workflow remains in the merge candidate.
 ```
