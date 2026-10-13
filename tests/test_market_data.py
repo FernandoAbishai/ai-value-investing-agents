@@ -33,6 +33,16 @@ class MarketResolutionTests(unittest.TestCase):
         self.assertEqual(capabilities[1]["currency"], "TWD")
         self.assertIn("revenue", capabilities[1]["commands"])
 
+    def test_registered_adapters_expose_every_declared_command(self):
+        for spec in md.MARKETS:
+            with self.subTest(market=spec.key):
+                module = md._load_module(spec)
+                for command in spec.commands:
+                    self.assertTrue(
+                        callable(getattr(module, f"cmd_{command}", None)),
+                        f"{spec.adapter_module} is missing cmd_{command}()",
+                    )
+
 
 class MarketDispatchTests(unittest.TestCase):
     def test_text_mode_delegates_without_reformatting(self):
