@@ -51,6 +51,18 @@ TYPE_RULES = [
 ]
 
 
+def _force_utf8_stdio() -> None:
+    """Keep Unicode archive paths safe on Windows consoles and captured pipes."""
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is None:
+            continue
+        try:
+            reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, OSError, ValueError):
+            pass
+
+
 def load_config() -> dict:
     with open(CONFIG, encoding="utf-8") as handle:
         return json.load(handle)
@@ -490,6 +502,7 @@ def update_root_readme(items: list[dict]) -> tuple[str | None, str | None]:
 
 
 def main() -> int:
+    _force_utf8_stdio()
     check = "--check" in sys.argv
     config = load_config()
     try:
