@@ -39,6 +39,8 @@ These support the maintained framework directly and should expose English-facing
 
 - `financial_rigor.py`
 - `report_audit.py`
+- `reports_index.py`
+- `market_data.py`
 - `terminal_value.py`
 - `stock_screener.py`
 - `morningstar_fair_value.py`
@@ -46,6 +48,23 @@ These support the maintained framework directly and should expose English-facing
 - `momentum_backtest_v2.py`
 - `star_history_chart.py`
 - `log-command.sh`
+
+### Unified market-data entry point
+
+`tools/market_data.py` is the maintained command surface for installed local-market adapters. It currently registers Mainland China A-shares and Taiwan stocks without changing the behavior of their existing direct tools.
+
+Use:
+
+```bash
+python3 tools/market_data.py capabilities
+python3 tools/market_data.py quote 600519 --market cn
+python3 tools/market_data.py financials 2330 --market tw
+python3 tools/market_data.py valuation 2330 --market taiwan --format json
+```
+
+The registry records each market's canonical key, aliases, currency, adapter module, supported commands, and source family. Text mode delegates directly to the legacy adapter so existing behavior is preserved. JSON mode adds a versioned metadata envelope around the adapter output for agent and automation use.
+
+The wrapper is a routing and provenance boundary, not a substitute for independent source validation. If one adapter internally uses multiple endpoints from one retrieval path, workflows must still follow `skills/financial-data.md` and obtain an independent confirmation before treating material figures as verified.
 
 ### Local-market adapters
 
@@ -56,6 +75,8 @@ These may retain local-language identifiers or parsing strings where required by
 - `xueqiu_scraper.py`
 
 The standard for these adapters is not "zero CJK characters." The standard is that an English-speaking maintainer can understand how to invoke, validate, and safely modify the adapter without translating the historical research corpus.
+
+Direct adapter CLIs remain supported for backward compatibility. New maintained workflows should prefer `tools/market_data.py` when the requested market is registered there.
 
 ## Upstream synchronization rule
 
