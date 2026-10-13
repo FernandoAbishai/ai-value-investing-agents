@@ -31,12 +31,13 @@ The canonical operational translation is complete. Reusable upstream framework, 
 
 | Area | Status |
 |---|---|
-| Stable English-edition release | `v1.1.0` |
+| Stable English-edition release | `v1.2.0` |
 | Upstream framework review | Through October 12, 2026 ([review record](docs/UPSTREAM_REVIEW_2026-10.md)) |
 | Canonical shared workflows | 21 English `skills/*.md` sources |
 | Generated Codex shared skills | 21 synchronized packages |
 | Codex-only skills | 1 declared overlay: `investment-memo-craft` |
 | Optional Codex prompts | 21 synchronized prompts for shared workflows |
+| Research report index | 2,203 tracked reports · 109 company groups · 16 themes |
 | Installation validation | Ubuntu, macOS, and Windows |
 | Unified local management | [`docs/INSTALLATION.md`](docs/INSTALLATION.md) |
 | End-to-end demonstration | [`docs/QUICKSTART_DEMO.md`](docs/QUICKSTART_DEMO.md) |
@@ -162,7 +163,7 @@ This edition uses selective semantic ports rather than commit-count parity with 
 
 The latest review boundary, incorporated changes, deliberate exclusions, and future synchronization rules are documented in [`docs/UPSTREAM_REVIEW_2026-10.md`](docs/UPSTREAM_REVIEW_2026-10.md).
 
-The hardened report-index generator is available at `tools/reports_index.py`. The generated `reports/README.md` and `reports/index.json` must be produced from this fork's own tracked archive rather than copied from upstream.
+The hardened report-index generator is available at `tools/reports_index.py`. Its generated [`reports/README.md`](reports/README.md) and `reports/index.json` inventory are produced from this fork's own tracked archive. A full-history, read-only GitHub Actions check blocks index drift on pull requests and `main` pushes.
 
 ## Public launch resources
 
@@ -241,10 +242,17 @@ python3 -m compileall -q scripts tools tests
 python3 -m unittest discover -s tests -v
 ```
 
-The permanent GitHub Actions workflow additionally checks:
+For the generated historical-report inventory, also run from a full-history checkout:
+
+```bash
+python3 tools/reports_index.py --check
+```
+
+The permanent GitHub Actions workflows additionally check:
 
 - repository links, maintained identity, private paths, high-confidence secrets, and operational-language drift;
 - deterministic financial, audit, Taiwan-data, verified-example, installer-safety, report-index, and community-template tests;
+- generated report-index freshness using full Git history;
 - unified install, update, doctor, uninstall, and backward-compatible alias lifecycles;
 - 21 canonical shared workflows;
 - 21 matching generated Codex skills and 21 prompts;
@@ -277,4 +285,4 @@ Past performance does not guarantee future results. Nothing in this repository c
 
 Read [SUPPORT.md](SUPPORT.md) before opening an issue and [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Contributions should preserve command names, paths, variables, output contracts, financial terminology, and source/generated consistency.
 
-See [`CHANGELOG.md`](CHANGELOG.md), [`docs/ENGLISH_EDITION.md`](docs/ENGLISH_EDITION.md), and the [v1.1.0 release notes](docs/releases/v1.1.0.md) for edition history and release details.
+See [`CHANGELOG.md`](CHANGELOG.md), [`docs/ENGLISH_EDITION.md`](docs/ENGLISH_EDITION.md), and the [v1.2.0 release notes](docs/releases/v1.2.0.md) for edition history and release details.
