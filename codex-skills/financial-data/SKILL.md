@@ -41,35 +41,65 @@ This standard applies to every research workflow involving company financial dat
 
 | Priority | Source | URL / identifier | Access method |
 |---|---|---|---|
-| 1 — Primary | **Eastmoney** | Search by stock code and open financial statements | Direct access |
-| 2 — Secondary | **CNInfo** | `cninfo.com.cn` | Original annual and quarterly reports |
+| 1 — Local retrieval | **Tencent + Eastmoney** | Stock code such as `600519` | `tools/market_data.py --market cn` |
+| 2 — Independent check | **CNInfo** | `cninfo.com.cn` | Original annual and quarterly reports |
+
+**A-share retrieval commands**:
+
+```bash
+python3 tools/market_data.py quote 600519 --market cn
+python3 tools/market_data.py valuation 600519 --market cn
+python3 tools/market_data.py financials 600519 --market cn
+python3 tools/market_data.py search Kweichow --market cn
+```
+
+Special rules for A-shares:
+
+1. Currency is CNY. Explicitly label it in cross-market work.
+2. The local adapter routes quote data through Tencent and financial/search data through Eastmoney. Treat that adapter output as one retrieval path, not as two independent confirmations.
+3. Cross-check material figures against CNInfo or the original issuer filing before treating them as verified.
+4. `tools/ashare_data.py` remains a backward-compatible direct adapter, but maintained workflows should prefer `tools/market_data.py`.
 
 ### Taiwan Stocks
 
 | Priority | Source | URL / identifier | Access method |
 |---|---|---|---|
-| 1 — Primary | **FinMind API** | `api.finmindtrade.com` | `tools/twstock_data.py` |
+| 1 — Local retrieval | **FinMind API** | `api.finmindtrade.com` | `tools/market_data.py --market tw` |
 | 2 — Secondary | **Goodinfo** | `goodinfo.tw/tw/StockDetail.asp?STOCK_ID={code}` | Direct access |
 | Primary filing | MOPS | `mops.twse.com.tw` | Original filings and monthly revenue disclosures |
 
-**FinMind retrieval commands**:
+**Taiwan retrieval commands**:
 
 ```bash
-python3 tools/twstock_data.py quote 2330
-python3 tools/twstock_data.py valuation 2330
-python3 tools/twstock_data.py financials 2330
-python3 tools/twstock_data.py revenue 2330
-python3 tools/twstock_data.py dividend 2330
-python3 tools/twstock_data.py search TSMC
+python3 tools/market_data.py quote 2330 --market tw
+python3 tools/market_data.py valuation 2330 --market tw
+python3 tools/market_data.py financials 2330 --market tw
+python3 tools/market_data.py revenue 2330 --market tw
+python3 tools/market_data.py dividend 2330 --market tw
+python3 tools/market_data.py search TSMC --market tw
 ```
 
 Special rules for Taiwan stocks:
 
 1. Currency is TWD. Explicitly label currency and convert consistently before cross-market comparisons.
 2. Monthly revenue is a valuable early signal because listed companies disclose it every month. Use the `revenue` command in earnings and thesis-monitoring workflows.
-3. FinMind income-statement values are quarterly. The tool aggregates them into annual values and labels incomplete years.
+3. FinMind income-statement values are quarterly. The adapter aggregates them into annual values and labels incomplete years.
 4. API tokens must remain local. Read them from `FINMIND_TOKEN` or `local/finmind_token.txt`. Never place tokens in reports, skills, or commits.
 5. Cross-check FinMind against Goodinfo or an ADR source. For TSMC, remember that one TSM ADR represents five shares of 2330.
+6. `tools/twstock_data.py` remains a backward-compatible direct adapter, but maintained workflows should prefer `tools/market_data.py`.
+
+### Unified Local-Market Interface
+
+Use `tools/market_data.py` as the maintained entry point for installed local-market adapters:
+
+```bash
+python3 tools/market_data.py capabilities
+python3 tools/market_data.py capabilities --format json
+```
+
+The current registry exposes Mainland China A-shares (`cn-a`) and Taiwan (`tw`) with aliases such as `cn`, `a-share`, `taiwan`, `twse`, and `tpex`. Text mode preserves each existing adapter's human-readable output. `--format json` wraps the same result in a stable envelope containing market, currency, command, adapter, and source metadata.
+
+The JSON envelope standardizes invocation and provenance metadata; it **does not** turn one adapter into multiple independent sources. Continue applying the two-source validation rule below.
 
 ---
 
@@ -161,9 +191,9 @@ Rules:
 | PDD | Macrotrends PDD | StockAnalysis PDD |
 | Tencent | AAStocks 0700.HK | Macrotrends TCEHY |
 | NetEase | AAStocks 9999.HK | Macrotrends NTES |
-| Sanqi Interactive Entertainment | Eastmoney 002555 | CNInfo |
-| G-Bits | Eastmoney 603444 | CNInfo |
+| Sanqi Interactive Entertainment | `tools/market_data.py financials 002555 --market cn` | CNInfo |
+| G-Bits | `tools/market_data.py financials 603444 --market cn` | CNInfo |
 | Nintendo | Macrotrends NTDOY | StockAnalysis NTDOY |
 | Capcom | Macrotrends CCOEY | StockAnalysis CCOEY |
-| TSMC | `tools/twstock_data.py 2330` | Goodinfo / Macrotrends TSM |
-| MediaTek | `tools/twstock_data.py 2454` | Goodinfo |
+| TSMC | `tools/market_data.py financials 2330 --market tw` | Goodinfo / Macrotrends TSM |
+| MediaTek | `tools/market_data.py financials 2454 --market tw` | Goodinfo |
