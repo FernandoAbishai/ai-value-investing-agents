@@ -137,6 +137,20 @@ class ReportsIndexTest(unittest.TestCase):
         self.assertEqual(self.items()[0]["date"], "2026-09-30")
         self.assertEqual(self.items()[0]["date_source"], "git")
 
+    def test_verified_examples_are_a_theme_and_verification_register_is_not_a_report(self):
+        report = "reports/examples/verified-example-20260930.md"
+        register = "reports/examples/VERIFICATION.md"
+        self.write(report, "# Verified English example\n")
+        self.write(register, "# Verification register\n")
+        self.git("add", "--", report, register)
+
+        self.run_index()
+        indexed = {item["path"]: item for item in self.items()}
+        self.assertIn(report, indexed)
+        self.assertEqual(indexed[report]["bucket"], "theme")
+        self.assertEqual(indexed[report]["group"], "Verified English examples")
+        self.assertNotIn(register, indexed)
+
 
 if __name__ == "__main__":
     unittest.main()
