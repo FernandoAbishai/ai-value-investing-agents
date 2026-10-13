@@ -18,10 +18,10 @@ skills/                       Canonical workflow definitions
 codex-skills/*/SKILL.md       Generated Codex skill packages
 codex-prompts/*.md            Generated optional Codex prompts
 scripts/                      Synchronization, quality, and installation-management scripts
-tools/                        Financial and report-validation utilities
-reports/                      Historical and newly generated research
+tools/                        Financial, report-validation, and report-index utilities
+reports/                      Historical and newly generated research plus generated indexes
 assets/                       Images and other report assets
-docs/                         Edition, release, and usage documentation
+docs/                         Edition, release, upstream-review, and usage documentation
 ```
 
 ## Canonical Workflow Rule
@@ -77,6 +77,30 @@ Use filesystem-safe names and the path defined by each workflow. Common patterns
 
 When an existing report structure differs, preserve it unless the task specifically requests migration.
 
+## Report Index Publication
+
+`reports/README.md` and `reports/index.json` are generated surfaces. Do not edit them manually.
+
+When publishing a new tracked report or changing report classification metadata:
+
+```bash
+git add <report files>
+python3 tools/reports_index.py
+python3 tools/reports_index.py --check
+git add reports/README.md reports/index.json
+```
+
+Important publication boundaries:
+
+- The generator only indexes report contents represented in Git's index.
+- Untracked files, ignored files, and `git add -N` intent-to-add placeholders must remain excluded.
+- If Git index state cannot be read, generation must fail closed rather than publish local-only paths.
+- Run index generation from a full-history checkout so Git-derived dates are deterministic.
+- Keep fork-specific taxonomy changes in `reports/_index/config.json`; do not copy upstream classifications blindly.
+- `reports/examples/VERIFICATION.md` is a verification register, not a research report, and must stay excluded from the inventory.
+
+The permanent `Report Index` GitHub Actions workflow runs the read-only `--check` gate on pull requests and `main` pushes. A stale generated index is a release blocker.
+
 ## Local Installation Management
 
 Use the unified manager rather than copying installed files manually:
@@ -122,9 +146,17 @@ Before publishing, scan changed report and documentation files for private paths
 Run the checks relevant to the change:
 
 ```bash
-python3 -m compileall scripts tools
+python3 -m compileall scripts tools tests
+python3 scripts/repository_quality.py
 python3 scripts/sync-codex-skills.py --check
 python3 scripts/sync-codex-prompts.py --check
+python3 -m unittest discover -s tests -v
 ```
 
-Installation behavior is validated by `.github/workflows/validate.yml` on Unix-like runners and Windows. A failing validation means the change is not release-ready.
+For changes that add, remove, rename, or reclassify tracked reports, also run from a full-history checkout:
+
+```bash
+python3 tools/reports_index.py --check
+```
+
+Installation behavior is validated by `.github/workflows/validate.yml` on Unix-like runners and Windows. Report-index freshness is validated by the dedicated full-history workflow. A failing validation means the change is not release-ready.
