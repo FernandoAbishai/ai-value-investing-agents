@@ -49,6 +49,8 @@ class ReportsIndexTest(unittest.TestCase):
             env=env,
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             check=True,
         )
 
@@ -63,6 +65,8 @@ class ReportsIndexTest(unittest.TestCase):
             cwd=self.repo,
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
         )
         self.assertEqual(result.returncode, expected, result.stdout + result.stderr)
         return result
@@ -118,10 +122,15 @@ class ReportsIndexTest(unittest.TestCase):
     def test_git_failure_does_not_overwrite_published_index(self):
         self.run_index()
         before = (self.repo / "reports/index.json").read_bytes()
-        shutil.rmtree(self.repo / ".git")
-        result = self.run_index(expected=1)
-        self.assertIn("Unable to read the Git index", result.stderr)
-        self.assertEqual(before, (self.repo / "reports/index.json").read_bytes())
+        git_dir = self.repo / ".git"
+        disabled_git_dir = self.repo / ".git-disabled"
+        git_dir.rename(disabled_git_dir)
+        try:
+            result = self.run_index(expected=1)
+            self.assertIn("Unable to read the Git index", result.stderr)
+            self.assertEqual(before, (self.repo / "reports/index.json").read_bytes())
+        finally:
+            disabled_git_dir.rename(git_dir)
 
     def test_unicode_path_git_date_is_independent_of_quote_path_config(self):
         self.run_index()
