@@ -30,7 +30,8 @@
     "chuanrun": "川润股份",
     "deye": "德业股份",
     "Goldwind": "金风科技",
-    "DapuStor": "大普微"
+    "DapuStor": "大普微",
+    "examples": "Verified English examples"
   },
   "companies": [
     "ADP",
@@ -164,7 +165,8 @@
     "七公司商业质量与十年利润-20260906",
     "七公司五年回报与资金配置-20260906",
     "六公司研究审计-20260906",
-    "持仓估值分位与未来盈利-20260912"
+    "持仓估值分位与未来盈利-20260912",
+    "Verified English examples"
   ],
   "masters": [
     "段永平",
@@ -194,6 +196,7 @@
   ],
   "skip_files": [
     "README.md",
+    "VERIFICATION.md",
     "command-log.jsonl"
   ],
   "tickers": {}
